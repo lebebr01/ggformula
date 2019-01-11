@@ -1,4 +1,10 @@
 
+# ggformula 0.9.1
+
+This release includes a few minor improvements, including
+
+ * Updated examples so they work better with pkgdown
+ * Other document improvements
 
 # ggformula 0.9.0
 
