@@ -16,7 +16,7 @@ This release includes a few minor improvements, including
 
 # ggformula 0.8.0
 
- * The internals of all of the `gf_` funcitons have been modified to make them
+ * The internals of all of the `gf_` functions have been modified to make them
  work with `ggplot2` version 2.3. In future releases, a version `ggplot2` at
  least this new will be required.
  
@@ -104,7 +104,7 @@ the internal implementation, and improved documentation.
   * Added support for functions that allow more than one formula shape.  Example: `gf_histogram()`
   accepts formulas with shape ` ~ x` or `y ~ x`.  This makes it possible to create density 
   histograms with `gf_histogram()`.
-  * Parntheses now halt parsing of formulas.  This allows for on-the-fly computations in formulas.  Typically these computed expressions must be within parentheses to avoid formula expansion.
+  * Parentheses now halt parsing of formulas.  This allows for on-the-fly computations in formulas.  Typically these computed expressions must be within parentheses to avoid formula expansion.
   * Use `::` to indicate mapping aesthetics.  (`:` will autodetect, but only if the value
 is the name of a variable in the data set.)  This should be considered experimental.
   * Added wrappers `gf_lims()`, `gf_labs()`, `gf_theme()`, `gf_facet_grid()`, `gf_facet_wrap()`

@@ -261,14 +261,20 @@ gf_polygon <-
 #' gf_smooth()
 #' gf_lm()
 #' gf_smooth(births ~ date, color = ~ wday, data = mosaicData::Births78)
-#' gf_smooth(births ~ date, color = ~ wday, data = mosaicData::Births78, fullrange = TRUE)
-#' gf_smooth(births ~ date, color = ~ wday, data = mosaicData::Births78, show.legend = FALSE, se = FALSE)
-#' gf_lm(length ~ width, data = mosaicData::KidsFeet, color = ~ biggerfoot, alpha = 0.2) %>%
+#' gf_smooth(births ~ date, color = ~ wday, data = mosaicData::Births78,
+#'           fullrange = TRUE)
+#' gf_smooth(births ~ date, color = ~ wday, data = mosaicData::Births78,
+#'           show.legend = FALSE, se = FALSE)
+#' gf_smooth(births ~ date, color = ~ wday, data = mosaicData::Births78,
+#'           show.legend = FALSE, se = TRUE)
+#' gf_lm(length ~ width, data = mosaicData::KidsFeet,
+#'       color = ~ biggerfoot, alpha = 0.2) %>%
 #'   gf_point()
-#' gf_lm(length ~ width, data = mosaicData::KidsFeet, color = ~ biggerfoot, fullrange = FALSE, alpha = 0.2)
+#' gf_lm(length ~ width, data = mosaicData::KidsFeet,
+#'       color = ~ biggerfoot, fullrange = FALSE, alpha = 0.2)
 #'   gf_point()
 #' gf_lm(length ~ width, color = ~ sex, data = mosaicData::KidsFeet,
-#'       formula = y ~ poly(x,2), linetype = "dashed") %>%
+#'       formula = y ~ poly(x, 2), linetype = "dashed") %>%
 #'   gf_point()
 #' gf_lm(length ~ width, color = ~ sex, data = mosaicData::KidsFeet,
 #'       formula = log(y) ~ x, backtrans = exp) %>%
@@ -426,7 +432,8 @@ gf_density2d <-
     geom = "density2d",
     stat = "density2d",
     extras = alist(alpha = , color = , group = , linetype = , size = ,
-                   contour = TRUE, n = 100 , h = NULL , lineend = "butt", linejoin = "round",
+                   contour = TRUE, n = 100 , h = NULL ,
+                   lineend = "butt", linejoin = "round",
                    linemitre = 1 )
   )
 
@@ -469,15 +476,20 @@ gf_hex <-
 #'   gf_boxplot(age ~ substance, data = mosaicData::HELPrct)
 #'   gf_boxplot(age ~ substance, data = mosaicData::HELPrct, varwidth = TRUE)
 #'   gf_boxplot(age ~ substance, data = mosaicData::HELPrct, color = ~ sex)
-#'   gf_boxplot(age ~ substance, data = mosaicData::HELPrct, color = ~ sex, outlier.color = "gray50")
+#'   gf_boxplot(age ~ substance, data = mosaicData::HELPrct,
+#'              color = ~ sex, outlier.color = "gray50")
 #'   # longer whiskers
-#'   gf_boxplot(age ~ substance, data = mosaicData::HELPrct, color = ~ sex, coef = 2)
-#'   # Note: width for boxplots is full width of box.  For jittering, it is the
-#'   # half-width.
-#'   gf_boxplot(age ~ substance | sex, data = mosaicData::HELPrct, coef = 5, width = 0.4) %>%
+#'   gf_boxplot(age ~ substance, data = mosaicData::HELPrct,
+#'              color = ~ sex, coef = 2)
+#'
+#'   # Note: width for boxplots is full width of box.
+#'   #       For jittering, it is the half-width.
+#'   gf_boxplot(age ~ substance | sex, data = mosaicData::HELPrct,
+#'              coef = 5, width = 0.4) %>%
 #'     gf_jitter(width = 0.2, alpha = 0.3)
 #'   # move boxplots away a bit by adjusting dodge
-#'   gf_boxplot(age ~ substance, data = mosaicData::HELPrct, color = ~ sex, position = position_dodge(width = 0.9))
+#'   gf_boxplot(age ~ substance, data = mosaicData::HELPrct,
+#'              color = ~ sex, position = position_dodge(width = 0.9))
 
 gf_boxplot <-
   layer_factory(
@@ -894,9 +906,9 @@ gf_frame <-
 #' gf_histogram( ~ age, data = mosaicData::HELPrct, binwidth = 5,
 #'              fill = "skyblue", color = "black")
 #' # bins can be adjusted left/right using center or boundary
-#' gf_histogram( ~ age, data = HELPrct,
+#' gf_histogram( ~ age, data = mosaicData::HELPrct,
 #'              binwidth = 5, fill = "skyblue", color = "black", center = 42.5)
-#' gf_histogram( ~ age, data = HELPrct,
+#' gf_histogram( ~ age, data = mosaicData::HELPrct,
 #'               binwidth = 5, fill = "skyblue", color = "black", boundary = 40)
 
 
@@ -920,7 +932,8 @@ gf_dhistogram <-
     geom = "bar", stat = "bin", position = "stack",
     aes_form = list( ~ x, y ~ x),
     extras =
-      alist(bins = 25, binwidth = , alpha = 0.5 , color = , fill = , group = , linetype = , size = ),
+      alist(bins = 25, binwidth = , alpha = 0.5 , color = , fill = , group = ,
+            linetype = , size = ),
     note =
       if (utils::packageVersion("ggplot2") <= "2.2.1") {
         "y may be ..density.. or ..count.. or ..ndensity.. or ..ncount.."
@@ -1051,14 +1064,19 @@ gf_dotplot <-
 #' @examples
 #' gf_bar( ~ substance, data = mosaicData::HELPrct)
 #' gf_bar( ~ substance, data = mosaicData::HELPrct, fill = ~ sex)
-#' gf_bar( ~ substance, data = mosaicData::HELPrct, fill = ~ sex, position = position_dodge())
+#' gf_bar( ~ substance, data = mosaicData::HELPrct, fill = ~ sex,
+#'        position = position_dodge())
 #' # gf_counts() is another name for gf_bar()
-#' gf_counts( ~ substance, data = mosaicData::HELPrct, fill = ~ sex, position = position_dodge())
+#' gf_counts( ~ substance, data = mosaicData::HELPrct, fill = ~ sex,
+#'           position = position_dodge())
 #' # gf_props() and gf_percents() use proportions or percentages instead of counts
-#' gf_props( ~ substance, data = mosaicData::HELPrct, fill = ~ sex, position = position_dodge())
-#' gf_percents( ~ substance, data = mosaicData::HELPrct, fill = ~ sex, position = position_dodge())
+#' gf_props( ~ substance, data = mosaicData::HELPrct, fill = ~ sex,
+#'          position = position_dodge())
+#' gf_percents( ~ substance, data = mosaicData::HELPrct, fill = ~ sex,
+#'             position = position_dodge())
 #' if (require(scales)) {
-#'   gf_props( ~ substance, data = mosaicData::HELPrct, fill = ~ sex, position = position_dodge()) %>%
+#'   gf_props( ~ substance, data = mosaicData::HELPrct, fill = ~ sex,
+#'            position = position_dodge()) %>%
 #'     gf_refine(scale_y_continuous(labels = scales::percent))
 #' }
 
@@ -1524,20 +1542,24 @@ gf_pointrange <-
 #'     gf_facet_grid( ~ sex)
 #'   gf_jitter(age ~ substance, data = HELPrct,
 #'       alpha = 0.7, width = 0.2, height = 0, color = "skyblue") %>%
-#'     gf_errorbar( lo + hi ~ substance,  data = HELP2) %>%
+#'     gf_errorbar(lo + hi ~ substance,  data = HELP2) %>%
 #'     gf_facet_grid( ~ sex)
 #'   gf_jitter(age ~ substance, data = HELPrct,
 #'       alpha = 0.7, width = 0.2, height = 0, color = "skyblue") %>%
-#'     gf_crossbar( mean.age + lo + hi ~ substance,  data = HELP2, fill = "transparent") %>%
+#'     gf_crossbar(mean.age + lo + hi ~ substance, data = HELP2,
+#'                 fill = "transparent") %>%
 #'     gf_facet_grid( ~ sex)
 #'   gf_jitter(substance ~ age, data = HELPrct,
 #'       alpha = 0.7, height = 0.2, width = 0, color = "skyblue") %>%
-#'     gf_crossbarh( substance ~ mean.age + lo + hi,  data = HELP2, fill = "transparent") %>%
+#'     gf_crossbarh(substance ~ mean.age + lo + hi, data = HELP2,
+#'                  fill = "transparent") %>%
 #'     gf_facet_grid( ~ sex)
 #' }
 #'
-#     gf_boxplot( age ~ substance,  data = HELPrct, color = "red", fill = "transparent") %>%
-#     gf_boxploth( substance ~ age,  data = HELPrct, color = "red", fill = "transparent") %>%
+#     gf_boxplot(age ~ substance,  data = HELPrct,
+#                 color = "red", fill = "transparent") %>%
+#     gf_boxploth(substance ~ age,  data = HELPrct,
+#                  color = "red", fill = "transparent") %>%
 
 gf_crossbar <-
   layer_factory(
@@ -1800,8 +1822,8 @@ gf_function <- function(object = NULL, fun, xlim, ..., inherit = FALSE) {
 #' @examples
 #' gf_fun(5 + 3 * cos(10 * x) ~ x, xlim = c(0,2))
 #' # Utility bill is quadratic in month?
-#' f <- makeFun(lm(totalbill ~ poly(month, 2), data = Utilities))
-#' gf_point(totalbill ~ month, data = Utilities, alpha = 0.6) %>%
+#' f <- makeFun(lm(totalbill ~ poly(month, 2), data = mosaicData::Utilities))
+#' gf_point(totalbill ~ month, data = mosaicData::Utilities, alpha = 0.6) %>%
 #'   gf_fun(f(m) ~ m, color = "red")
 
 gf_fun <- function(object = NULL, formula, xlim, ..., inherit = FALSE) {

@@ -141,14 +141,20 @@ in another.
 gf_smooth()
 gf_lm()
 gf_smooth(births ~ date, color = ~ wday, data = mosaicData::Births78)
-gf_smooth(births ~ date, color = ~ wday, data = mosaicData::Births78, fullrange = TRUE)
-gf_smooth(births ~ date, color = ~ wday, data = mosaicData::Births78, show.legend = FALSE, se = FALSE)
-gf_lm(length ~ width, data = mosaicData::KidsFeet, color = ~ biggerfoot, alpha = 0.2) \%>\%
+gf_smooth(births ~ date, color = ~ wday, data = mosaicData::Births78,
+          fullrange = TRUE)
+gf_smooth(births ~ date, color = ~ wday, data = mosaicData::Births78,
+          show.legend = FALSE, se = FALSE)
+gf_smooth(births ~ date, color = ~ wday, data = mosaicData::Births78,
+          show.legend = FALSE, se = TRUE)
+gf_lm(length ~ width, data = mosaicData::KidsFeet,
+      color = ~ biggerfoot, alpha = 0.2) \%>\%
   gf_point()
-gf_lm(length ~ width, data = mosaicData::KidsFeet, color = ~ biggerfoot, fullrange = FALSE, alpha = 0.2)
+gf_lm(length ~ width, data = mosaicData::KidsFeet,
+      color = ~ biggerfoot, fullrange = FALSE, alpha = 0.2)
   gf_point()
 gf_lm(length ~ width, color = ~ sex, data = mosaicData::KidsFeet,
-      formula = y ~ poly(x,2), linetype = "dashed") \%>\%
+      formula = y ~ poly(x, 2), linetype = "dashed") \%>\%
   gf_point()
 gf_lm(length ~ width, color = ~ sex, data = mosaicData::KidsFeet,
       formula = log(y) ~ x, backtrans = exp) \%>\%

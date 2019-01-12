@@ -164,9 +164,9 @@ gf_histogram( ~ Sepal.Length | Species, data = iris, binwidth = 0.25)
 gf_histogram( ~ age, data = mosaicData::HELPrct, binwidth = 5,
              fill = "skyblue", color = "black")
 # bins can be adjusted left/right using center or boundary
-gf_histogram( ~ age, data = HELPrct,
+gf_histogram( ~ age, data = mosaicData::HELPrct,
              binwidth = 5, fill = "skyblue", color = "black", center = 42.5)
-gf_histogram( ~ age, data = HELPrct,
+gf_histogram( ~ age, data = mosaicData::HELPrct,
               binwidth = 5, fill = "skyblue", color = "black", boundary = 40)
 
 gf_histogramh( ~ x, bins = 30)

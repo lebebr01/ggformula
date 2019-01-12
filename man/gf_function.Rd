@@ -37,7 +37,7 @@ gf_function(fun = sqrt, xlim = c(0, 10))
       color = "red")
 gf_fun(5 + 3 * cos(10 * x) ~ x, xlim = c(0,2))
 # Utility bill is quadratic in month?
-f <- makeFun(lm(totalbill ~ poly(month, 2), data = Utilities))
-gf_point(totalbill ~ month, data = Utilities, alpha = 0.6) \%>\%
+f <- makeFun(lm(totalbill ~ poly(month, 2), data = mosaicData::Utilities))
+gf_point(totalbill ~ month, data = mosaicData::Utilities, alpha = 0.6) \%>\%
   gf_fun(f(m) ~ m, color = "red")
 }
