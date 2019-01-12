@@ -102,7 +102,7 @@
       <h1>ggformula: Another Option for Teaching Graphics in R to Beginners</h1>
                         <h4 class="author">Randall Pruim</h4>
             
-            <h4 class="date">2019-01-11</h4>
+            <h4 class="date">2019-01-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ProjectMOSAIC/ggformula/blob/master/vignettes/ggformula-blog.Rmd"><code>vignettes/ggformula-blog.Rmd</code></a></small>
       <div class="hidden name"><code>ggformula-blog.Rmd</code></div>
@@ -165,7 +165,7 @@ border:0px;
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">bwplot</span>(price <span class="op">~</span><span class="st"> </span>col, <span class="dt">data =</span> diamonds2)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/t.test">t.test</a></span>(price <span class="op">~</span><span class="st"> </span>col, <span class="dt">data =</span> diamonds2)</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3">    <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm</a></span>(price <span class="op">~</span><span class="st"> </span>col, <span class="dt">data =</span> diamonds2)</a></code></pre></div>
-<p>This “Less Volume, More Creativity” approach is outlined in more detail in a recent <a href="https://journal.r-project.org/archive/2017/RJ-2017-024/"><em>R Journal</em> article</a> and has worked well for a growing number of instructors in first (and subsequent) courses (see for example Wang et al., “Data Viz on Day One: bringing big ideas into intro stats early and often” (2017), TISE). <strong><em>addtional refs here?</em></strong></p>
+<p>This “Less Volume, More Creativity” approach is outlined in more detail in a recent <a href="https://journal.r-project.org/archive/2017/RJ-2017-024/"><em>R Journal</em> article</a> and has worked well for a growing number of instructors in first (and subsequent) courses (see for example Wang et al., “Data Viz on Day One: bringing big ideas into intro stats early and often” (2017), TISE).</p>
 </div>
 <div id="trouble-in-paradise" class="section level2">
 <h2 class="hasAnchor">
@@ -189,7 +189,7 @@ border:0px;
 <div id="setting-and-mapping-attributes-of-a-plot" class="section level2">
 <h2 class="hasAnchor">
 <a href="#setting-and-mapping-attributes-of-a-plot" class="anchor"></a>Setting and mapping attributes of a plot</h2>
-<p>In the example above, we set certain atributes (fill, color, opacity) to constants (<code>"navy"</code>, <code>NA</code>, <code>0.3</code>). Often we want the values of these attributes to be determined by the data, this is called mapping rather than setting and is indicated by an additional <code>~</code>. One can read <code>fill = "navy"</code> as “fill is (or equals) navy” and <code>fill = ~ col</code> as "fill <em>is determined by</em> <code>col</code>. (Which colors get used for which values is controled by the fill scale for the plot, and this scale can be modified by the user who doesn’t like the default scale choice.)</p>
+<p>In the example above, we set certain attributes (fill, color, opacity) to constants (<code>"navy"</code>, <code>NA</code>, <code>0.3</code>). Often we want the values of these attributes to be determined by the data, this is called mapping rather than setting and is indicated by an additional <code>~</code>. One can read <code>fill = "navy"</code> as “fill is (or equals) navy” and <code>fill = ~ col</code> as "fill <em>is determined by</em> <code>col</code>. (Which colors get used for which values is controled by the fill scale for the plot, and this scale can be modified by the user who doesn’t like the default scale choice.)</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../reference/gf_boxplot.html">gf_boxplot</a></span>(price <span class="op">~</span><span class="st"> </span>col, <span class="dt">data =</span> diamonds2, <span class="dt">alpha =</span> <span class="fl">0.05</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/gf_violin.html">gf_violin</a></span>(price <span class="op">~</span><span class="st"> </span>col, <span class="dt">data =</span> diamonds2, <span class="dt">alpha =</span> <span class="fl">0.3</span>, <span class="dt">fill =</span> <span class="op">~</span><span class="st"> </span>col)</a></code></pre></div>
 <p><img src="ggformula-blog_files/figure-html/unnamed-chunk-4-1.png" width="288"></p>
@@ -199,7 +199,7 @@ border:0px;
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw"><a href="../reference/gf_point.html">gf_point</a></span>(price <span class="op">~</span><span class="st"> </span>carat, <span class="dt">color =</span> <span class="op">~</span><span class="st"> </span>col, <span class="dt">data =</span> diamonds2, <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">   </span><span class="kw"><a href="../reference/gf_smooth.html">gf_lm</a></span>(price <span class="op">~</span><span class="st"> </span>carat, <span class="dt">color =</span> <span class="op">~</span><span class="st"> </span>col, <span class="dt">data =</span> diamonds2, <span class="dt">alpha =</span> <span class="fl">0.5</span>) </a></code></pre></div>
 <p><img src="ggformula-blog_files/figure-html/unnamed-chunk-5-1.png" width="288"><img src="ggformula-blog_files/figure-html/unnamed-chunk-5-2.png" width="288"></p>
-<p>In <code>lattice</code>, this requires us to manually turn on a legend with <code>auto.key = TRUE</code> and to introduce the <code>type</code> argument and the <code><a href="https://www.rdocumentation.org/packages/base/topics/c">c()</a></code> function to get both layers. In <code>ggplot2</code>, we simply put one layer over the other (so no new syntax to learn). The (improved) legend is generated automatically, and the portion of the plot devoted to the data is substancially larger than for the <code>lattice</code> plot. So the <code>ggformula</code> plot is both technically better and syntactically simpler than its <code>lattice</code> counterpart.</p>
+<p>In <code>lattice</code>, this requires us to manually turn on a legend with <code>auto.key = TRUE</code> and to introduce the <code>type</code> argument and the <code><a href="https://www.rdocumentation.org/packages/base/topics/c">c()</a></code> function to get both layers. In <code>ggplot2</code>, we simply put one layer over the other (so no new syntax to learn). The (improved) legend is generated automatically, and the portion of the plot devoted to the data is substantially larger than for the <code>lattice</code> plot. So the <code>ggformula</code> plot is both technically better and syntactically simpler than its <code>lattice</code> counterpart.</p>
 </div>
 <div id="getting-a-little-help" class="section level2">
 <h2 class="hasAnchor">
@@ -228,7 +228,7 @@ border:0px;
 <div id="facets" class="section level2">
 <h2 class="hasAnchor">
 <a href="#facets" class="anchor"></a>Facets</h2>
-<p>Sometimes it is prefereable to create multiple plot arranged in a grid rather than to overlay subgroups in the same space. <code>ggformula</code> provides two ways to create these facets. The first uses <code>|</code> very much like <code>lattice</code> does.</p>
+<p>Sometimes it is preferable to create multiple plot arranged in a grid rather than to overlay subgroups in the same space. <code>ggformula</code> provides two ways to create these facets. The first uses <code>|</code> very much like <code>lattice</code> does.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="../reference/gf_point.html">gf_point</a></span>(price <span class="op">~</span><span class="st"> </span>carat <span class="op">|</span><span class="st"> </span>col, <span class="dt">data =</span> diamonds2, <span class="dt">alpha =</span> <span class="fl">0.2</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/gf_smooth.html">gf_lm</a></span>()</a>
 <a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw"><a href="../reference/gf_point.html">gf_point</a></span>(price <span class="op">~</span><span class="st"> </span>carat <span class="op">|</span><span class="st"> </span>col <span class="op">~</span><span class="st"> </span>clarity, <span class="dt">data =</span> diamonds2, <span class="dt">alpha =</span> <span class="fl">0.2</span>) <span class="op">%&gt;%</span></a>
@@ -275,7 +275,7 @@ For the rest, we offer <code><a href="../reference/gf_aux.html">gf_refine()</a><
 <div id="summary" class="section level2">
 <h2 class="hasAnchor">
 <a href="#summary" class="anchor"></a>Summary</h2>
-<p>The “Less Volume, More Creativity” appraoch based on a common formula template has served well for several years, but the arrival of <code>ggformula</code> strengthens this approach by bringing a richer graphical system into reach for beginners without introducing new syntactical structures.</p>
+<p>The “Less Volume, More Creativity” approach based on a common formula template has served well for several years, but the arrival of <code>ggformula</code> strengthens this approach by bringing a richer graphical system into reach for beginners without introducing new syntactical structures.</p>
 </div>
   </div>
 

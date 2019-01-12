@@ -166,7 +166,7 @@
 <a href="#ggformula-0-8-0" class="anchor"></a>ggformula 0.8.0<small> 2018-06-26 </small>
 </h1>
 <ul>
-<li><p>The internals of all of the <code>gf_</code> funcitons have been modified to make them work with <code>ggplot2</code> version 2.3. In future releases, a version <code>ggplot2</code> at least this new will be required.</p></li>
+<li><p>The internals of all of the <code>gf_</code> functions have been modified to make them work with <code>ggplot2</code> version 2.3. In future releases, a version <code>ggplot2</code> at least this new will be required.</p></li>
 <li><p>The default value for <code>se</code> in <code><a href="../reference/gf_smooth.html">gf_smooth()</a></code> has been changed from <code>TRUE</code> to <code>FALSE</code>.</p></li>
 <li><p><code><a href="../reference/gf_sf.html">gf_sf()</a></code> added to support simple features data for maps.</p></li>
 <li><p>improved documentation and examples</p></li>
@@ -260,7 +260,7 @@
 <code>data</code> may now be an expression (like <code>data = KidsFeet %&gt;% filter(sex == "G")</code>)</li>
 <li>Added support for geoms that have different required aesthetics.</li>
 <li>Added support for functions that allow more than one formula shape. Example: <code><a href="../reference/gf_histogram.html">gf_histogram()</a></code> accepts formulas with shape <code>~ x</code> or <code>y ~ x</code>. This makes it possible to create density histograms with <code><a href="../reference/gf_histogram.html">gf_histogram()</a></code>.</li>
-<li>Parntheses now halt parsing of formulas. This allows for on-the-fly computations in formulas. Typically these computed expressions must be within parentheses to avoid formula expansion.</li>
+<li>Parentheses now halt parsing of formulas. This allows for on-the-fly computations in formulas. Typically these computed expressions must be within parentheses to avoid formula expansion.</li>
 <li>Use <code>::</code> to indicate mapping aesthetics. (<code>:</code> will autodetect, but only if the value is the name of a variable in the data set.) This should be considered experimental.</li>
 <li>Added wrappers <code><a href="../reference/gf_aux.html">gf_lims()</a></code>, <code><a href="../reference/gf_aux.html">gf_labs()</a></code>, <code><a href="../reference/gf_theme.html">gf_theme()</a></code>, <code><a href="../reference/gf_facet_grid.html">gf_facet_grid()</a></code>, <code><a href="../reference/gf_facet_grid.html">gf_facet_wrap()</a></code>
 </li>
