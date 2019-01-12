@@ -490,7 +490,7 @@ predictdf <-
 #'   alpha = 0.2) +
 #'   geom_point() +
 #'   facet_wrap(~sex)
-#' gplot(mpg, aes(displ, hwy)) +
+#' ggplot(mpg, aes(displ, hwy)) +
 #'   geom_lm(formula = log(y) ~ poly(x,3), backtrans = exp,
 #'      interval = "prediction", fill = "skyblue") +
 #'   geom_lm(formula = log(y) ~ poly(x,3), backtrans = exp, interval = "confidence",
