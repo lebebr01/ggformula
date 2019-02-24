@@ -103,7 +103,8 @@ gf_dist <- function(
   sample_values = do.call(qdist, c(p=list(ppoints(resolution)), qparams))
 
   unique_values <- unique(sample_values)
-  discrete <- length(unique_values) < length(sample_values)
+  # in a discrete distribution, we expect lots of ties
+  discrete <- length(unique_values) < 0.9 * length(sample_values)
 
   if (is.null(xlim)) {
     xlim_opts <- do.call(qdist, c(list(p = c(0, 0.001, 0.999, 1)), qparams))
