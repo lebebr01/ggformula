@@ -87,13 +87,6 @@ a gg object
 \description{
 A rotated version of \code{\link[=geom_errorbar]{geom_errorbar()}}.
 }
-\section{Note}{
-
-There is discrepancy between the information required for \code{gf_errorbar()}
-and \code{gf_errobarh()}.  It expected that this will change in a future release
-of \code{ggplot2}.
-}
-
 \section{Specifying plot attributes}{
 
 

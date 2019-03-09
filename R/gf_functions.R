@@ -1581,10 +1581,6 @@ gf_crossbar <-
 #'   (b) ggplot2 aesthetics to be mapped with `attribute = ~ expression`, or
 #'   (c) attributes of the layer as a whole, which are set with `attribute = value`.
 #' @seealso [ggplot2::geom_errorbar()]
-#' @section Note:
-#'   There is discrepancy between the information required for `gf_errorbar()`
-#'   and `gf_errobarh()`.  It expected that this will change in a future release
-#'   of `ggplot2`.
 #' @export
 #' @examples
 #' if (require(mosaicData) && require(dplyr)) {
@@ -1619,7 +1615,7 @@ gf_errorbar <-
   layer_factory(
     geom = "errorbar",
     aes_form = ymin + ymax ~ x,
-    inherit.aes = FALSE,
+    inherit.aes = TRUE, # changed from FALSE to TRUE after aesthetic renaming in ggplot2
     extras = alist(
       alpha = , color = , group = , linetype = , size =
       )

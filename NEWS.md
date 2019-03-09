@@ -1,4 +1,12 @@
 
+# ggformula 0.9.2
+
+This release includes a few minor improvements, including
+
+ * Default in `gf_errorbar()` is now `inherit = TRUE`.  The old default was required
+ due to inconvenient naming of aesthetics in `geom_errorbar()`, but those names have been
+ changed now.
+ 
 # ggformula 0.9.1
 
 This release includes a few minor improvements, including

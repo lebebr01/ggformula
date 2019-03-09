@@ -260,10 +260,6 @@ gf_violinh <-
 #'   (a) ggplot2 aesthetics to be set with `attribute = value`,
 #'   (b) ggplot2 aesthetics to be mapped with `attribute = ~ expression`, or
 #'   (c) attributes of the layer as a whole, which are set with `attribute = value`.
-#' @section Note:
-#'   There is discrepancy between the information required for `gf_errorbar()`
-#'   and `gf_errobarh()`.  It expected that this will change in a future release
-#'   of `ggplot2`.
 #'
 #' @seealso [ggplot2::geom_errorbarh()]
 #' @export
