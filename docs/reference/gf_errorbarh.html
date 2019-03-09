@@ -65,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggformula</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000</span>
       </span>
     </div>
 
@@ -92,6 +92,9 @@
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/ggformula-blog.html">ggformula: Another Option for Teaching Graphics in R to Beginners</a>
+    </li>
+    <li>
+      <a href="../articles/learn-more.html">Learn More About ggformula</a>
     </li>
   </ul>
 </li>
@@ -269,13 +272,6 @@ display.</p></td>
 
     <p>a gg object</p>
     
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    
-    <p>There is discrepancy between the information required for <code><a href='gf_errorbar.html'>gf_errorbar()</a></code>
-and <code>gf_errobarh()</code>.  It expected that this will change in a future release
-of <code>ggplot2</code>.</p>
-    
     <h2 class="hasAnchor" id="specifying-plot-attributes"><a class="anchor" href="#specifying-plot-attributes"></a>Specifying plot attributes</h2>
 
     
@@ -326,7 +322,7 @@ in another.</p>
       <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"skyblue"</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='gf_errorbar.html'>gf_errorbar</a></span>( <span class='no'>lo</span> + <span class='no'>hi</span> ~ <span class='no'>substance</span>,  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>HELP2</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='gf_facet_grid.html'>gf_facet_grid</a></span>( ~ <span class='no'>sex</span>)
-}</div><div class='img'><img src='gf_errorbarh-1.png' alt='' width='700' height='433' /></div></pre>
+}</div><div class='output co'>#&gt; <span class='error'>Error in FUN(X[[i]], ...): object 'age' not found</span></div><div class='img'><img src='gf_errorbarh-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -334,8 +330,6 @@ in another.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#note">Note</a></li>
 
       <li><a href="#specifying-plot-attributes">Specifying plot attributes</a></li>
 

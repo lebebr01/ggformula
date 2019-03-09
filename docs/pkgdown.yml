@@ -4,4 +4,5 @@ pkgdown_sha: ~
 articles:
   ggformula-blog: ggformula-blog.html
   ggformula: ggformula.html
+  learn-more: learn-more.html
 

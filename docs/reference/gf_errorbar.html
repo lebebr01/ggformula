@@ -67,7 +67,7 @@ geom_ribbon, where the ymin is fixed to 0." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggformula</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000</span>
       </span>
     </div>
 
@@ -94,6 +94,9 @@ geom_ribbon, where the ymin is fixed to 0." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/ggformula-blog.html">ggformula: Another Option for Teaching Graphics in R to Beginners</a>
+    </li>
+    <li>
+      <a href="../articles/learn-more.html">Learn More About ggformula</a>
     </li>
   </ul>
 </li>
@@ -152,7 +155,7 @@ by <code>ymin</code> and <code>ymax</code>. <code>geom_area</code> is a special 
     <pre class="usage"><span class='fu'>gf_errorbar</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gformula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>alpha</span>,
   <span class='no'>color</span>, <span class='no'>group</span>, <span class='no'>linetype</span>, <span class='no'>size</span>, <span class='no'>xlab</span>, <span class='no'>ylab</span>, <span class='no'>title</span>, <span class='no'>subtitle</span>, <span class='no'>caption</span>,
   <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"errorbar"</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.help</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.help</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>environment</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sys.parent'>parent.frame</a></span>(), <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -269,13 +272,6 @@ display.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    
-    <p>There is discrepancy between the information required for <code>gf_errorbar()</code>
-and <code>gf_errobarh()</code>.  It expected that this will change in a future release
-of <code>ggplot2</code>.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>ggplot2::geom_errorbar()</a></code></p></div>
@@ -315,8 +311,6 @@ of <code>ggplot2</code>.</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#note">Note</a></li>
-
       <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
