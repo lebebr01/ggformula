@@ -137,8 +137,8 @@ in another.
 }
 
 \examples{
-gf_point((1/hwy) ~ displ, data = mpg) \%>\%
-  gf_quantile((1/hwy) ~ displ)
+gf_point((1 / hwy) ~ displ, data = mpg) \%>\%
+  gf_quantile((1 / hwy) ~ displ)
 }
 \seealso{
 \code{\link[ggplot2:geom_quantile]{ggplot2::geom_quantile()}}

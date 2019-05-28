@@ -156,10 +156,9 @@ in another.
 
 \examples{
 gf_violin(age ~ substance, data = mosaicData::HELPrct)
-gf_violin(age ~ substance, data = mosaicData::HELPrct, fill = ~ sex)
-
+gf_violin(age ~ substance, data = mosaicData::HELPrct, fill = ~sex)
 gf_violinh(substance ~ age, data = mosaicData::HELPrct)
-gf_violinh(substance ~ age, data = mosaicData::HELPrct, fill = ~ sex)
+gf_violinh(substance ~ age, data = mosaicData::HELPrct, fill = ~sex)
 }
 \references{
 Hintze, J. L., Nelson, R. D. (1998) Violin Plots: A Box

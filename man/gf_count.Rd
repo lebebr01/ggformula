@@ -110,7 +110,6 @@ in another.
 
 gf_count(hwy ~ cty, data = mpg, alpha = 0.5) \%>\%
   gf_refine(scale_size_area())
-
 }
 \seealso{
 \code{\link[ggplot2:geom_count]{ggplot2::geom_count()}}

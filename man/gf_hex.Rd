@@ -122,8 +122,7 @@ in another.
 
 \examples{
 gf_hex(avg_drinks ~ age, data = mosaicData::HELPrct, bins = 15) \%>\%
-gf_density2d(avg_drinks ~ age, data = mosaicData::HELPrct, color = "red", alpha = 0.5)
-
+  gf_density2d(avg_drinks ~ age, data = mosaicData::HELPrct, color = "red", alpha = 0.5)
 }
 \seealso{
 \code{\link[ggplot2:geom_hex]{ggplot2::geom_hex()}}
