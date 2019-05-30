@@ -545,8 +545,10 @@ gf_text <-
         position <- position_nudge(nudge_x, nudge_y)
       },
     extras = alist(
-      label = , alpha = , angle = , color = , family = , fontface = , group = , hjust = ,
-      lineheight = , size = , vjust = , parse = FALSE, nudge_x = 0, nudge_y = 0,
+      label = , alpha = , angle = , color = ,
+      family = , fontface = , group = , hjust = ,
+      lineheight = , size = , vjust = , parse = FALSE,
+      nudge_x = 0, nudge_y = 0,
       check_overlap = FALSE
       )
   )
@@ -574,7 +576,8 @@ gf_label <-
       },
     layer_fun = ggplot2::geom_label,
     extras = alist(
-      label =, alpha = , angle = , color = , family = , fontface = , group = , hjust = ,
+      label =, alpha = , angle = , color = ,
+      family = , fontface = , group = , hjust = ,
       lineheight = , size = , vjust = ,
       parse = ,
       nudge_x = 0, nudge_y = 0,
