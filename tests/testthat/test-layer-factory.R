@@ -294,7 +294,7 @@ test_that(
         data = mosaicData::HELPrct, seed = 123,
         alpha = 0.5, width = 0.2, height = 0, color = "skyblue"
       ) %>%
-        gf_errorbar(lo + hi ~ substance, data = HELP2) %>%
+        gf_errorbar(lo + hi ~ substance, data = HELP2, inherit = FALSE) %>%
         gf_facet_grid(~sex)
     )
     vdiffr::expect_doppelganger(
