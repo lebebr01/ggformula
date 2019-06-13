@@ -86,6 +86,7 @@ gf_dist <- function(
     dparams <- params
     pparams <- params
     qparams <- params
+    dots[["params"]] <- NULL
   }
   names(dots) <- gsub("plot_", "", names(dots))
   # remove some things from dots
@@ -266,9 +267,9 @@ gf_dist <- function(
         ),
       histogram =
         do.call(
-          gf_histogram,
+          gf_dhistogram,
           c(
-            list(object, rlang::set_env(..density.. ~ x, parent.frame()),
+            list(object, rlang::set_env( ~ x, parent.frame()),
               data = data.frame(x = sample_values)
             ),
             dots
