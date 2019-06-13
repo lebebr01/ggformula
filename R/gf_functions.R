@@ -32,10 +32,11 @@ NA
 #' of \pkg{lattice}.
 #'
 #' @section Evaluation:
-#' Evaluation of the \pkg{ggplot2} code occurs in the environment of `gformula`.
-#' This will typically do the right thing when formulas are created on the fly, but might not
-#' be the right thing if formulas created in one environment are used to create plots
-#' in another.
+#' Evaluation of the \pkg{ggplot2} code occurs in the environment specified
+#' by `environment`. This will typically do the right thing, but is exposed
+#' in case some non-standard behavior is desired. In earlier versions,
+#' the environment of the formula was used, but since some functions in
+#' the package do not require a formula, a separate argument is used now.
 #'
 #' @rdname ggformula
 #' @name ggformula

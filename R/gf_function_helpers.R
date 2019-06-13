@@ -11,8 +11,12 @@ utils::globalVariables("role")
 NA
 
 
+one_upto <- function(n) {
+  if (n > 0) 1:n else integer(0)
+}
+
 aes_env <- function(mapping, envir) {
-  for (i in 1:length(mapping)) {
+  for (i in one_upto(length(mapping))) {
     if (!is.null(environment(mapping[[i]]))) {
       environment(mapping[[i]]) <- envir
     }
@@ -259,7 +263,8 @@ layer_factory <- function(
           gg_object = object,
           extras = extras_and_dots,
           aes_form = aes_form,
-          aesthetics = aesthetics
+          aesthetics = aesthetics,
+          envir = environment
         )
 
       # layer has a params argument, geoms and stats do not
@@ -620,8 +625,12 @@ gf_ingredients <-
              extras = list(),
              aes_form = y ~ x,
              aesthetics = aes(),
-             gg_object = NULL) {
+             gg_object = NULL,
+             envir = NULL) {
 
+    if (is.null(envir)) {
+      if(inherits(formula, "formula")) envir <- environment(formula)
+    }
     # split A | B into formula <- A; condition <- B
     fs <- formula_split(formula)
 
@@ -678,7 +687,7 @@ gf_ingredients <-
       set_list <- modifyList(extras, set_list)
 
       mapping <- modifyList(aesthetics, do.call(aes_string, mapped_list))
-      mapping <- aes_env(mapping, environment(formula))
+      mapping <- aes_env(mapping, envir)
     }
 
     mapping <- remove_dot_from_mapping(mapping)

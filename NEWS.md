@@ -1,7 +1,9 @@
 
 # ggformula 0.9.2
 
-This release includes a few minor improvements, including
+ * Evaluation environments are now handled more stably.  Instead of using the environment
+ of the formula, the `environment` argument is used.  After some delay, this completes
+ the migration to ggplot2 version 2.2
 
  * Default in `gf_errorbar()` is now `inherit = TRUE`.  The old default was required
  due to inconvenient naming of aesthetics in `geom_errorbar()`, but those names have been
