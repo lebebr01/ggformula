@@ -155,7 +155,7 @@ if (require(mosaicData) && require(dplyr)) {
     data = HELPrct,
     alpha = 0.5, width = 0.2, height = 0, color = "skyblue"
   ) \%>\%
-    gf_errorbar(lo + hi ~ substance, data = HELP2) \%>\%
+    gf_errorbar(lo + hi ~ substance, data = HELP2, inherit = FALSE) \%>\%
     gf_facet_grid(~sex)
   # width is defined differently for gf_boxplot() and gf_jitter()
   #   * for gf_boxplot() it is the full width of the box.
