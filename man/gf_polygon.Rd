@@ -112,13 +112,16 @@ if (require(maps) && require(ggthemes) && require(dplyr)) {
     dplyr::summarise(lat = mean(range(lat)), long = mean(range(long))) \%>\%
     dplyr::mutate(name = abbreviate(region, 3))
 
-  gf_polygon(lat ~ long, data = US, group = ~ group,
-             fill = ~ name_length, color = "white") \%>\%
-  gf_text(lat ~ long, label = ~ name, data = States,
-    color = "gray70", inherit = FALSE) \%>\%
-  gf_refine(ggthemes::theme_map())
+  gf_polygon(lat ~ long,
+    data = US, group = ~group,
+    fill = ~name_length, color = "white"
+  ) \%>\%
+    gf_text(lat ~ long,
+      label = ~name, data = States,
+      color = "gray70", inherit = FALSE
+    ) \%>\%
+    gf_refine(ggthemes::theme_map())
 }
-
 }
 \seealso{
 \code{\link[ggplot2:geom_point]{ggplot2::geom_point()}}, \code{\link[=gf_line]{gf_line()}}, \code{\link[=gf_jitter]{gf_jitter()}}

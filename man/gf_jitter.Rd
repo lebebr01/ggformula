@@ -112,8 +112,10 @@ gf_point(age ~ sex, alpha = 0.25, data = mosaicData::HELPrct)
 # jitter only horizontally
 gf_jitter(age ~ sex, alpha = 0.25, data = mosaicData::HELPrct, width = 0.2, height = 0)
 # alternative way to get jitter
-gf_point(age ~ sex, alpha = 0.25, data = mosaicData::HELPrct,
-    position = "jitter", width = 0.2, height = 0)
+gf_point(age ~ sex,
+  alpha = 0.25, data = mosaicData::HELPrct,
+  position = "jitter", width = 0.2, height = 0
+)
 }
 \seealso{
 \code{\link[ggplot2:geom_jitter]{ggplot2::geom_jitter()}}, \code{\link[=gf_point]{gf_point()}}

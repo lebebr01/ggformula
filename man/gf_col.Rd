@@ -116,7 +116,7 @@ gf_col(count ~ group, data = SomeData)
 
 # A Pareto chart
 
-if(require(dplyr) && require(mosaicData)) {
+if (require(dplyr) && require(mosaicData)) {
   HELPrct \%>\%
     group_by(substance) \%>\%
     summarise(count = n()) \%>\%
@@ -124,15 +124,15 @@ if(require(dplyr) && require(mosaicData)) {
     dplyr::arrange(-count) \%>\%
     mutate(
       cumcount = cumsum(count),
-      substance = reorder(substance, - count)
+      substance = reorder(substance, -count)
     ) \%>\%
     gf_col(count ~ substance, fill = "skyblue") \%>\%
     gf_point(cumcount ~ substance) \%>\%
     gf_line(cumcount ~ substance, group = 1) \%>\%
     gf_refine(
-      scale_y_continuous(sec.axis = sec_axis( ~ . /nrow(HELPrct)))
+      scale_y_continuous(sec.axis = sec_axis(~ . / nrow(HELPrct)))
     )
-  }
+}
 }
 \seealso{
 \code{\link[ggplot2:geom_col]{ggplot2::geom_col()}}

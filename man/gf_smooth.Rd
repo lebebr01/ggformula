@@ -140,34 +140,50 @@ in another.
 \examples{
 gf_smooth()
 gf_lm()
-gf_smooth(births ~ date, color = ~ wday, data = mosaicData::Births78)
-gf_smooth(births ~ date, color = ~ wday, data = mosaicData::Births78,
-          fullrange = TRUE)
-gf_smooth(births ~ date, color = ~ wday, data = mosaicData::Births78,
-          show.legend = FALSE, se = FALSE)
-gf_smooth(births ~ date, color = ~ wday, data = mosaicData::Births78,
-          show.legend = FALSE, se = TRUE)
-gf_lm(length ~ width, data = mosaicData::KidsFeet,
-      color = ~ biggerfoot, alpha = 0.2) \%>\%
+gf_smooth(births ~ date, color = ~wday, data = mosaicData::Births78)
+gf_smooth(births ~ date,
+  color = ~wday, data = mosaicData::Births78,
+  fullrange = TRUE
+)
+gf_smooth(births ~ date,
+  color = ~wday, data = mosaicData::Births78,
+  show.legend = FALSE, se = FALSE
+)
+gf_smooth(births ~ date,
+  color = ~wday, data = mosaicData::Births78,
+  show.legend = FALSE, se = TRUE
+)
+gf_lm(length ~ width,
+  data = mosaicData::KidsFeet,
+  color = ~biggerfoot, alpha = 0.2
+) \%>\%
   gf_point()
-gf_lm(length ~ width, data = mosaicData::KidsFeet,
-      color = ~ biggerfoot, fullrange = FALSE, alpha = 0.2)
+gf_lm(length ~ width,
+  data = mosaicData::KidsFeet,
+  color = ~biggerfoot, fullrange = FALSE, alpha = 0.2
+)
+gf_point()
+gf_lm(length ~ width,
+  color = ~sex, data = mosaicData::KidsFeet,
+  formula = y ~ poly(x, 2), linetype = "dashed"
+) \%>\%
   gf_point()
-gf_lm(length ~ width, color = ~ sex, data = mosaicData::KidsFeet,
-      formula = y ~ poly(x, 2), linetype = "dashed") \%>\%
-  gf_point()
-gf_lm(length ~ width, color = ~ sex, data = mosaicData::KidsFeet,
-      formula = log(y) ~ x, backtrans = exp) \%>\%
+gf_lm(length ~ width,
+  color = ~sex, data = mosaicData::KidsFeet,
+  formula = log(y) ~ x, backtrans = exp
+) \%>\%
   gf_point()
 
-gf_lm(hwy ~ displ, data = mpg,
-      formula = log(y) ~ poly(x,3), backtrans = exp,
-     interval = "prediction", fill = "skyblue") \%>\%
+gf_lm(hwy ~ displ,
+  data = mpg,
+  formula = log(y) ~ poly(x, 3), backtrans = exp,
+  interval = "prediction", fill = "skyblue"
+) \%>\%
   gf_lm(
-     formula = log(y) ~ poly(x,3), backtrans = exp,
-     interval = "confidence", color = "red") \%>\%
+    formula = log(y) ~ poly(x, 3), backtrans = exp,
+    interval = "confidence", color = "red"
+  ) \%>\%
   gf_point()
-
 }
 \seealso{
 \code{\link[ggplot2:geom_smooth]{ggplot2::geom_smooth()}}, \code{\link[=gf_spline]{gf_spline()}}

@@ -140,11 +140,15 @@ in another.
 }
 
 \examples{
-gf_jitter(avg_drinks ~ age, alpha = 0.2, data = mosaicData::HELPrct,
-          width = 0.4, height = 0.4) \%>\%
+gf_jitter(avg_drinks ~ age,
+  alpha = 0.2, data = mosaicData::HELPrct,
+  width = 0.4, height = 0.4
+) \%>\%
   gf_density_2d(avg_drinks ~ age, data = mosaicData::HELPrct)
-gf_jitter(avg_drinks ~ age, alpha = 0.2, data = mosaicData::HELPrct,
-          width = 0.4, height = 0.4) \%>\%
+gf_jitter(avg_drinks ~ age,
+  alpha = 0.2, data = mosaicData::HELPrct,
+  width = 0.4, height = 0.4
+) \%>\%
   gf_density2d(avg_drinks ~ age, data = mosaicData::HELPrct)
 }
 \seealso{

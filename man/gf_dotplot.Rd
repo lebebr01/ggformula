@@ -150,7 +150,7 @@ in another.
 }
 
 \examples{
-gf_dotplot( ~ Sepal.Length, fill = ~ Species, data = iris)
+gf_dotplot(~Sepal.Length, fill = ~Species, data = iris)
 }
 \references{
 Wilkinson, L. (1999) Dot plots. The American Statistician,

@@ -134,11 +134,11 @@ in another.
 }
 
 \examples{
-gf_qq( ~ rnorm(100))
-gf_qq( ~ Sepal.Length | Species, data = iris) \%>\% gf_qqline()
-gf_qq( ~ Sepal.Length | Species, data = iris) \%>\% gf_qqline(tail = 0.10)
-gf_qq( ~ Sepal.Length, color = ~ Species, data = iris) \%>\%
-gf_qqstep( ~ Sepal.Length, color = ~ Species, data = iris)
+gf_qq(~ rnorm(100))
+gf_qq(~ Sepal.Length | Species, data = iris) \%>\% gf_qqline()
+gf_qq(~ Sepal.Length | Species, data = iris) \%>\% gf_qqline(tail = 0.10)
+gf_qq(~Sepal.Length, color = ~Species, data = iris) \%>\%
+  gf_qqstep(~Sepal.Length, color = ~Species, data = iris)
 }
 \seealso{
 \code{\link[ggplot2:geom_qq]{ggplot2::geom_qq()}}
