@@ -11,6 +11,15 @@ utils::globalVariables("role")
 NA
 
 
+aes_env <- function(mapping, envir) {
+  for (i in 1:length(mapping)) {
+    if (!is.null(environment(mapping[[i]]))) {
+      environment(mapping[[i]]) <- envir
+    }
+  }
+  mapping
+}
+
 #' Create a ggformula layer function
 #'
 #' Primarily intended for package developers, this function factory
@@ -669,6 +678,7 @@ gf_ingredients <-
       set_list <- modifyList(extras, set_list)
 
       mapping <- modifyList(aesthetics, do.call(aes_string, mapped_list))
+      mapping <- aes_env(mapping, environment(formula))
     }
 
     mapping <- remove_dot_from_mapping(mapping)

@@ -14,7 +14,7 @@ gf_text(object = NULL, gformula = NULL, data = NULL, label, alpha,
   ...)
 
 gf_label(object = NULL, gformula = NULL, data = NULL, label, alpha,
-  angle, color, family, fontface, group, hjust, lineheight, size, vjust,
+  angle, color, family, fontface, group, hjust, vjust, lineheight, size,
   parse, nudge_x = 0, nudge_y = 0, label.padding = unit(0.25,
   "lines"), label.r = unit(0.15, "lines"), label.size = 0.25, xlab,
   ylab, title, subtitle, caption, stat = "identity",

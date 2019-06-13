@@ -150,7 +150,7 @@ in another.
 }
 
 \examples{
-x <<- rnorm(1000)
+x <- rnorm(1000)
 gf_histogram(~x, bins = 30)
 gf_dhistogram(~x, bins = 30)
 gf_dhistogram(~x, binwidth = 0.5, center = 0, color = "black")
