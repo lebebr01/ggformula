@@ -113,9 +113,9 @@ in another.
 }
 
 \examples{
-gf_spline(births ~ date, color = ~ wday, data = mosaicData::Births78)
-gf_spline(births ~ date, color = ~ wday, data = mosaicData::Births78, df = 20)
-gf_spline(births ~ date, color = ~ wday, data = mosaicData::Births78, df = 4)
+gf_spline(births ~ date, color = ~wday, data = mosaicData::Births78)
+gf_spline(births ~ date, color = ~wday, data = mosaicData::Births78, df = 20)
+gf_spline(births ~ date, color = ~wday, data = mosaicData::Births78, df = 4)
 }
 \seealso{
 \code{\link[=geom_spline]{geom_spline()}}, \code{\link[=gf_smooth]{gf_smooth()}}, \code{\link[=gf_lm]{gf_lm()}}

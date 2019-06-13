@@ -121,7 +121,7 @@ in another.
 }
 
 \examples{
-gf_step( births ~ date, data = mosaicData::Births78, color = ~ wday)
+gf_step(births ~ date, data = mosaicData::Births78, color = ~wday)
 
 # Roll your own Kaplan-Meier plot
 

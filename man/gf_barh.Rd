@@ -120,18 +120,20 @@ in another.
 }
 
 \examples{
-gf_barh( ~ Diet, data = ChickWeight)
-gf_barh( ~ substance, data = mosaicData::HELPrct, fill = ~ sex)
-gf_barh( ~ substance, data = mosaicData::HELPrct, fill = ~ sex,
-        position = position_dodgev())
+gf_barh(~Diet, data = ChickWeight)
+gf_barh(~substance, data = mosaicData::HELPrct, fill = ~sex)
+gf_barh(~substance,
+  data = mosaicData::HELPrct, fill = ~sex,
+  position = position_dodgev()
+)
 # gf_counts() is another name for gf_bar()
-gf_counts( ~ substance, data = mosaicData::HELPrct, fill = ~ sex)
+gf_counts(~substance, data = mosaicData::HELPrct, fill = ~sex)
 # gf_props() and gf_percents() use proportions or percentages instead of counts
-gf_props( ~ substance, data = mosaicData::HELPrct, fill = ~ sex, position = position_dodge())
-gf_percents( ~ substance, data = mosaicData::HELPrct, fill = ~ sex, position = position_dodge())
+gf_props(~substance, data = mosaicData::HELPrct, fill = ~sex, position = position_dodge())
+gf_percents(~substance, data = mosaicData::HELPrct, fill = ~sex, position = position_dodge())
 
 if (require(scales)) {
-  gf_props( ~ substance, data = mosaicData::HELPrct, fill = ~ sex, position = position_dodge()) \%>\%
+  gf_props(~substance, data = mosaicData::HELPrct, fill = ~sex, position = position_dodge()) \%>\%
     gf_refine(scale_y_continuous(labels = scales::percent))
 }
 }
