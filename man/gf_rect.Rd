@@ -108,12 +108,10 @@ gf_rect(1 + 2 ~ 3 + 4, alpha = 0.3, color = "red")
 gf_point(eruptions ~ waiting, data = faithful) \%>\%
   gf_rect(1.5 + 3 ~ 45 + 68,
     fill = "red", alpha = 0.2,
-    data = data.frame(), inherit = FALSE
-  ) \%>\%
+    data = data.frame(), inherit = FALSE) \%>\%
   gf_rect(3 + 5.5 ~ 68 + 100,
     fill = "green", alpha = 0.2,
-    data = data.frame(), inherit = FALSE
-  )
+    data = data.frame(), inherit = FALSE)
 }
 \seealso{
 \code{\link[ggplot2:geom_rect]{ggplot2::geom_rect()}}

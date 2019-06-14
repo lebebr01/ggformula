@@ -1556,6 +1556,7 @@ gf_linerange <-
 #'   HELP2 <- HELPrct %>%
 #'     group_by(substance, sex) %>%
 #'     summarise(
+#'       age = NA,
 #'       mean.age = mean(age),
 #'       median.age = median(age),
 #'       max.age = max(age),
@@ -1565,23 +1566,22 @@ gf_linerange <-
 #'       hi = mean.age + sd.age
 #'     )
 #'
-#'   gf_jitter(age ~ substance,
-#'     data = HELPrct,
-#'     alpha = 0.5, width = 0.2, height = 0, color = "skyblue"
-#'   ) %>%
+#'   gf_jitter(age ~ substance, data = HELPrct,
+#'       alpha = 0.5, width = 0.2, height = 0, color = "skyblue") %>%
 #'     gf_pointrange(mean.age + lo + hi ~ substance, data = HELP2) %>%
 #'     gf_facet_grid(~sex)
-#'   gf_jitter(age ~ substance,
-#'     data = HELPrct,
-#'     alpha = 0.5, width = 0.2, height = 0, color = "skyblue"
-#'   ) %>%
+#'
+#'   gf_jitter(age ~ substance, data = HELPrct,
+#'     alpha = 0.5, width = 0.2, height = 0, color = "skyblue") %>%
 #'     gf_errorbar(lo + hi ~ substance, data = HELP2, inherit = FALSE) %>%
 #'     gf_facet_grid(~sex)
+#'
 #'   # width is defined differently for gf_boxplot() and gf_jitter()
 #'   #   * for gf_boxplot() it is the full width of the box.
 #'   #   * for gf_jitter() it is half that -- the maximum amount added or subtracted.
 #'   gf_boxplot(age ~ substance, data = HELPrct, width = 0.4) %>%
 #'     gf_jitter(width = 0.4, height = 0, color = "skyblue", alpha = 0.5)
+#'
 #'   gf_boxplot(age ~ substance, data = HELPrct, width = 0.4) %>%
 #'     gf_jitter(width = 0.2, height = 0, color = "skyblue", alpha = 0.5)
 #' }
@@ -1614,51 +1614,38 @@ gf_pointrange <-
 #'   HELP2 <- HELPrct %>%
 #'     group_by(substance, sex) %>%
 #'     summarise(
-#'       mean.age = mean(age),
+#'       mean.age   = mean(age),
 #'       median.age = median(age),
-#'       max.age = max(age),
-#'       min.age = min(age),
-#'       sd.age = sd(age),
-#'       lo = mean.age - sd.age,
-#'       hi = mean.age + sd.age
+#'       max.age    = max(age),
+#'       min.age    = min(age),
+#'       sd.age     = sd(age),
+#'       lo         = mean.age - sd.age,
+#'       hi         = mean.age + sd.age
 #'     )
 #'
-#'   gf_jitter(age ~ substance,
-#'     data = HELPrct,
-#'     alpha = 0.7, width = 0.2, height = 0, color = "skyblue"
-#'   ) %>%
+#'   gf_jitter(age ~ substance, data = HELPrct,
+#'       alpha = 0.7, width = 0.2, height = 0, color = "skyblue") %>%
 #'     gf_pointrange(mean.age + lo + hi ~ substance, data = HELP2) %>%
 #'     gf_facet_grid(~sex)
-#'   gf_jitter(age ~ substance,
-#'     data = HELPrct,
-#'     alpha = 0.7, width = 0.2, height = 0, color = "skyblue"
-#'   ) %>%
-#'     gf_errorbar(lo + hi ~ substance, data = HELP2) %>%
+#'
+#'   gf_jitter(age ~ substance, data = HELPrct,
+#'       alpha = 0.7, width = 0.2, height = 0, color = "skyblue")  %>%
+#'     gf_errorbar(lo + hi ~ substance, data = HELP2, inherit = FALSE) %>%
 #'     gf_facet_grid(~sex)
-#'   gf_jitter(age ~ substance,
-#'     data = HELPrct,
-#'     alpha = 0.7, width = 0.2, height = 0, color = "skyblue"
-#'   ) %>%
-#'     gf_crossbar(mean.age + lo + hi ~ substance,
-#'       data = HELP2,
-#'       fill = "transparent"
-#'     ) %>%
+#'
+#'   gf_jitter(age ~ substance, data = HELPrct,
+#'       alpha = 0.7, width = 0.2, height = 0, color = "skyblue") %>%
+#'     gf_crossbar(mean.age + lo + hi ~ substance, data = HELP2,
+#'       fill = "transparent") %>%
 #'     gf_facet_grid(~sex)
-#'   gf_jitter(substance ~ age,
-#'     data = HELPrct,
-#'     alpha = 0.7, height = 0.2, width = 0, color = "skyblue"
-#'   ) %>%
-#'     gf_crossbarh(substance ~ mean.age + lo + hi,
-#'       data = HELP2,
-#'       fill = "transparent"
-#'     ) %>%
+#'
+#'   gf_jitter(substance ~ age, data = HELPrct,
+#'       alpha = 0.7, height = 0.2, width = 0, color = "skyblue") %>%
+#'     gf_crossbarh(substance ~ mean.age + lo + hi, data = HELP2,
+#'       fill = "transparent", color = "red") %>%
 #'     gf_facet_grid(~sex)
 #' }
 #'
-#' #     gf_boxplot(age ~ substance,  data = HELPrct,
-#' #                 color = "red", fill = "transparent") %>%
-#' #     gf_boxploth(substance ~ age,  data = HELPrct,
-#' #                  color = "red", fill = "transparent") %>%
 gf_crossbar <-
   layer_factory(
     geom = "crossbar",
@@ -1694,22 +1681,18 @@ gf_crossbar <-
 #'       hi = mean.age + sd.age
 #'     )
 #'
-#'   gf_jitter(age ~ substance,
-#'     data = HELPrct,
-#'     alpha = 0.5, width = 0.2, height = 0, color = "skyblue"
-#'   ) %>%
-#'     gf_pointrange(mean.age + lo + hi ~ substance, data = HELP2) %>%
+#'   gf_jitter(age ~ substance, data = HELPrct,
+#'       alpha = 0.5, width = 0.2, height = 0, color = "skyblue") %>%
+#'     gf_pointrange(mean.age + lo + hi ~ substance, data = HELP2,
+#'       inherit = FALSE) %>%
 #'     gf_facet_grid(~sex)
-#'   gf_jitter(age ~ substance,
-#'     data = HELPrct,
-#'     alpha = 0.5, width = 0.2, height = 0, color = "skyblue"
-#'   ) %>%
-#'     gf_errorbar(lo + hi ~ substance, data = HELP2) %>%
+#'
+#'   gf_jitter(age ~ substance, data = HELPrct,
+#'       alpha = 0.5, width = 0.2, height = 0, color = "skyblue") %>%
+#'     gf_errorbar(lo + hi ~ substance, data = HELP2, inherit = FALSE) %>%
 #'     gf_facet_grid(~sex)
-#'   gf_jitter(age ~ substance,
-#'     data = HELPrct,
-#'     alpha = 0.5, width = 0.2, height = 0, color = "skyblue"
-#'   ) %>%
+#'   gf_jitter(age ~ substance, data = HELPrct,
+#'       alpha = 0.5, width = 0.2, height = 0, color = "skyblue") %>%
 #'     gf_boxplot(age ~ substance, data = HELPrct, color = "red") %>%
 #'     gf_crossbar(mean.age + lo + hi ~ substance, data = HELP2) %>%
 #'     gf_facet_grid(~sex)
@@ -1748,12 +1731,10 @@ gf_errorbar <-
 #' gf_point(eruptions ~ waiting, data = faithful) %>%
 #'   gf_rect(1.5 + 3 ~ 45 + 68,
 #'     fill = "red", alpha = 0.2,
-#'     data = data.frame(), inherit = FALSE
-#'   ) %>%
+#'     data = data.frame(), inherit = FALSE) %>%
 #'   gf_rect(3 + 5.5 ~ 68 + 100,
 #'     fill = "green", alpha = 0.2,
-#'     data = data.frame(), inherit = FALSE
-#'   )
+#'     data = data.frame(), inherit = FALSE)
 gf_rect <-
   layer_factory(
     geom = "rect",
