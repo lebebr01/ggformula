@@ -39,6 +39,7 @@ aes_env <- function(mapping, envir) {
 #' @param aes_form A single formula or a list of formulas specifying
 #'   how attributes are inferred from the formula.  Use `NULL` if the
 #'   function may be used without a formula.
+#' @param aes_ignore A character vector of aesthetic names to explictly ignore.
 #' @param extras An alist of additional arguments (potentially with defaults)
 #' @param note A note to add to the quick help.
 #' @param aesthetics Additional aesthetics (typically created using
@@ -46,7 +47,8 @@ aes_env <- function(mapping, envir) {
 #'   `gf_dhistogram()` uses this to set the y aesthetic to `stat(density)`,
 #'   for example.
 #' @param inherit.aes A logical indicating whether aesthetics should be
-#'   inherited from prior layers.
+#'   inherited from prior layers or a vector of character names of aesthetics
+#'   to inherit.
 #' @param check.aes A logical indicating whether a warning should be emited
 #'   when aesthetics provided don't match what is expected.
 #' @param data A data frame or `NULL` or `NA`.
@@ -63,6 +65,7 @@ layer_factory <- function(
                           extras = alist(),
                           note = NULL,
                           aesthetics = aes(),
+                          aes_ignore = c(),
                           inherit.aes = TRUE,
                           check.aes = TRUE,
                           data = NULL,
@@ -94,7 +97,6 @@ layer_factory <- function(
       dots <- list(...)
 
       function_name <- as.character(match.call()[1])
-
 
       # make sure we have a list of formulas here
       if (!is.list(aes_form)) aes_form <- list(aes_form)
@@ -136,12 +138,7 @@ layer_factory <- function(
       # gformula <- mosaicCore::reop_formula(gformula)
 
       # convert y ~ 1 into ~ y if a 1-sided formula is an option and 2-sided is not
-      if (
-        any(sapply(aes_form, function(f) length(f) == 2L)) &&
-          !any(sapply(aes_form, function(f) length(f) == 3L))
-      ) {
-        gformula <- response2explanatory(gformula)
-      }
+      gformula <- response2explanatory(gformula, aes_form)
 
       # find matching formula shape
       fmatches <- formula_match(gformula, aes_form = aes_form)
@@ -255,6 +252,11 @@ layer_factory <- function(
           # aesthetics <- add_aes(aesthetics, aes.name, object$mapping[[aes.name]])
           aesthetics[[aes.name]] <- object$mapping[[aes.name]]
         }
+      }
+
+      # remove aesthetics to ignore
+      for (a in aes_ignore) {
+        aesthetics[[a]] <- NULL
       }
 
       ingredients <-
@@ -443,30 +445,40 @@ add_aes <- function(mapping, new) {
   res
 }
 
-# covert y ~ 1 into ~ y
-# convert y ~ 1 | a into ~ y | a
-# convert y ~ 1 | a ~ b into ~ y | a ~ b
-# convert y ~ 1 | ~ a into ~ y | ~ a
+# if aes_form includes 1-sided formula but no 2-sided formula, then
+#   covert y ~ 1 into ~ y
+#   convert y ~ 1 | a into ~ y | a
+#   convert y ~ 1 | a ~ b into ~ y | a ~ b
+#   convert y ~ 1 | ~ a into ~ y | ~ a
 
 # This is clunky because | doen't have the right precedence for the intended
 # interpretation of the formula.
 
-response2explanatory <- function(formula) {
-  if (length(formula) == 3L && isTRUE(formula[[3]] == 1)) {
-    formula[[3]] <- formula[[2]]
-    # can remove either slot 2 or slot 3 here to get 1-sided formula
-    formula[[2]] <- NULL
-  } else if (length(formula) == 3L &&
-    length(formula[[3]]) == 3L &&
-    isTRUE(formula[[3]][[1]] == as.name("|")) &&
-    isTRUE(formula[[3]][[2]] == 1L)) {
-    formula[[3]][[2]] <- formula[[2]]
-    formula[[2]] <- NULL
-  } else if (length(formula) == 3L && rlang::is_formula(formula[[2]])) {
-    formula[[2]] <- response2explanatory(formula[[2]])
+response2explanatory <-
+  function(formula, aes_form = NULL) {
+    if (
+      ! is.null(aes_form) &&
+      ( ! any(sapply(aes_form, function(f) length(f) == 2L)) ||
+          any(sapply(aes_form, function(f) length(f) == 3L)) )
+    ) {
+      return(formula)
+    }
+
+    if (length(formula) == 3L && isTRUE(formula[[3]] == 1)) {
+      formula[[3]] <- formula[[2]]
+      # can remove either slot 2 or slot 3 here to get 1-sided formula
+      formula[[2]] <- NULL
+    } else if (length(formula) == 3L &&
+               length(formula[[3]]) == 3L &&
+               isTRUE(formula[[3]][[1]] == as.name("|")) &&
+               isTRUE(formula[[3]][[2]] == 1L)) {
+      formula[[3]][[2]] <- formula[[2]]
+      formula[[2]] <- NULL
+    } else if (length(formula) == 3L && rlang::is_formula(formula[[2]])) {
+      formula[[2]] <- response2explanatory(formula[[2]])
+    }
+    formula
   }
-  formula
-}
 
 
 
@@ -645,53 +657,27 @@ gf_ingredients <-
         names(data)
       }
 
-    # create mapping -- using method appropriate for version
-    # of ggplot2 that is installed
+    # create mapping -- assume ggplot2 version >= 3.0
+    aes_df <-
+      formula_to_df(fs[["formula"]], var_names, aes_form = aes_form)
 
-    if (packageVersion("ggplot2") <= "2.2.1") {
-      aes_df <-
-        rbind(
-          formula_to_df(fs[["formula"]], var_names, aes_form = aes_form),
-          data.frame(
-            role = names(aesthetics),
-            expr = sapply(aesthetics, deparse),
-            map = rep(TRUE, length(aesthetics)),
-            stringsAsFactors = FALSE
-          )
-        )
+    mapped_list <- as.list(aes_df[["expr"]][aes_df$map])
+    names(mapped_list) <- aes_df[["role"]][aes_df$map]
+    # . is placeholder for "no aesthetic mapping", so remove the dots
+    mapped_list[mapped_list == "."] <- NULL
+    more_mapped_list <-
+      lapply(aesthetics, function(x) deparse(rlang::get_expr(x))) %>%
+      stats::setNames(names(aesthetics))
+    mapped_list <- modifyList(more_mapped_list, mapped_list)
 
-      mapped_list <- as.list(aes_df[["expr"]][aes_df$map])
-      names(mapped_list) <- aes_df[["role"]][aes_df$map]
+    set_list <- as.list(aes_df[["expr"]][!aes_df$map])
+    names(set_list) <- aes_df[["role"]][!aes_df$map]
+    set_list <- modifyList(extras, set_list)
 
-      set_list <- as.list(aes_df[["expr"]][!aes_df$map])
-      names(set_list) <- aes_df[["role"]][!aes_df$map]
-      set_list <- modifyList(extras, set_list)
-
-      # mapping <- modifyList(do.call(aes, aesthetics), do.call(aes_string, mapped_list))
-      mapping <- modifyList(aesthetics, do.call(aes_string, mapped_list))
-    } else { # new version of ggplot2
-      aes_df <-
-        formula_to_df(fs[["formula"]], var_names, aes_form = aes_form)
-
-      mapped_list <- as.list(aes_df[["expr"]][aes_df$map])
-      names(mapped_list) <- aes_df[["role"]][aes_df$map]
-      # . is placeholder for "no aesthetic mapping", so remove the dots
-      mapped_list[mapped_list == "."] <- NULL
-      more_mapped_list <-
-        lapply(aesthetics, function(x) deparse(rlang::get_expr(x))) %>%
-        stats::setNames(names(aesthetics))
-      mapped_list <- modifyList(more_mapped_list, mapped_list)
-
-      set_list <- as.list(aes_df[["expr"]][!aes_df$map])
-      names(set_list) <- aes_df[["role"]][!aes_df$map]
-      set_list <- modifyList(extras, set_list)
-
-      mapping <- modifyList(aesthetics, do.call(aes_string, mapped_list))
-      mapping <- aes_env(mapping, envir)
-    }
+    mapping <- modifyList(aesthetics, do.call(aes_string, mapped_list))
+    mapping <- aes_env(mapping, envir)
 
     mapping <- remove_dot_from_mapping(mapping)
-
 
     res <-
       list(
@@ -707,13 +693,13 @@ gf_ingredients <-
         params = modifyList(set_list, extras)
       )
     if (identical(data, NA)) {
-      if (packageVersion("ggplot2") <= "2.2.1") {
-        res$data <-
-          do.call(
-            data.frame,
-            c(res[["mapping"]], res[["setting"]], list(stringsAsFactors = FALSE))
-          )
-      } else {
+      # if (packageVersion("ggplot2") <= "2.2.1") {
+      #   res$data <-
+      #     do.call(
+      #       data.frame,
+      #       c(res[["mapping"]], res[["setting"]], list(stringsAsFactors = FALSE))
+      #     )
+      # } else {
         res$data <-
           do.call(
             data.frame,
@@ -722,7 +708,7 @@ gf_ingredients <-
               list(stringsAsFactors = FALSE)
             )
           )
-      }
+      # }
       res$params[names(res$mapping)] <- NULL # remove mapped attributes
       aes_list <- as.list(intersect(names(res$data), names(res$mapping)))
       names(aes_list) <- aes_list
@@ -736,19 +722,19 @@ gf_ingredients <-
 
 # remove item -> . mappings
 remove_dot_from_mapping <- function(mapping) {
-  if (packageVersion("ggplot2") <= "2.2.1") {
-    for (item in names(mapping)) {
-      if (mapping[[item]] == as.name(".")) {
-        mapping[[item]] <- NULL
-      }
-    }
-  } else {
+  # if (packageVersion("ggplot2") <= "2.2.1") {
+  #   for (item in names(mapping)) {
+  #     if (mapping[[item]] == as.name(".")) {
+  #       mapping[[item]] <- NULL
+  #     }
+  #   }
+  # } else {
     for (item in rev(seq_along(mapping))) {
       if (identical(rlang::get_expr(mapping[[item]]), quote(.))) {
         mapping[[item]] <- NULL
       }
     }
-  }
+  # }
   mapping
 }
 
