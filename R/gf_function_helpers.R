@@ -93,9 +93,7 @@ layer_factory <- function(
                  environment = parent.frame(),
                  ...) {
       eval(pre)
-      # merge extras and dots into single list
       dots <- list(...)
-
       function_name <- as.character(match.call()[1])
 
       # make sure we have a list of formulas here
@@ -129,10 +127,9 @@ layer_factory <- function(
       # not sure whether we should use the environment recorded in object or not,
       # but this is how/where to do it.
 
-      # if (inherits(object, "gg") && packageVersion("ggplot2") > "2.2.1") {
+      # if (inherits(object, "gg")) {
       #   environment <- object$plot_env
       # }
-
 
       # # allow some operations in formulas without requiring I()
       # gformula <- mosaicCore::reop_formula(gformula)
@@ -141,17 +138,9 @@ layer_factory <- function(
       gformula <- response2explanatory(gformula, aes_form)
 
       # find matching formula shape
-      fmatches <- formula_match(gformula, aes_form = aes_form)
-
-      if (!any(fmatches)) {
-        if (inherits(object, "gg") && (inherit || length(inherited.aes) > 0)) {
-          aes_form <- NULL
-        } else {
-          stop("Invalid formula type for ", function_name, ".", call. = FALSE)
-        }
-      } else {
-        aes_form <- aes_form[[which.max(fmatches)]]
-      }
+      aes_form <-
+        first_matching_formula(
+          gformula, aes_form, object, inherit, inherited.aes, function_name)
 
       ############# create extras_and_dots ############
       # collect arguments
@@ -444,6 +433,24 @@ add_aes <- function(mapping, new) {
   res <- modifyList(mapping, new)
   res
 }
+
+# Find first matching formula shape.
+# Emit error message when no good matches.
+
+first_matching_formula <-
+  function(gformula, aes_form, object, inherit, inherited.aes, function_name) {
+    fmatches <- formula_match(gformula, aes_form = aes_form)
+
+    if (!any(fmatches)) {
+      if (inherits(object, "gg") && (inherit || length(inherited.aes) > 0)) {
+        retunr(NULL)
+      } else {
+        stop("Invalid formula type for ", function_name, ".", call. = FALSE)
+      }
+    } else {
+      return(aes_form[[which.max(fmatches)]])
+    }
+  }
 
 # if aes_form includes 1-sided formula but no 2-sided formula, then
 #   covert y ~ 1 into ~ y
