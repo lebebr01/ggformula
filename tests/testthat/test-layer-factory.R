@@ -617,12 +617,18 @@ test_that(
     vdiffr::expect_doppelganger(
       "gf_label2",
       gf_label(width ~ length, data = mosaicData::KidsFeet, label = ~name,
-               nudge_x = 0.1, nudge_y = -0.05) %>%
+               nudge_x = 0.1, nudge_y = -0.05, color = ~ sex) %>%
         gf_point()
     )
     vdiffr::expect_doppelganger(
       "gf_text1",
       gf_text(width ~ length, data = mosaicData::KidsFeet, label = ~name)
+    )
+    vdiffr::expect_doppelganger(
+      "gf_text2",
+      gf_text(width ~ length, data = mosaicData::KidsFeet, label = ~name,
+              color = ~ sex, nudge_x = 0.1, nudge_y = -0.05) %>%
+        gf_point()
     )
   }
 )

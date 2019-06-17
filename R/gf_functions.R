@@ -589,11 +589,16 @@ gf_text <-
     geom = "text",
     position = "nudge",
     pre = {
-      if (nudge_x != 0 || nudge_y != 0) {
-        orig_args[["position"]] <- position_nudge(nudge_x, nudge_y)
-        orig_args[c("nudge_x", "nudge_y")] <- NULL
+      if ((nudge_x != 0) || (nudge_y != 0)) {
+        position <- position_nudge(nudge_x, nudge_y)
       }
     },
+    # pre = {
+    #   if (nudge_x != 0 || nudge_y != 0) {
+    #     orig_args[["position"]] <- position_nudge(nudge_x, nudge_y)
+    #     orig_args[c("nudge_x", "nudge_y")] <- NULL
+    #   }
+    # },
     extras = alist(
       label = , alpha = , angle = , color = ,
       family = , fontface = , group = , hjust = ,
@@ -627,7 +632,6 @@ gf_label <-
         position <- position_nudge(nudge_x, nudge_y)
       }
     },
-    # remove_args = c("nudge_x", "nudge_y"),
     layer_fun = ggplot2::geom_label,
     extras = alist(
       label =, alpha = , angle = , color = ,
