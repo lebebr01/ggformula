@@ -304,6 +304,7 @@ gf_errorbarh <-
   layer_factory(
     geom = "errorbarh",
     aes_form = y ~ xmin + xmax,
+    check.aes = FALSE,
     extras = alist(
       alpha = , color = , group = , linetype = , size =
       )
