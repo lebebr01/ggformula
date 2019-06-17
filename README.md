@@ -30,23 +30,7 @@ The following example illustrates a typical plot constructed with
 ggformula.
 
 ``` r
-library(ggformula)
-#> Loading required package: ggplot2
-#> Registered S3 methods overwritten by 'ggplot2':
-#>   method         from 
-#>   [.quosures     rlang
-#>   c.quosures     rlang
-#>   print.quosures rlang
-#> Loading required package: ggstance
-#> 
-#> Attaching package: 'ggstance'
-#> The following objects are masked from 'package:ggplot2':
-#> 
-#>     geom_errorbarh, GeomErrorbarh
-#> 
-#> New to ggformula?  Try the tutorials: 
-#>  learnr::run_tutorial("introduction", package = "ggformula")
-#>  learnr::run_tutorial("refining", package = "ggformula")
+suppressPackageStartupMessages(library(ggformula))
 gf_jitter(Sepal.Length ~ Sepal.Width, data = iris, color = ~ Species,
           width = 0.05, height = 0.05, alpha = 0.6) %>%
   gf_density2d(alpha = 0.3) %>%
