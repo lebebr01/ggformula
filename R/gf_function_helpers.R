@@ -56,20 +56,21 @@ aes_env <- function(mapping, envir) {
 #' @return A function.
 #' @export
 
-layer_factory <- function(
-                          geom = "point",
-                          position = "identity",
-                          stat = "identity",
-                          pre = {},
-                          aes_form = y ~ x,
-                          extras = alist(),
-                          note = NULL,
-                          aesthetics = aes(),
-                          aes_ignore = c(),
-                          inherit.aes = TRUE,
-                          check.aes = TRUE,
-                          data = NULL,
-                          layer_fun = ggplot2::layer) {
+layer_factory <-
+  function(
+    geom = "point",
+    position = "identity",
+    stat = "identity",
+    pre = {},
+    aes_form = y ~ x,
+    extras = alist(),
+    note = NULL,
+    aesthetics = aes(),
+    aes_ignore = c(),
+    inherit.aes = TRUE,
+    check.aes = TRUE,
+    data = NULL,
+    layer_fun = ggplot2::layer) {
 
   pre <- substitute(pre)
 
@@ -85,15 +86,17 @@ layer_factory <- function(
   # the formals of this will be modified below
   # the formals included here help avoid CRAN warnings
   res <-
-    function(xlab, ylab, title, subtitle, caption,
-                 show.legend, function_name, inherit,
-                 environment = parent.frame(),
-                 ...) {
+    function(
+      xlab, ylab, title, subtitle, caption,
+      show.legend, function_name, inherit,
+      environment = parent.frame(),
+      ...) {
+
       dots <- list(...)
       function_name <- as.character(match.call()[1])
       orig_args <- as.list(match.call())[-1]
 
-      eval(pre)
+      eval(pre)  # pre will be placed in the function environment so it is available here
 
       # make sure we have a list of formulas here
       if (!is.list(aes_form)) aes_form <- list(aes_form)
@@ -310,7 +313,7 @@ layer_factory <- function(
   assign("pre", pre, environment(res))
   assign("extras", extras, environment(res))
   res
-}
+  }
 
 add_aes <- function(mapping, new) {
   # convert ~ x into just x (as a name)
