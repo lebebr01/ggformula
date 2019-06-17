@@ -16,3 +16,4 @@ cran-comments.md
 ^README-.*\.png$
 # test-layer-factory.R
 # ^tests/figs$
+^codecov\.yml$

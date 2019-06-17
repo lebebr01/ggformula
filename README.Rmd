@@ -12,9 +12,12 @@ knitr::opts_chunk$set(
 )
 ```
 
+
+  
 # ggformula
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/ggformula)](https://cran.r-project.org/package=ggformula)
+[![Codecov test coverage](https://codecov.io/gh/ProjectMOSAIC/ggformula/branch/master/graph/badge.svg)](https://codecov.io/gh/ProjectMOSAIC/ggformula?branch=master)
 
 ## Formula interface to ggplot2
 
