@@ -73,7 +73,7 @@ layer_factory <- function(
 
   pre <- substitute(pre)
 
-  extra_names <- names(extras)
+  # extra_names <- names(extras)
 
   if (!is.logical(inherit.aes)) {
     inherited.aes <- inherit.aes
@@ -144,8 +144,6 @@ layer_factory <- function(
       #  * remove those that are "missing"
       #  * remove function args not for layer, stat, or geom
 
-      # grab formals for geom and stat
-
       stat_formals <- grab_formals(stat, "stat")
       geom_formals <- grab_formals(geom, "geom")
 
@@ -162,6 +160,7 @@ layer_factory <- function(
           extras_and_dots[intersect(names(extras_and_dots), names(formals(position_fun)))]
         position <- do.call(position_fun, pdots)
       }
+
       # look for arguments of the form argument = ~ something and turn them
       # into aesthetics
       if (length(extras_and_dots) > 0) {
@@ -172,16 +171,6 @@ layer_factory <- function(
         )
         aesthetics <- add_aes(aesthetics, extras_and_dots[w])
         extras_and_dots[w] <- NULL
-
-        # # proceed backwards through list so that removing items doesn't mess up indexing
-        # for (i in length(extras_and_dots):1L) {
-        #   if (is_formula(extras_and_dots[[i]]) && length(extras_and_dots[[i]]) == 2L) {
-        #     aesthetics <-
-        #       add_aes(aesthetics, names(extras_and_dots)[i], extras_and_dots[[i]][[2]])
-        #     # aesthetics[[names(extras_and_dots)[i]]] <- extras_and_dots[[i]][[2]]
-        #     extras_and_dots[[i]] <- NULL
-        #   }
-        # }
       }
 
       # remove symbols from extras_and_dots (why?)
@@ -215,11 +204,6 @@ layer_factory <- function(
 
       # layer has a params argument, geoms and stats do not
 
-      # geom_and_stat_args <-
-      #   unique(union(
-      #     get_args(geom, "geom", environment),
-      #     get_args(stat, "stat", environment)))
-
       if ("params" %in% names(formals(layer_fun))) {
         layer_args <-
           list(
@@ -248,19 +232,10 @@ layer_factory <- function(
             remove_from_list(ingredients[["params"]], "inherit")
           )
       }
-      # =======
-      #     }
-      #     # bring back the dots into the arguments handed to the layer function
-      #     if ("..." %in% names(formals(layer_fun)))
-      #         layer_args <- c(layer_args, dots[ !names(dots) %in% names(formals(layer_fun))])
-      # >>>>>>> Issue070
 
       # If no ..., be sure to remove things not in the formals list
       if (!"..." %in% names(formals(layer_fun))) {
         layer_args <- cull_list(layer_args, names(formals(layer_fun)))
-        # for (i in setdiff(names(layer_args), names(formals(layer_fun)))) {
-        #   layer_args[[i]] <- NULL
-        # }
       }
 
       # remove additional arguments that layer_fun doesn't use, even if we have ...
@@ -325,55 +300,11 @@ layer_factory <- function(
       }
       p
     }
-  # some standard stuff plus extras become for formals for our function
-  formals_for_res <-
-    c(
-      list(object = NULL, gformula = NULL, data = NULL),
-      extras[setdiff(extra_names, c("xlab", "ylab", "title", "subtitle", "caption"))],
-      if (is.null(extras[["xlab"]])) {
-        alist(xlab = )
-      } else {
-        list(xlab = extras[["xlab"]])
-      },
-      if (is.null(extras[["ylab"]])) {
-        alist(ylab = )
-      } else {
-        list(ylab = extras[["ylab"]])
-      },
-      if (is.null(extras[["title"]])) {
-        alist(title = )
-      } else {
-        list(title = extras[["title"]])
-      },
-      if (is.null(extras[["subtitle"]])) {
-        alist(subtitle = )
-      } else {
-        list(subtitle = extras[["subtitle"]])
-      },
-      if (is.null(extras[["caption"]])) {
-        alist(caption = )
-      } else {
-        list(caption = extras[["caption"]])
-      },
-      list(
-        geom = geom, stat = stat, position = position,
-        show.legend = NA,
-        show.help = NULL,
-        inherit = inherit.aes,
-        environment = quote(parent.frame())
-      ),
-      alist(... = )
-    )
+  formals(res) <-
+    create_formals(
+      extras, layer_fun = layer_fun, geom = geom, stat = stat,
+      position = position, inherit.aes = inherit.aes)
 
-  # remove arguments from resulting function that layer_fun doesn't use.
-  # this is here to avoid unused arguments in gf_abline(), gf_hline(), and gf_vline()
-  for (f in c("geom", "stat", "position")) {
-    if (!f %in% names(formals(layer_fun))) {
-      formals_for_res[[f]] <- NULL
-    }
-  }
-
-  formals(res) <- formals_for_res
   assign("inherit.aes", inherit.aes, environment(res))
   assign("check.aes", check.aes, environment(res))
   assign("pre", pre, environment(res))
@@ -406,6 +337,60 @@ grab_formals <- function(f, type = "stat") {
     return(list())
   }
 }
+
+create_formals <-
+  function(extras = list(), layer_fun,
+           geom, stat, position, inherit.aes = TRUE)
+  {
+    res <-
+      c(
+        list(object = NULL, gformula = NULL, data = NULL),
+        extras[setdiff(names(extras),
+                       c("xlab", "ylab", "title", "subtitle", "caption"))],
+        if (is.null(extras[["xlab"]])) {
+          alist(xlab = )
+        } else {
+          list(xlab = extras[["xlab"]])
+        },
+        if (is.null(extras[["ylab"]])) {
+          alist(ylab = )
+        } else {
+          list(ylab = extras[["ylab"]])
+        },
+        if (is.null(extras[["title"]])) {
+          alist(title = )
+        } else {
+          list(title = extras[["title"]])
+        },
+        if (is.null(extras[["subtitle"]])) {
+          alist(subtitle = )
+        } else {
+          list(subtitle = extras[["subtitle"]])
+        },
+        if (is.null(extras[["caption"]])) {
+          alist(caption = )
+        } else {
+          list(caption = extras[["caption"]])
+        },
+        list(
+          geom = geom, stat = stat, position = position,
+          show.legend = NA,
+          show.help = NULL,
+          inherit = inherit.aes,
+          environment = quote(parent.frame())
+        ),
+        alist(... = )
+      )
+
+    # remove arguments from resulting function that layer_fun doesn't use.
+    # this is here to avoid unused arguments in gf_abline(), gf_hline(), and gf_vline()
+    for (f in c("geom", "stat", "position")) {
+      if (!f %in% names(formals(layer_fun))) {
+        res[[f]] <- NULL
+      }
+    }
+    res
+  }
 
 create_extras_and_dots <-
   function(args, formals, stat_formals = list(), geom_formals = list(),
