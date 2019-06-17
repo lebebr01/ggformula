@@ -71,12 +71,9 @@ layer_factory <- function(
                           data = NULL,
                           layer_fun = ggplot2::layer) {
 
-
-  # do any preprosessing required
   pre <- substitute(pre)
 
   extra_names <- names(extras)
-
 
   if (!is.logical(inherit.aes)) {
     inherited.aes <- inherit.aes
@@ -92,17 +89,17 @@ layer_factory <- function(
                  show.legend, function_name, inherit,
                  environment = parent.frame(),
                  ...) {
-      eval(pre)
       dots <- list(...)
       function_name <- as.character(match.call()[1])
+      orig_args <- as.list(match.call())[-1]
+
+      eval(pre)
 
       # make sure we have a list of formulas here
       if (!is.list(aes_form)) aes_form <- list(aes_form)
 
       # show help if requested or if there are no arguments to the function
-      if (is.null(show.help)) {
-        show.help <- length(match.call()) < 2
-      }
+      if (is.null(show.help)) { show.help <- length(orig_args) < 1 }
 
       if (show.help) {
         emit_help(
@@ -149,52 +146,14 @@ layer_factory <- function(
 
       # grab formals for geom and stat
 
-      if (is.character(stat) && !grepl("^stat_", stat)) {
-        stat_formals <- formals(paste0("stat_", stat))
-      } else if (is.function(stat)) {
-        stat_formals <- formals(stat)
-      } else {
-        stat_formals <- list()
-      }
+      stat_formals <- grab_formals(stat, "stat")
+      geom_formals <- grab_formals(geom, "geom")
 
-      if (is.character(geom) && !grepl("^geom_", geom)) {
-        geom_formals <- formals(paste0("geom_", geom))
-      } else if (is.function(geom)) {
-        geom_formals <- formals(geom)
-      } else {
-        geom_formals <- list()
-      }
-
-      extras_and_dots <- modifyList(formals(), as.list(match.call())[-1])
-      # remove missing -- is there a better way to determine missing?
       extras_and_dots <-
-        extras_and_dots[!sapply(
-          extras_and_dots,
-          function(x) is.symbol(x) && identical(as.character(x), "")
-        )]
-      # remove args not used by stat or geom and not in extras
-      for (n in setdiff(
-        names(formals()),
-        union(
-          union(
-            stat_formals,
-            geom_formals
-          ),
-          names(extras)
-        )
-      )
-      ) {
-        extras_and_dots[[n]] <- NULL
-      }
-
-      # evaluate any items that are names or still calls
-      extras_and_dots <-
-        lapply(extras_and_dots, function(x) {
-          if (is.symbol(x) || is.call(x)) eval(x, environment) else x
-        })
-      #
-      ########### end create extras_and_dots ##########
-
+        create_extras_and_dots(
+          args = orig_args, formals = formals(),
+          stat_formals = stat_formals, geom_formals = geom_formals,
+          extras = extras, env = environment)
 
       # turn character position into a position object using any available arguments
       if (is.character(position)) {
@@ -203,8 +162,6 @@ layer_factory <- function(
           extras_and_dots[intersect(names(extras_and_dots), names(formals(position_fun)))]
         position <- do.call(position_fun, pdots)
       }
-
-
       # look for arguments of the form argument = ~ something and turn them
       # into aesthetics
       if (length(extras_and_dots) > 0) {
@@ -244,9 +201,7 @@ layer_factory <- function(
       }
 
       # remove aesthetics to ignore
-      for (a in aes_ignore) {
-        aesthetics[[a]] <- NULL
-      }
+      aesthetics[aes_ignore] <- NULL
 
       ingredients <-
         gf_ingredients(
@@ -260,6 +215,11 @@ layer_factory <- function(
 
       # layer has a params argument, geoms and stats do not
 
+      # geom_and_stat_args <-
+      #   unique(union(
+      #     get_args(geom, "geom", environment),
+      #     get_args(stat, "stat", environment)))
+
       if ("params" %in% names(formals(layer_fun))) {
         layer_args <-
           list(
@@ -267,7 +227,7 @@ layer_factory <- function(
             data = ingredients[["data"]],
             mapping = ingredients[["mapping"]],
             position = position,
-            params = ingredients[["params"]],
+            params = remove_from_list(ingredients[["params"]], "inherit"),
             check.aes = check.aes, check.param = FALSE,
             show.legend = show.legend,
             inherit.aes = inherit
@@ -285,7 +245,7 @@ layer_factory <- function(
               # inherit.aes = inherit
             ),
             # these become regular arguments for other layer functions
-            ingredients[["params"]]
+            remove_from_list(ingredients[["params"]], "inherit")
           )
       }
       # =======
@@ -297,9 +257,10 @@ layer_factory <- function(
 
       # If no ..., be sure to remove things not in the formals list
       if (!"..." %in% names(formals(layer_fun))) {
-        for (i in setdiff(names(layer_args), names(formals(layer_fun)))) {
-          layer_args[[i]] <- NULL
-        }
+        layer_args <- cull_list(layer_args, names(formals(layer_fun)))
+        # for (i in setdiff(names(layer_args), names(formals(layer_fun)))) {
+        #   layer_args[[i]] <- NULL
+        # }
       }
 
       # remove additional arguments that layer_fun doesn't use, even if we have ...
@@ -434,6 +395,53 @@ add_aes <- function(mapping, new) {
   res
 }
 
+# grab formuls from a stat or geom (or similar)
+
+grab_formals <- function(f, type = "stat") {
+  if (is.character(f) && !grepl(paste0("^", type), f)) {
+    return(formals(paste0(type, "_", f)))
+  } else if (is.function(f)) {
+    return(formals(f))
+  } else {
+    return(list())
+  }
+}
+
+create_extras_and_dots <-
+  function(args, formals, stat_formals = list(), geom_formals = list(),
+           extras = list(), env) {
+    extras_and_dots <- modifyList(formals, args)
+    # to avoid object = formula becoming an aesthetic
+    extras_and_dots[["object"]] <- NULL
+    # remove missing -- is there a better way to determine missing?
+    extras_and_dots <-
+      extras_and_dots[!sapply(
+        extras_and_dots,
+        function(x) is.symbol(x) && identical(as.character(x), "")
+      )]
+    # remove args not used by stat or geom and not in extras
+    for (n in setdiff(
+      names(formals),
+      union(
+        union(
+          stat_formals,
+          geom_formals
+        ),
+        names(extras)
+      )
+    )
+    ) {
+      extras_and_dots[[n]] <- NULL
+    }
+
+    # evaluate any items that are names or still calls
+    extras_and_dots <-
+      lapply(extras_and_dots, function(x) {
+        if (is.symbol(x) || is.call(x)) eval(x, env) else x
+      })
+    extras_and_dots
+  }
+
 # Find first matching formula shape.
 # Emit error message when no good matches.
 
@@ -443,7 +451,7 @@ first_matching_formula <-
 
     if (!any(fmatches)) {
       if (inherits(object, "gg") && (inherit || length(inherited.aes) > 0)) {
-        retunr(NULL)
+        return(NULL)
       } else {
         stop("Invalid formula type for ", function_name, ".", call. = FALSE)
       }
