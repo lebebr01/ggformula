@@ -286,6 +286,7 @@ layer_factory <-
             ingredients[["facet"]]
         }
       }
+
       if (have_arg("ylab")) {
         p <- p + ggplot2::ylab(ylab)
       }
