@@ -590,7 +590,8 @@ gf_text <-
     position = "nudge",
     pre = {
       if (nudge_x != 0 || nudge_y != 0) {
-        position <- position_nudge(nudge_x, nudge_y)
+        orig_args[["position"]] <- position_nudge(nudge_x, nudge_y)
+        orig_args[c("nudge_x", "nudge_y")] <- NULL
       }
     },
     extras = alist(
@@ -618,13 +619,15 @@ gf_text <-
 #' }
 gf_label <-
   layer_factory(
+    stat = "identity",
     geom = "label",
     position = "nudge",
     pre = {
-      if (nudge_x != 0 || nudge_y != 0) {
+      if ((nudge_x != 0) || (nudge_y != 0)) {
         position <- position_nudge(nudge_x, nudge_y)
       }
     },
+    # remove_args = c("nudge_x", "nudge_y"),
     layer_fun = ggplot2::geom_label,
     extras = alist(
       label =, alpha = , angle = , color = ,
@@ -1379,8 +1382,9 @@ gf_rug <-
 gf_rugx <-
   layer_factory(
     geom = "rug",
-    aes_form = list(~x, NULL),
-    inherit.aes = FALSE,
+    aes_form = list( ~ x, y ~ x, NULL),
+    aes_ignore = "y",
+    check.aes = FALSE,
     extras = alist(sides = "b", alpha = , color = , group = , linetype = , size = )
   )
 
@@ -1702,6 +1706,7 @@ gf_errorbar <-
     geom = "errorbar",
     aes_form = ymin + ymax ~ x,
     inherit.aes = TRUE, # changed from FALSE to TRUE after aesthetic renaming in ggplot2
+    check.aes = FALSE,
     extras = alist(
       alpha = , color = , group = , linetype = , size =
       )
