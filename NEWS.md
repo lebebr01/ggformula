@@ -1,5 +1,5 @@
 
-# ggformula 0.9.2
+# ggformula 0.9.1.9001 (to be released as 0.9.2)
 
  * Evaluation environments are now handled more stably.  Instead of using the environment
  of the formula, the `environment` argument is used.  After some delay, this completes
