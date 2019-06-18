@@ -17,3 +17,5 @@ cran-comments.md
 # test-layer-factory.R
 # ^tests/figs$
 ^codecov\.yml$
+^_pkgdown\.yml$
+^pkgdown$
