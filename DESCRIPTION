@@ -2,7 +2,7 @@ Package: ggformula
 Title: Formula Interface to the Grammar of Graphics
 Description: Provides a formula interface to 'ggplot2' graphics.
 Type: Package
-Version: 0.9.1.9000
+Version: 0.9.1.9001
 Authors@R: c(
     person("Daniel", "Kaplan", email = "kaplan@macalester.edu", role = c("aut")),
     person("Randall", "Pruim", email = "rpruim@calvin.edu", role = c("aut","cre"))
@@ -49,3 +49,17 @@ Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 URL: https://github.com/ProjectMOSAIC/ggformula
 BugReports: https://github.com/ProjectMOSAIC/ggformula/issues
+Collate: 
+    'MIpop-doc.R'
+    'formula2aes.R'
+    'gf_aux.R'
+    'gf_dist.R'
+    'gf_function2d.R'
+    'gf_function_helpers.R'
+    'gf_functions.R'
+    'ggstance.R'
+    'ggstrings.R'
+    'newplots.R'
+    'reexports.R'
+    'utils.R'
+    'zzz.R'
