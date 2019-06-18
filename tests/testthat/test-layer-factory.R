@@ -162,8 +162,8 @@ test_that(
       "gf_boxplot2",
       # move boxplots away a bit by adjusting dodge
       gf_boxplot(age ~ substance,
-        data = mosaicData::HELPrct, color = ~sex,
-        position = position_dodge(width = 0.9)
+                 data = mosaicData::HELPrct, color = ~sex,
+                 position = position_dodge(width = 0.9)
       )
     )
     vdiffr::expect_doppelganger(
@@ -201,18 +201,18 @@ test_that(
     vdiffr::expect_doppelganger(
       "gf_contour2",
       gf_jitter(avg_drinks ~ age,
-        data = mosaicData::HELPrct,
-        seed = 123,
-        color = ~sex, alpha = 0.2, width = 0.4, height = 0.4
+                data = mosaicData::HELPrct,
+                seed = 123,
+                color = ~sex, alpha = 0.2, width = 0.4, height = 0.4
       ) %>%
         gf_density_2d()
     )
     vdiffr::expect_doppelganger(
       "gf_contour3",
       gf_jitter(avg_drinks ~ age,
-        data = mosaicData::HELPrct,
-        seed = 123,
-        color = ~sex, alpha = 0.2, width = 0.4, height = 0.4
+                data = mosaicData::HELPrct,
+                seed = 123,
+                color = ~sex, alpha = 0.2, width = 0.4, height = 0.4
       ) %>%
         gf_density2d()
     )
@@ -282,8 +282,8 @@ test_that(
     vdiffr::expect_doppelganger(
       "gf_pointrange2",
       gf_jitter(age ~ substance,
-        data = mosaicData::HELPrct, seed = 123,
-        alpha = 0.5, width = 0.2, height = 0, color = "skyblue"
+                data = mosaicData::HELPrct, seed = 123,
+                alpha = 0.5, width = 0.2, height = 0, color = "skyblue"
       ) %>%
         gf_pointrange(mean.age + lo + hi ~ substance, data = HELP2) %>%
         gf_facet_grid(~sex)
@@ -291,8 +291,8 @@ test_that(
     vdiffr::expect_doppelganger(
       "gf_errorbar1",
       gf_jitter(age ~ substance,
-        data = mosaicData::HELPrct, seed = 123,
-        alpha = 0.5, width = 0.2, height = 0, color = "skyblue"
+                data = mosaicData::HELPrct, seed = 123,
+                alpha = 0.5, width = 0.2, height = 0, color = "skyblue"
       ) %>%
         gf_errorbar(lo + hi ~ substance, data = HELP2, inherit = FALSE) %>%
         gf_facet_grid(~sex)
@@ -300,8 +300,8 @@ test_that(
     vdiffr::expect_doppelganger(
       "gf_crossbar1",
       gf_jitter(age ~ substance,
-        data = mosaicData::HELPrct, seed = 123,
-        alpha = 0.5, width = 0.2, height = 0, color = "skyblue"
+                data = mosaicData::HELPrct, seed = 123,
+                alpha = 0.5, width = 0.2, height = 0, color = "skyblue"
       ) %>%
         gf_boxplot(age ~ substance, data = mosaicData::HELPrct, color = "red") %>%
         gf_crossbar(mean.age + lo + hi ~ substance, data = HELP2) %>%
@@ -327,8 +327,8 @@ test_that(
     vdiffr::expect_doppelganger(
       "gf_pointrangeh1",
       gf_jitter(substance ~ age,
-        data = mosaicData::HELPrct, seed = 123,
-        alpha = 0.5, height = 0.2, width = 0, color = "skyblue"
+                data = mosaicData::HELPrct, seed = 123,
+                alpha = 0.5, height = 0.2, width = 0, color = "skyblue"
       ) %>%
         gf_pointrangeh(substance ~ mean.age + lo + hi, data = HELP2) %>%
         gf_facet_grid(sex ~ .)
@@ -336,8 +336,8 @@ test_that(
     vdiffr::expect_doppelganger(
       "gf_errorbarh1",
       gf_jitter(substance ~ age,
-        data = mosaicData::HELPrct, seed = 123,
-        alpha = 0.5, height = 0.2, width = 0, color = "skyblue"
+                data = mosaicData::HELPrct, seed = 123,
+                alpha = 0.5, height = 0.2, width = 0, color = "skyblue"
       ) %>%
         gf_errorbarh(substance ~ lo + hi, data = HELP2, inherit = FALSE) %>%
         gf_facet_grid(sex ~ .)
@@ -345,8 +345,8 @@ test_that(
     vdiffr::expect_doppelganger(
       "gf_crossbarh1",
       gf_jitter(substance ~ age,
-        data = mosaicData::HELPrct, seed = 123,
-        alpha = 0.5, height = 0.2, width = 0, color = "skyblue"
+                data = mosaicData::HELPrct, seed = 123,
+                alpha = 0.5, height = 0.2, width = 0, color = "skyblue"
       ) %>%
         gf_crossbarh(substance ~ mean.age + lo + hi, data = HELP2) %>%
         gf_facet_grid(sex ~ .)
@@ -427,8 +427,8 @@ test_that(
     vdiffr::expect_doppelganger(
       "gf_dotplot2",
       gf_dotplot(~Sepal.Length,
-        fill = ~Species, data = iris,
-        binwidth = 0.2, method = "histodot"
+                 fill = ~Species, data = iris,
+                 binwidth = 0.2, method = "histodot"
       ) %>%
         gf_labs(title = "histodot")
     )
@@ -469,8 +469,8 @@ test_that(
       "gf_fitdistr1",
       gf_fitdistr(~length, data = mosaicData::KidsFeet, inherit = FALSE) %>%
         gf_dhistogram(~length,
-          data = mosaicData::KidsFeet, binwidth = 0.5,
-          alpha = 0.25
+                      data = mosaicData::KidsFeet, binwidth = 0.5,
+                      alpha = 0.25
         )
     )
     vdiffr::expect_doppelganger(
@@ -490,8 +490,8 @@ test_that(
     vdiffr::expect_doppelganger(
       "gf_freqpoly2",
       gf_freqpoly(~Sepal.Length,
-        color = ~Species, data = iris,
-        binwidth = 0.5
+                  color = ~Species, data = iris,
+                  binwidth = 0.5
       )
     )
   }
@@ -558,8 +558,8 @@ test_that(
       "gf_hex1",
       gf_hex(avg_drinks ~ age, data = mosaicData::HELPrct, bins = 15) %>%
         gf_density2d(avg_drinks ~ age,
-          data = mosaicData::HELPrct,
-          color = "yellow", alpha = 0.5
+                     data = mosaicData::HELPrct,
+                     color = "yellow", alpha = 0.5
         )
     )
   }
@@ -576,8 +576,8 @@ test_that(
     vdiffr::expect_doppelganger(
       "gf_histogram2",
       gf_histogram(~ Sepal.Length | Species ~ .,
-        fill = ~Species, data = iris, alpha = 0.5,
-        binwidth = 0.25
+                   fill = ~Species, data = iris, alpha = 0.5,
+                   binwidth = 0.25
       )
     )
     vdiffr::expect_doppelganger(
@@ -638,7 +638,7 @@ test_that(
     vdiffr::expect_doppelganger(
       "gf_linerange1",
       gf_linerange(low_temp + high_temp ~ date,
-        data = mosaicData::Weather, color = ~avg_temp
+                   data = mosaicData::Weather, color = ~avg_temp
       ) %>%
         gf_facet_grid(city ~ year, scale = "free") %>%
         gf_refine(scale_color_viridis_c(option = "C", begin = 0.1, end = 0.8))
@@ -646,8 +646,8 @@ test_that(
     vdiffr::expect_doppelganger(
       "gf_pointrange1",
       gf_pointrange(avg_temp + low_temp + high_temp ~ date,
-        data = mosaicData::Weather %>% head(200),
-        color = ~avg_temp
+                    data = mosaicData::Weather %>% head(200),
+                    color = ~avg_temp
       ) %>%
         gf_facet_grid(city ~ year, scale = "free") %>%
         gf_refine(scale_color_viridis_c(option = "C", begin = 0.1, end = 0.8))
@@ -744,6 +744,68 @@ test_that(
       "gf_spoke2",
       gf_point(y ~ x, data = SomeData) %>%
         gf_spoke(y ~ x, angle = ~angle, radius = ~speed)
+    )
+  }
+)
+
+test_that(
+  "gf_rug(), etc.", {
+    set.seed(1234)
+    vdiffr::expect_doppelganger(
+      "gf_rugx()/gf_rug_y() #1",
+      gf_point(Sepal.Length ~ Sepal.Width, data = iris) %>%
+        gf_rugx(~Sepal.Width, data = iris, color = "red") %>%
+        gf_rugy(Sepal.Length ~ ., data = iris, color = "green")
+    )
+    vdiffr::expect_doppelganger(
+      "gf_rug() #1",
+      gf_point(Sepal.Length ~ Sepal.Width, data = iris) %>%
+        gf_rug(. ~ Sepal.Width, data = iris, color = "red", inherit = FALSE) %>%
+        gf_rug(Sepal.Length ~ ., data = iris, color = "green", inherit = FALSE)
+    )
+    vdiffr::expect_doppelganger(
+      "gf_rug() #2",
+      gf_point(Sepal.Length ~ Sepal.Width, data = iris) %>%
+        gf_rug(. ~ Sepal.Width, data = iris, color = "red", sides = "b") %>%
+        gf_rug(Sepal.Length ~ ., data = iris, color = "green", sides = "l")
+    )
+    # jitter requires both an x and a y, but we can turn off one or the other with sides
+    vdiffr::expect_doppelganger(
+      "gf_rug() #3",
+      gf_jitter(Sepal.Length ~ Sepal.Width, data = iris) %>%
+        gf_rug(color = "green", sides = "b", position = "jitter")
+    )
+    # rugs work with some 1-varialbe plots as well.
+    vdiffr::expect_doppelganger(
+      "gf_rug #4",
+      gf_histogram(~eruptions, data = faithful) %>%
+        gf_rug(~eruptions, data = faithful, color = "red") %>%
+        gf_rug(~eruptions, data = faithful, color = "navy", sides = "t")
+    )
+    # we can take advantage of inheritance to shorten the code
+    vdiffr::expect_doppelganger(
+      "gf_rug #5",
+      gf_histogram(~eruptions, data = faithful) %>%
+        gf_rug(color = "red") %>%
+        gf_rug(color = "navy", sides = "t")
+    )
+    # Need to turn off inheritance when using gf_dhistogram:
+    vdiffr::expect_doppelganger(
+      "gf_rug() #6",
+      gf_dhistogram(~eruptions, data = faithful) %>%
+        gf_rug(~eruptions, data = faithful, color = "red", inherit = FALSE)
+    )
+    # using jitter with gf_histogram() requires manually setting the y value.
+    vdiffr::expect_doppelganger(
+      "gf_rug() #7",
+      gf_dhistogram(~Sepal.Width, data = iris) %>%
+        gf_rug(0 ~ Sepal.Width, data = iris, color = "green", sides = "b", position = "jitter")
+    )
+    # the choice of y value can affect how the plot looks.
+    vdiffr::expect_doppelganger(
+      "gf_rug() #8",
+      gf_dhistogram(~Sepal.Width, data = iris) %>%
+        gf_rug(0.5 ~ Sepal.Width, data = iris, color = "green", sides = "b", position = "jitter")
     )
   }
 )
