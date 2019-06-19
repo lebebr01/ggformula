@@ -32,7 +32,8 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{alpha}{Opacity (0 = invisible, 1 = opaque).}
 
@@ -58,8 +59,8 @@ of the number of values with the given combination of \code{x} and \code{y} valu
 
 \item{formula}{formula relating y variables to x variables}
 
-\item{method}{Quantile regression method to use.  Currently only supports
-\code{\link[quantreg:rq]{quantreg::rq()}}.}
+\item{method}{Quantile regression method to use. Available options are \code{"rq"} (for
+\code{\link[quantreg:rq]{quantreg::rq()}}) and \code{"rqss"} (for \code{\link[quantreg:rqss]{quantreg::rqss()}}).}
 
 \item{method.args}{List of additional arguments passed on to the modelling
 function defined by \code{method}.}
