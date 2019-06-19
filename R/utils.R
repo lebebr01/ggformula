@@ -1,5 +1,34 @@
 ## Functions not exported from ggplot2
 
+# describe object x
+obj_desc <-
+  function (x)
+  {
+    if (isS4(x)) {
+      paste0("an S4 object with class ", class(x)[[1]])
+    }
+    else if (is.object(x)) {
+      if (is.data.frame(x)) {
+        "a data frame"
+      }
+      else if (is.factor(x)) {
+        "a factor"
+      }
+      else {
+        paste0("an S3 object with class ", paste(class(x),
+                                                 collapse = "/"))
+      }
+    }
+    else {
+      switch(typeof(x), `NULL` = "a NULL", character = "a character vector",
+             integer = "an integer vector", logical = "a logical vector",
+             double = "a numeric vector", list = "a list", closure = "a function",
+             paste0("a base object of type", typeof(x)))
+    }
+  }
+
+# modified to add search in ggformula namespace
+
 find_global <-
   function (name, env, mode = "any")
   {
