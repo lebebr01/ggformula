@@ -61,5 +61,6 @@ Collate:
     'ggstrings.R'
     'newplots.R'
     'reexports.R'
+    'scales.R'
     'utils.R'
     'zzz.R'
