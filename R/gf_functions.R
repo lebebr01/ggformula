@@ -1377,13 +1377,21 @@ gf_rug <-
 
 #' @rdname gf_rug
 #' @export
+#' @importFrom rlang %||%
 gf_rugx <-
   layer_factory(
     geom = "rug",
     aes_form = list( ~ x, y ~ x, NULL),
-    aes_ignore = "y",
     check.aes = FALSE,
-    extras = alist(sides = "b", alpha = , color = , group = , linetype = , size = )
+    extras = alist(sides = "b", alpha = , color = , group = , linetype = , size = ,
+                   height = 0, y = NULL),
+    pre = {
+      if (inherits(object, "gg")) {
+        if (uses_stat(object$mapping$y)) {
+          orig_args[["y"]] <- orig_args[["y"]] %||% ~ 0
+        }
+      }
+    }
   )
 
 #' @rdname gf_rug
@@ -1392,8 +1400,15 @@ gf_rugy <-
   layer_factory(
     geom = "rug",
     aes_form = list(~y, y ~ ., NULL),
-    inherit.aes = FALSE,
-    extras = alist(sides = "l", alpha = , color = , group = , linetype = , size = )
+    extras = alist(sides = "l", alpha = , color = , group = , linetype = , size = ,
+                   width = 0, x = NULL),
+    pre = {
+      if (inherits(object, "gg")) {
+        if (uses_stat(object$mapping$x)) {
+          orig_args[["x"]] <- orig_args[["x"]] %||% ~ 0
+        }
+      }
+    }
   )
 
 #' Formula interface to geom_contour()
@@ -1772,13 +1787,18 @@ gf_rect <-
 #'   gf_abline(slope = ~0, intercept = ~median_wt, color = ~cyl, data = mtcars2)
 #'
 #' gf_point(wt ~ hp, size = ~wt, color = ~cyl, data = mtcars) %>%
-#'   gf_abline(slope = 0, intercept = 3, color = "green", data = NA)
+#'   gf_abline(slope = 0, intercept = 3, color = "green")
+#'
+#' # avoid warnings by using formulas:
+#'
+#' gf_point(wt ~ hp, size = ~wt, color = ~cyl, data = mtcars) %>%
+#'   gf_abline(slope = ~0, intercept = ~3, color = "green")
 #'
 #' gf_point(wt ~ hp, size = ~wt, color = ~cyl, data = mtcars) %>%
 #'   gf_hline(yintercept = ~median_wt, color = ~cyl, data = mtcars2)
 #'
 #' gf_point(mpg ~ hp, color = ~cyl, size = ~wt, data = mtcars) %>%
-#'   gf_abline(color = "red", slope = -0.10, intercept = 35)
+#'   gf_abline(color = "red", slope = ~ - 0.10, intercept = ~ 35)
 #'
 #' gf_point(mpg ~ hp, color = ~cyl, size = ~wt, data = mtcars) %>%
 #'   gf_abline(
@@ -1787,9 +1807,9 @@ gf_rect <-
 #'   )
 #'
 #' # We can set the color of the guidelines while mapping color in other layers
-#' gf_point(mpg ~ hp, color = ~cyl, size = ~wt, data = mtcars) %>%
-#'   gf_hline(color = "navy", yintercept = c(20, 25), data = NA) %>%
-#'   gf_vline(color = "brown", xintercept = c(200, 300), data = NA)
+#' gf_point(mpg ~ hp, color = ~cyl, size = ~ wt, data = mtcars) %>%
+#'   gf_hline(color = "navy", yintercept = ~ c(20, 25), data = NA) %>%
+#'   gf_vline(color = "brown", xintercept = ~ c(200, 300), data = NA)
 #'
 #' # If we want to map the color of the guidelines, it must work with the
 #' # scale of the other colors in the plot.
@@ -1798,15 +1818,16 @@ gf_rect <-
 #'   gf_vline(color = ~"vertical", xintercept = ~ c(100, 200, 300), data = NA)
 #'
 #' gf_point(mpg ~ hp, size = ~wt, color = ~ factor(cyl), data = mtcars, alpha = 0.3) %>%
-#'   gf_hline(color = "orange", yintercept = 20, data = NA) %>%
+#'   gf_hline(color = "orange", yintercept = ~ 20) %>%
 #'   gf_vline(color = ~ c("4", "6", "8"), xintercept = ~ c(80, 120, 250), data = NA)
 #'
 #' gf_point(mpg ~ hp, size = ~wt, color = ~ factor(cyl), data = mtcars, alpha = 0.3) %>%
-#'   gf_hline(color = "orange", yintercept = 20, data = NA) %>%
-#'   gf_vline(color = c("green", "red", "blue"), xintercept = c(80, 120, 250), data = NA)
+#'   gf_hline(color = "orange", yintercept = ~ 20) %>%
+#'   gf_vline(color = c("green", "red", "blue"), xintercept = ~ c(80, 120, 250),
+#'     data = NA)
 #'
 #' # reversing the layers requires using inherit = FALSE
-#' gf_hline(color = "orange", yintercept = 20, data = NA) %>%
+#' gf_hline(color = "orange", yintercept = ~ 20) %>%
 #'   gf_vline(color = ~ c("4", "6", "8"), xintercept = ~ c(80, 120, 250), data = NA) %>%
 #'   gf_point(mpg ~ hp,
 #'     size = ~wt, color = ~ factor(cyl), data = mtcars, alpha = 0.3,
@@ -1856,7 +1877,8 @@ gf_coefline <- function(object = NULL, coef = NULL, model = NULL, ...) {
   if (is.null(coef)) coef <- coef(model)
   if (length(coef) > 2) warning("Ignoring all but first two values of coef.")
   if (length(coef) < 2) stop("coef must be of length at least 2.")
-  gf_abline(object = object, intercept = coef[1], slope = coef[2], ..., inherit = FALSE)
+  gf_abline(object = object, intercept = ~ coef[1], slope = ~ coef[2], ...,
+            inherit = TRUE)
 }
 
 utils::globalVariables(c("x"))
