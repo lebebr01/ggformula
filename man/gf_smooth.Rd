@@ -5,19 +5,18 @@
 \alias{gf_lm}
 \title{Formula interface to geom_smooth()}
 \usage{
-gf_smooth(object = NULL, gformula = NULL, data = NULL,
+gf_smooth(object = NULL, gformula = NULL, data = NULL, ...,
   method = "auto", formula = y ~ x, se = FALSE, method.args,
   n = 80, span = 0.75, fullrange = FALSE, level = 0.95, xlab, ylab,
   title, subtitle, caption, geom = "smooth", stat = "smooth",
   position = "identity", show.legend = NA, show.help = NULL,
-  inherit = TRUE, environment = parent.frame(), ...)
+  inherit = TRUE, environment = parent.frame())
 
-gf_lm(object = NULL, gformula = NULL, data = NULL, alpha = 0.3,
-  lm.args = list(), interval = "none", level = 0.95,
+gf_lm(object = NULL, gformula = NULL, data = NULL, ...,
+  alpha = 0.3, lm.args = list(), interval = "none", level = 0.95,
   fullrange = TRUE, xlab, ylab, title, subtitle, caption, geom = "lm",
   stat = "lm", position = "identity", show.legend = NA,
-  show.help = NULL, inherit = TRUE, environment = parent.frame(),
-  ...)
+  show.help = NULL, inherit = TRUE, environment = parent.frame())
 }
 \arguments{
 \item{object}{When chaining, this holds an object produced in the earlier portions
@@ -28,6 +27,11 @@ See details and examples.}
 Faceting can be achieved by including \code{|} in the formula.}
 
 \item{data}{A data frame with the variables to be plotted.}
+
+\item{...}{Additional arguments.  Typically these are
+(a) ggplot2 aesthetics to be set with \code{attribute = value},
+(b) ggplot2 aesthetics to be mapped with \code{attribute = ~ expression}, or
+(c) attributes of the layer as a whole, which are set with \code{attribute = value}.}
 
 \item{method}{Smoothing method (function) to use, accepts either a character vector,
 e.g. \code{"auto"}, \code{"lm"}, \code{"glm"}, \code{"gam"}, \code{"loess"} or a function, e.g.
@@ -93,11 +97,6 @@ of the attributes of the layer are mapped.}
 \item{inherit}{A logical indicating whether default attributes are inherited.}
 
 \item{environment}{An environment in which to look for variables not found in \code{data}.}
-
-\item{...}{Additional arguments.  Typically these are
-(a) ggplot2 aesthetics to be set with \code{attribute = value},
-(b) ggplot2 aesthetics to be mapped with \code{attribute = ~ expression}, or
-(c) attributes of the layer as a whole, which are set with \code{attribute = value}.}
 
 \item{alpha}{Opacity (0 = invisible, 1 = opaque).}
 
