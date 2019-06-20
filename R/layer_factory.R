@@ -11,10 +11,10 @@ utils::globalVariables("role")
 NA
 
 
-one_upto <- function(n) {
-  if (n > 0) 1:n else integer(0)
-}
-
+# modify environments of aesthetics in a mapping
+#' @param mapping an aesthetic mapping
+#' @param environment an environment to use for aesthetics that have environments.
+#'
 aes_env <- function(mapping, envir) {
   for (i in one_upto(length(mapping))) {
     if (!is.null(environment(mapping[[i]]))) {
@@ -23,6 +23,15 @@ aes_env <- function(mapping, envir) {
   }
   mapping
 }
+
+# check if an aesthetic uses stat()
+#' @param aes an item in an aesthetic mapping
+#' @return a logical indicating whether the aethetic is of the form `stat( ... )`.
+uses_stat <- function(aes) {
+  e <- rlang::get_expr(aes)
+  length(e) > 1 && e[[1]] == as.name("stat")
+}
+
 
 #' Create a ggformula layer function
 #'
@@ -905,52 +914,5 @@ formula_to_aesthetics <- function(formula,
   df_to_aesthetics(df, data_names = data_names, prefix = prefix)
 }
 
-# pull out the pairs from a formula like color::red + alpha:0.5
-# return them as a named list
-pairs_in_formula <- function(formula) {
-  fc <- as.character(formula)
-  parts <- unlist(strsplit(fc, "+", fixed = TRUE))
-  # trim leading and trailing blanks
-  parts <- gsub("^\\s+|\\s+$", "", parts)
-  # identify the pairs
-  pairs <- parts[grep(":+", parts)]
-  xy <- parts[ !grepl(":", parts)][-1] # logic for x:, y: explicit
-  res <- list()
-  for (pair in pairs) {
-    this_pair <- stringr::str_split(pair, ":+", n = 2)
-    res[this_pair[1] ] <- this_pair[2]
-  }
-  # more logic for x:, y: explicit.
-  stop("Haven't yet updated logic in frame_string. See comment.")
-  # BUT ... not yet replaced explicit "x" and "y" arguments in
-  # frame_string()
-  if (length(xy) == 2) {
-    if ("y" %in% names(res)) {
-      warning("duplicate specification of y aesthetic")
-    } else {
-      res["y"] <- xy[1]
-    }
-
-    if ("x" %in% names(res)) {
-      warning("duplicate specification of x aesthetic")
-    } else {
-      res["x"] <- xy[2]
-    }
-  } else if (length(xy) == 1) {
-    if ("y" %in% names(res)) {
-      if ("x" %in% names(res)) {
-        warning("duplicate specification of x aesthetic")
-      } else {
-        res["x"] <- xy
-      }
-    } else if ("x" %in% names(res)) {
-      if ("y" %in% names(res)) {
-        warning("duplicate specification of y aesthetic")
-      } else {
-        res["y"] <- xy
-      }
-    }
-  }
-
-  res
-}
+# pairs_in_formula() was here.  but we don't use formulas that way anymore,
+# so it has been removed.
