@@ -1,7 +1,7 @@
 utils::globalVariables("role")
 
 #' @importFrom utils head tail
-#' @importFrom tibble data_frame
+#' @importFrom tibble tibble
 #' @importFrom stringr str_split str_match
 #' @importFrom stats as.formula
 #' @importFrom utils modifyList
@@ -149,13 +149,11 @@ layer_factory <-
 
       stat_formals <- grab_formals(stat, "stat")
       geom_formals <- grab_formals(geom, "geom")
-
       extras_and_dots <-
         create_extras_and_dots(
           args = orig_args, formals = formals(),
           stat_formals = stat_formals, geom_formals = geom_formals,
           extras = extras, env = environment)
-
       # turn character position into a position object using any available arguments
       if (is.character(position)) {
         position_fun <- paste0("position_", position)
@@ -164,17 +162,6 @@ layer_factory <-
         position <- do.call(position_fun, pdots)
       }
 
-      # look for arguments of the form argument = ~ something and turn them
-      # into aesthetics
-      if (length(extras_and_dots) > 0) {
-        w <- which(
-          sapply(extras_and_dots, function(x) {
-            is_formula(x) && length(x) == 2L
-          })
-        )
-        aesthetics <- add_aes(aesthetics, extras_and_dots[w])
-        extras_and_dots[w] <- NULL
-      }
 
       # remove symbols from extras_and_dots (why?)
       if (length(extras_and_dots) > 0) {
@@ -195,6 +182,17 @@ layer_factory <-
       # remove aesthetics to ignore
       aesthetics[aes_ignore] <- NULL
 
+      # look for arguments of the form argument = ~ something and turn them
+      # into aesthetics
+      if (length(extras_and_dots) > 0) {
+        w <- which(
+          sapply(extras_and_dots, function(x) {
+            is_formula(x) && length(x) == 2L
+          })
+        )
+        aesthetics <- add_aes(aesthetics, extras_and_dots[w])
+        extras_and_dots[w] <- NULL
+      }
       ingredients <-
         gf_ingredients(
           formula = gformula, data = data,
@@ -349,6 +347,7 @@ create_formals <-
     res <-
       c(
         list(object = NULL, gformula = NULL, data = NULL),
+        alist(... = ),
         extras[setdiff(names(extras),
                        c("xlab", "ylab", "title", "subtitle", "caption"))],
         if (is.null(extras[["xlab"]])) {
@@ -382,8 +381,7 @@ create_formals <-
           show.help = NULL,
           inherit = inherit.aes,
           environment = quote(parent.frame())
-        ),
-        alist(... = )
+        )
       )
 
     # remove arguments from resulting function that layer_fun doesn't use.
@@ -861,7 +859,7 @@ formula_to_df <- function(formula = NULL, data_names = character(0),
   res <- c(nonpair_list, pair_list)
 
   res <-
-    tibble::data_frame(
+    tibble::tibble(
       role = names(res),
       expr = unlist(res),
       map = unlist(res) %in% c(data_names) | role %in% aes_names | role %in% mapped_pairs
