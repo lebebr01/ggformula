@@ -11,28 +11,6 @@ utils::globalVariables("role")
 NA
 
 
-# modify environments of aesthetics in a mapping
-#' @param mapping an aesthetic mapping
-#' @param environment an environment to use for aesthetics that have environments.
-#'
-aes_env <- function(mapping, envir) {
-  for (i in one_upto(length(mapping))) {
-    if (!is.null(environment(mapping[[i]]))) {
-      environment(mapping[[i]]) <- envir
-    }
-  }
-  mapping
-}
-
-# check if an aesthetic uses stat()
-#' @param aes an item in an aesthetic mapping
-#' @return a logical indicating whether the aethetic is of the form `stat( ... )`.
-uses_stat <- function(aes) {
-  e <- rlang::get_expr(aes)
-  length(e) > 1 && e[[1]] == as.name("stat")
-}
-
-
 #' Create a ggformula layer function
 #'
 #' Primarily intended for package developers, this function factory
@@ -83,8 +61,6 @@ layer_factory <-
 
   pre <- substitute(pre)
 
-  # extra_names <- names(extras)
-
   if (!is.logical(inherit.aes)) {
     inherited.aes <- inherit.aes
     inherit.aes <- FALSE
@@ -101,7 +77,7 @@ layer_factory <-
       environment = parent.frame(),
       ...) {
 
-      dots <- list(...)
+      # dots <- list(...)
       function_name <- as.character(match.call()[1])
       orig_args <- as.list(match.call())[-1]
 
@@ -139,9 +115,6 @@ layer_factory <-
       # if (inherits(object, "gg")) {
       #   environment <- object$plot_env
       # }
-
-      # # allow some operations in formulas without requiring I()
-      # gformula <- mosaicCore::reop_formula(gformula)
 
       # convert y ~ 1 into ~ y if a 1-sided formula is an option and 2-sided is not
       gformula <- response2explanatory(gformula, aes_form)
@@ -322,6 +295,33 @@ layer_factory <-
   assign("extras", extras, environment(res))
   res
   }
+
+
+#########################################################################
+#
+
+# modify environments of aesthetics in a mapping
+#' @param mapping an aesthetic mapping
+#' @param environment an environment to use for aesthetics that have environments.
+#'
+aes_env <- function(mapping, envir) {
+  for (i in one_upto(length(mapping))) {
+    if (!is.null(environment(mapping[[i]]))) {
+      environment(mapping[[i]]) <- envir
+    }
+  }
+  mapping
+}
+
+# check if an aesthetic uses stat()
+#' @param aes an item in an aesthetic mapping
+#' @return a logical indicating whether the aethetic is of the form `stat( ... )`.
+uses_stat <- function(aes) {
+  e <- rlang::get_expr(aes)
+  length(e) > 1 && e[[1]] == as.name("stat")
+}
+
+
 
 add_aes <- function(mapping, new) {
   # convert ~ x into just x (as a name)
@@ -733,19 +733,11 @@ gf_ingredients <-
 
 # remove item -> . mappings
 remove_dot_from_mapping <- function(mapping) {
-  # if (packageVersion("ggplot2") <= "2.2.1") {
-  #   for (item in names(mapping)) {
-  #     if (mapping[[item]] == as.name(".")) {
-  #       mapping[[item]] <- NULL
-  #     }
-  #   }
-  # } else {
     for (item in rev(seq_along(mapping))) {
       if (identical(rlang::get_expr(mapping[[item]]), quote(.))) {
         mapping[[item]] <- NULL
       }
     }
-  # }
   mapping
 }
 
