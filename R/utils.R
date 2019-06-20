@@ -128,3 +128,11 @@ remove_from_list <- function(x, names) {
   }
   x
 }
+
+# check if an aesthetic uses stat()
+#' @param aes an item in an aesthetic mapping
+#' @return a logical indicating whether the aethetic is of the form `stat( ... )`.
+uses_stat <- function(aes) {
+  e <- rlang::get_expr(aes)
+  length(e) > 1 && e[[1]] == as.name("stat")
+}
