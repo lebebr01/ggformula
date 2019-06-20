@@ -13,16 +13,16 @@ gf_rug(object = NULL, gformula = NULL, data = NULL, ...,
   inherit = TRUE, environment = parent.frame())
 
 gf_rugx(object = NULL, gformula = NULL, data = NULL, ...,
-  sides = "b", alpha, color, group, linetype, size, height = 0,
-  y = NULL, xlab, ylab, title, subtitle, caption, geom = "rug",
-  stat = "identity", position = "identity", show.legend = NA,
-  show.help = NULL, inherit = TRUE, environment = parent.frame())
+  sides = "b", alpha, color, group, linetype, size, height = 0, xlab,
+  ylab, title, subtitle, caption, geom = "rug", stat = "identity",
+  position = "identity", show.legend = NA, show.help = NULL,
+  inherit = TRUE, environment = parent.frame())
 
 gf_rugy(object = NULL, gformula = NULL, data = NULL, ...,
-  sides = "l", alpha, color, group, linetype, size, width = 0,
-  x = NULL, xlab, ylab, title, subtitle, caption, geom = "rug",
-  stat = "identity", position = "identity", show.legend = NA,
-  show.help = NULL, inherit = TRUE, environment = parent.frame())
+  sides = "l", alpha, color, group, linetype, size, width = 0, xlab,
+  ylab, title, subtitle, caption, geom = "rug", stat = "identity",
+  position = "identity", show.legend = NA, show.help = NULL,
+  inherit = TRUE, environment = parent.frame())
 }
 \arguments{
 \item{object}{When chaining, this holds an object produced in the earlier portions
@@ -99,6 +99,10 @@ display.}
 \item{inherit}{A logical indicating whether default attributes are inherited.}
 
 \item{environment}{An environment in which to look for variables not found in \code{data}.}
+
+\item{height}{amount of vertical jittering when position is jittered.}
+
+\item{width}{amount of horizontal jittering when position is jittered.}
 }
 \value{
 a gg object

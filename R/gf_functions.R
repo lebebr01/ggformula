@@ -1317,9 +1317,10 @@ gf_qqstep <-
 #' @inheritParams ggplot2::geom_rug
 #' @inherit gf_line
 #'
-#'
 #' @param gformula A formula with shape `y ~ x` (`gf_rug()`) or `~ x` (`gf_rugx()`) or
 #'   `~ y` (`gf_rugy()`).
+#' @param width amount of horizontal jittering when position is jittered.
+#' @param height amount of vertical jittering when position is jittered.
 #' @param ... Additional arguments.  Typically these are
 #'   (a) ggplot2 aesthetics to be set with `attribute = value`,
 #'   (b) ggplot2 aesthetics to be mapped with `attribute = ~ expression`, or
@@ -1384,7 +1385,7 @@ gf_rugx <-
     aes_form = list( ~ x, y ~ x, NULL),
     check.aes = FALSE,
     extras = alist(sides = "b", alpha = , color = , group = , linetype = , size = ,
-                   height = 0, y = NULL),
+                   height = 0),
     pre = {
       if (inherits(object, "gg")) {
         if (uses_stat(object$mapping$y)) {
@@ -1401,7 +1402,7 @@ gf_rugy <-
     geom = "rug",
     aes_form = list(~y, y ~ ., NULL),
     extras = alist(sides = "l", alpha = , color = , group = , linetype = , size = ,
-                   width = 0, x = NULL),
+                   width = 0),
     pre = {
       if (inherits(object, "gg")) {
         if (uses_stat(object$mapping$x)) {
