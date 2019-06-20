@@ -7,7 +7,7 @@ test_that(
     vdiffr::expect_doppelganger(
       "gf_abline1",
       gf_point(Sepal.Length ~ Sepal.Width, data = iris) %>%
-        gf_abline(intercept = 3, slope = 1, color = "red")
+        gf_abline(intercept = ~3, slope = ~1, color = "red")
     )
     vdiffr::expect_doppelganger(
       "gf_abline2",
@@ -23,7 +23,7 @@ test_that(
     vdiffr::expect_doppelganger(
       "gf_abline4",
       gf_point(wt ~ hp, size = ~wt, color = ~cyl, data = mtcars) %>%
-        gf_abline(slope = 0, intercept = 3, color = "green", data = NA)
+        gf_abline(slope = ~ 0, intercept = ~ 3, color = "green")
     )
 
     vdiffr::expect_doppelganger(
@@ -35,7 +35,7 @@ test_that(
     vdiffr::expect_doppelganger(
       "gf_abline6",
       gf_point(mpg ~ hp, color = ~cyl, size = ~wt, data = mtcars) %>%
-        gf_abline(color = "red", slope = -0.10, intercept = 35)
+        gf_abline(color = "red", slope = ~ -0.10, intercept = ~ 35)
     )
 
     vdiffr::expect_doppelganger(
@@ -758,6 +758,24 @@ test_that(
         gf_rugy(Sepal.Length ~ ., data = iris, color = "green")
     )
     vdiffr::expect_doppelganger(
+      "gf_rugx()/gf_rug_y() with jitter",
+      gf_jitter(Sepal.Length ~ Sepal.Width, data = iris, seed = 123) %>%
+        gf_rugx(~Sepal.Width, data = iris, color = "red", position = "jitter", seed = 123) %>%
+        gf_rugy(Sepal.Length ~ ., data = iris, color = "green", position = "jitter", seed = 123)
+    )
+    vdiffr::expect_doppelganger(
+      "gf_rugx()",
+      gf_dhistogram( ~ Sepal.Length, data = iris) %>%
+        gf_rugx(position = "jitter", alpha = 0.4, color = "red", seed = 123)
+    )
+    vdiffr::expect_doppelganger(
+      "gf_rugy()",
+      gf_dhistogramh( Sepal.Length ~ ., data = iris) %>%
+        gf_rugy(position = "jitter", alpha = 0.4, color = "navy", seed = 123)
+    )
+
+###
+    vdiffr::expect_doppelganger(
       "gf_rug() #1",
       gf_point(Sepal.Length ~ Sepal.Width, data = iris) %>%
         gf_rug(. ~ Sepal.Width, data = iris, color = "red", inherit = FALSE) %>%
@@ -773,7 +791,7 @@ test_that(
     vdiffr::expect_doppelganger(
       "gf_rug() #3",
       gf_jitter(Sepal.Length ~ Sepal.Width, data = iris) %>%
-        gf_rug(color = "green", sides = "b", position = "jitter")
+        gf_rug(color = "green", sides = "b", position = "jitter", seed = 123)
     )
     # rugs work with some 1-varialbe plots as well.
     vdiffr::expect_doppelganger(
@@ -799,13 +817,30 @@ test_that(
     vdiffr::expect_doppelganger(
       "gf_rug() #7",
       gf_dhistogram(~Sepal.Width, data = iris) %>%
-        gf_rug(0 ~ Sepal.Width, data = iris, color = "green", sides = "b", position = "jitter")
+        gf_rug(0 ~ Sepal.Width, data = iris, color = "green", sides = "b",
+               position = "jitter", seed = 123)
     )
     # the choice of y value can affect how the plot looks.
     vdiffr::expect_doppelganger(
       "gf_rug() #8",
       gf_dhistogram(~Sepal.Width, data = iris) %>%
-        gf_rug(0.5 ~ Sepal.Width, data = iris, color = "green", sides = "b", position = "jitter")
+        gf_rug(0.5 ~ Sepal.Width, data = iris, color = "green", sides = "b",
+               position = "jitter", seed = 123)
+    )
+  }
+)
+
+test_that(
+  "discrete_breaks()", {
+    vdiffr::expect_doppelganger(
+      "discrete_breaks -- default",
+      gf_histogram( ~ Sepal.Length, data = iris) %>%
+        gf_refine(scale_x_continuous(breaks = discrete_breaks()))
+    )
+    vdiffr::expect_doppelganger(
+      "discrete_breaks -- 0.5",
+      gf_histogram( ~ Sepal.Length, data = iris) %>%
+        gf_refine(scale_x_continuous(breaks = discrete_breaks(0.5)))
     )
   }
 )
