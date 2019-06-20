@@ -169,7 +169,7 @@ StatSpline <-
           tol = tol
         )
       }
-      data_frame(x = SS$x, y = SS$y)
+      tibble(x = SS$x, y = SS$y)
     },
     required_aes = c("x", "y")
   )
