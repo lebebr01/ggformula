@@ -6,9 +6,8 @@
 \usage{
 layer_factory(geom = "point", position = "identity",
   stat = "identity", pre = { }, aes_form = y ~ x, extras = alist(),
-  note = NULL, aesthetics = aes(), aes_ignore = c(),
-  inherit.aes = TRUE, check.aes = TRUE, data = NULL,
-  layer_fun = ggplot2::layer)
+  note = NULL, aesthetics = aes(), inherit.aes = TRUE,
+  check.aes = TRUE, data = NULL, layer_fun = ggplot2::layer)
 }
 \arguments{
 \item{geom}{The geom to use for the layer
@@ -34,8 +33,6 @@ function may be used without a formula.}
 \code{\link[ggplot2:aes]{ggplot2::aes()}}) set rather than inferred from formula.
 \code{gf_dhistogram()} uses this to set the y aesthetic to \code{stat(density)},
 for example.}
-
-\item{aes_ignore}{A character vector of aesthetic names to explictly ignore.}
 
 \item{inherit.aes}{A logical indicating whether aesthetics should be
 inherited from prior layers or a vector of character names of aesthetics

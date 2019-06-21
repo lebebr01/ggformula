@@ -26,7 +26,6 @@ NA
 #' @param aes_form A single formula or a list of formulas specifying
 #'   how attributes are inferred from the formula.  Use `NULL` if the
 #'   function may be used without a formula.
-#' @param aes_ignore A character vector of aesthetic names to explictly ignore.
 #' @param extras An alist of additional arguments (potentially with defaults)
 #' @param note A note to add to the quick help.
 #' @param aesthetics Additional aesthetics (typically created using
@@ -53,7 +52,6 @@ layer_factory <-
     extras = alist(),
     note = NULL,
     aesthetics = aes(),
-    aes_ignore = c(),
     inherit.aes = TRUE,
     check.aes = TRUE,
     data = NULL,
@@ -144,7 +142,6 @@ layer_factory <-
         position <- do.call(position_fun, pdots)
       }
 
-
       # remove symbols from extras_and_dots (why?)
       if (length(extras_and_dots) > 0) {
         extras_and_dots <-
@@ -156,13 +153,9 @@ layer_factory <-
       # add in selected additional aesthetics -- partial inheritance
       if (add) {
         for (aes.name in inherited.aes) {
-          # aesthetics <- add_aes(aesthetics, aes.name, object$mapping[[aes.name]])
           aesthetics[[aes.name]] <- object$mapping[[aes.name]]
         }
       }
-
-      # remove aesthetics to ignore
-      aesthetics[aes_ignore] <- NULL
 
       # look for arguments of the form argument = ~ something and turn them
       # into aesthetics
@@ -172,7 +165,7 @@ layer_factory <-
             is_formula(x) && length(x) == 2L
           })
         )
-        aesthetics <- add_aes(aesthetics, extras_and_dots[w])
+        aesthetics <- add_aes(aesthetics, extras_and_dots[w], environment)
         extras_and_dots[w] <- NULL
       }
       ingredients <-
@@ -323,7 +316,7 @@ uses_stat <- function(aes) {
 
 
 
-add_aes <- function(mapping, new) {
+add_aes <- function(mapping, new, envir = parent.frame()) {
   # convert ~ x into just x (as a name)
   if (length(new) > 0L) {
     for (i in 1L:length(new)) {
@@ -332,7 +325,7 @@ add_aes <- function(mapping, new) {
       }
     }
   }
-  new <- do.call(aes, new)
+  new <- do.call(aes, new) %>% aes_env(envir)
   res <- modifyList(mapping, new)
   res
 }
@@ -704,22 +697,14 @@ gf_ingredients <-
         params = modifyList(set_list, extras)
       )
     if (identical(data, NA)) {
-      # if (packageVersion("ggplot2") <= "2.2.1") {
-      #   res$data <-
-      #     do.call(
-      #       data.frame,
-      #       c(res[["mapping"]], res[["setting"]], list(stringsAsFactors = FALSE))
-      #     )
-      # } else {
-        res$data <-
-          do.call(
-            data.frame,
-            c(
-              lapply(res[["mapping"]], rlang::get_expr), res[["setting"]],
-              list(stringsAsFactors = FALSE)
-            )
+      res$data <-
+        do.call(
+          data.frame,
+          c(
+            lapply(res[["mapping"]], rlang::get_expr), res[["setting"]],
+            list(stringsAsFactors = FALSE)
           )
-      # }
+        )
       res$params[names(res$mapping)] <- NULL # remove mapped attributes
       aes_list <- as.list(intersect(names(res$data), names(res$mapping)))
       names(aes_list) <- aes_list
