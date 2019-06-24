@@ -1306,6 +1306,36 @@ gf_qqstep <-
     extras = alist(group = , distribution = stats::qnorm, dparams = list())
   )
 
+#' Formula interace to empirical cumulative distribution
+#'
+#' The empirical cumulative distribution function (ECDF) provides an alternative
+#' visualisation of distribution. Compared to other visualisations that rely on
+#' density (like histograms or density plots) the ECDF doesn't require any tuning
+#' parameters and handles both continuous and categorical variables. The
+#' downside is that it requires more training to accurately interpret, and the
+#' underlying visual tasks are somewhat more challenging.
+#'
+#' @inheritParams ggplot2::stat_ecdf
+#' @export
+#' @examples
+#' Data <- data.frame(
+#'   x = c(rnorm(100, 0, 1), rnorm(100, 0, 3), rt(100, df = 3)),
+#'   g = gl(3, 100, labels = c("N(0, 1)", "N(0, 3)", "T(df = 3)") )
+#' )
+#' gf_ecdf( ~ x, data = Data)
+
+#' # Don't go to positive/negative infinity
+#' gf_ecdf( ~ x, data = Data, pad = FALSE)
+#'
+#' # Multiple ECDFs
+#' gf_ecdf( ~ x, data = Data, color = ~ g)
+
+gf_ecdf <-
+  layer_factory(
+    geom = "step", stat = "ecdf", position = "identity",
+    aes_form = ~ x,
+    extras = alist(group = , pad = , n = NULL)
+  )
 
 #' Formula interface to geom_rug()
 #'
@@ -2112,3 +2142,5 @@ gf_sf <-
 gf_empty <- function(environment = parent.frame()) {
   ggplot2::ggplot(environment = environment)
 }
+
+
