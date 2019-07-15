@@ -221,6 +221,60 @@ gf_path <-
     )
   )
 
+#' Formula interface to stat_ellipse()
+#'
+#' Formula interface to [ggplot2::stat_ellipse()].
+#'
+#' @inheritParams gf_line
+#' @inheritParams ggplot2::stat_ellipse
+#' @inheritParams ggplot2::geom_path
+#' @param geom Geom for drawing ellipse.  Note: `"polygon"` allows fill; `"path"` does not;
+#'   on the other hand, `"path"` allows `alpha` to be applied to the border, while `"polygon"`
+#'   applies `alpha` only to the interior.
+#' @seealso [ggplot2::stat_ellipse()]
+#' @export
+#' @examples
+#' gf_ellipse()
+#' gf_point(eruptions ~ waiting, data = faithful) %>%
+#'   gf_ellipse(alpha = 0.5)
+#'
+#' gf_point(eruptions ~ waiting, data = faithful, color = ~ (eruptions > 3)) %>%
+#'   gf_ellipse(alpha = 0.5)
+#'
+#' gf_point(eruptions ~ waiting, data = faithful, color = ~ (eruptions > 3)) %>%
+#'   gf_ellipse(type = "norm", linetype = ~ "norm") %>%
+#'   gf_ellipse(type = "t",    linetype = ~ "t")
+#'
+#' gf_point(eruptions ~ waiting, data = faithful, color = ~ (eruptions > 3)) %>%
+#'   gf_ellipse(type = "norm",   linetype = ~ "norm") %>%
+#'   gf_ellipse(type = "euclid", linetype = ~ "euclid", level = 3) %>%
+#'   gf_refine(coord_fixed())
+#'
+#' # Use geom = "polygon" to enable fill
+#' gf_point(eruptions ~ waiting, data = faithful, fill = ~ (eruptions > 3)) %>%
+#'   gf_ellipse(geom = "polygon", alpha = 0.3, color = "black")
+#'
+#' gf_point(eruptions ~ waiting, data = faithful, fill = ~ (eruptions > 3)) %>%
+#'   gf_ellipse(geom = "polygon", alpha = 0.3) %>%
+#'   gf_ellipse(alpha = 0.3, color = "black")
+#'
+#' gf_ellipse(eruptions ~ waiting, data = faithful, show.legend = FALSE,
+#'   alpha = 0.3, fill = ~ (eruptions > 3), geom = "polygon") %>%
+#'   gf_ellipse(level = 0.68, geom = "polygon", alpha = 0.3) %>%
+#'   gf_point(data = faithful, color = ~ (eruptions > 3), show.legend = FALSE)
+
+gf_ellipse <-
+  layer_factory(
+    geom = "path",
+    stat = "ellipse",
+    extras = alist(
+      alpha = , color = , group = ,
+      type = "t", level = 0.95, segments = 51
+      # linetype = , size = ,
+      # lineend = "butt", linejoin = "round", linemitre = 1, arrow = NULL
+    )
+  )
+
 #' Formula interface to geom_polygon()
 #'
 #'
@@ -1316,6 +1370,7 @@ gf_qqstep <-
 #' underlying visual tasks are somewhat more challenging.
 #'
 #' @inheritParams ggplot2::stat_ecdf
+#' @inheritParams gf_step
 #' @export
 #' @examples
 #' Data <- data.frame(
@@ -1639,6 +1694,89 @@ gf_pointrange <-
     aes_form = y + ymin + ymax ~ x,
     extras = alist(
       alpha = , color = , group = , linetype = , size = ,
+      fatten = 2
+    )
+  )
+
+#' @rdname gf_linerange
+#' @inheritParams ggplot2::geom_pointrange
+#' @inheritParams ggplot2::stat_summary
+#' @seealso [ggplot2::geom_pointrange()], [ggplot2::stat_summary()]
+#' @export
+#' @examples
+#' p <- gf_jitter(mpg ~ cyl, data = mtcars, height = 0, width = 0.15); p
+#' p %>% gf_summary(fun.data = "mean_cl_boot", color = "red", size = 2)
+
+#' # You can supply individual functions to summarise the value at
+#' # each x:
+#' p %>% gf_summary(fun.y = "median", color = "red", size = 2, geom = "point")
+#' p %>%
+#'   gf_summary(fun.y = "mean", color = "red", size = 2, geom = "point") %>%
+#'   gf_summary(fun.y = mean, geom = "line")
+
+#' p %>%
+#'   gf_summary(fun.y = mean, fun.ymin = min, fun.ymax = max, color = "red")
+
+#' p %>%
+#'   gf_summary(fun.ymin = min, fun.ymax = max, color = "red", geom = "linerange")
+#'
+#' gf_bar(~ cut, data = diamonds)
+#' gf_col(price ~ cut, data = diamonds, stat = "summary_bin", fun.y = "mean")
+#'
+#' # Don't use gf_lims() to zoom into a summary plot - this throws the
+#' # data away
+#' p <- gf_summary(mpg ~ cyl, data = mtcars, fun.y = "mean", geom = "point")
+#' p
+#' p %>% gf_lims(y = c(15, 30))
+#' # Instead use coord_cartesian()
+#' p %>% gf_refine(coord_cartesian(ylim = c(15, 30)))
+
+#' # A set of useful summary functions is provided from the Hmisc package.
+#'
+#' p <- gf_jitter(mpg ~ cyl, data = mtcars, width = 0.15, height = 0); p
+#' p %>% gf_summary(fun.data = mean_cl_boot, color = "red")
+#' p %>% gf_summary(fun.data = mean_cl_boot, color = "red", geom = "crossbar")
+#' p %>% gf_summary(fun.data = mean_sdl, group = ~ cyl, color = "red",
+#'                    geom = "crossbar", width = 0.3)
+#' p %>% gf_summary(group = ~ cyl, color = "red", geom = "crossbar", width = 0.3,
+#'         fun.data = mean_sdl, fun.args = list(mult = 1))
+#' p %>% gf_summary(fun.data = median_hilow, group = ~ cyl, color = "red",
+#'         geom = "crossbar", width = 0.3)
+#'
+
+#' # An example with highly skewed distributions:
+#' if (require("ggplot2movies")) {
+#'   set.seed(596)
+#'   Mov <- movies[sample(nrow(movies), 1000), ]
+#'   m2 <- gf_jitter(votes ~ factor(round(rating)), data = Mov, width = 0.15, height = 0, alpha = 0.3)
+#'   m2 <- m2 %>%
+#'     gf_summary(fun.data = "mean_cl_boot", geom = "crossbar",
+#'                colour = "red", width = 0.3) %>%
+#'     gf_labs(x = "rating")
+#'   m2
+#'   # Notice how the overplotting skews off visual perception of the mean
+#'   # supplementing the raw data with summary statistics is _very_ important
+#'
+#'   # Next, we'll look at votes on a log scale.
+#'
+#'   # Transforming the scale means the data are transformed
+#'   # first, after which statistics are computed:
+#'   m2 %>% gf_refine(scale_y_log10())
+#'   # Transforming the coordinate system occurs after the
+#'   # statistic has been computed. This means we're calculating the summary on the raw data
+#'   # and stretching the geoms onto the log scale.  Compare the widths of the
+#'   # standard errors.
+#'   m2 %>% gf_refine(coord_trans(y="log10"))
+#' }
+
+gf_summary <-
+  layer_factory(
+    geom = "pointrange",
+    stat = "summary",
+    aes_form = y ~ x,
+    extras = alist(
+      alpha = , color = , group = , linetype = , size = ,
+      fun.y = NULL, fun.ymax = NULL, fun.ymin = NULL, fun.args = list(),
       fatten = 2
     )
   )

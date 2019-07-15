@@ -42,7 +42,8 @@ Suggests:
     sf,
     purrr,
     ggthemes,
-    covr
+    covr,
+    ggplot2movies
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)

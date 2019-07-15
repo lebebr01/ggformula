@@ -32,8 +32,9 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
-will be used as the layer data.}
+the plot data. The return value must be a \code{data.frame}, and
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{...}{Additional arguments.  Typically these are
 (a) ggplot2 aesthetics to be set with \code{attribute = value},
@@ -109,7 +110,7 @@ if the notches of two boxes do not overlap, this suggests that the medians
 are significantly different.}
 
 \item{notchwidth}{For a notched box plot, width of the notch relative to
-the body (default 0.5)}
+the body (defaults to \code{notchwidth = 0.5}).}
 
 \item{varwidth}{If \code{FALSE} (default) make a standard box plot. If
 \code{TRUE}, boxes are drawn with widths proportional to the

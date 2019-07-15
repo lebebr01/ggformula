@@ -3,6 +3,7 @@
 \name{gf_linerange}
 \alias{gf_linerange}
 \alias{gf_pointrange}
+\alias{gf_summary}
 \alias{gf_linerangeh}
 \alias{gf_pointrangeh}
 \title{Formula interface to geom_linerange() and geom_pointrange()}
@@ -16,6 +17,13 @@ gf_linerange(object = NULL, gformula = NULL, data = NULL, ..., alpha,
 gf_pointrange(object = NULL, gformula = NULL, data = NULL, ...,
   alpha, color, group, linetype, size, fatten = 2, xlab, ylab, title,
   subtitle, caption, geom = "pointrange", stat = "identity",
+  position = "identity", show.legend = NA, show.help = NULL,
+  inherit = TRUE, environment = parent.frame())
+
+gf_summary(object = NULL, gformula = NULL, data = NULL, ..., alpha,
+  color, group, linetype, size, fun.y = NULL, fun.ymax = NULL,
+  fun.ymin = NULL, fun.args = list(), fatten = 2, xlab, ylab, title,
+  subtitle, caption, geom = "pointrange", stat = "summary",
   position = "identity", show.legend = NA, show.help = NULL,
   inherit = TRUE, environment = parent.frame())
 
@@ -106,6 +114,20 @@ display.}
 \item{fatten}{A multiplicative factor used to increase the size of the
 middle bar in \code{geom_crossbar()} and the middle point in
 \code{geom_pointrange()}.}
+
+\item{fun.y}{Alternatively, supply three individual
+functions that are each passed a vector of x's and should return a
+single number.}
+
+\item{fun.ymax}{Alternatively, supply three individual
+functions that are each passed a vector of x's and should return a
+single number.}
+
+\item{fun.ymin}{Alternatively, supply three individual
+functions that are each passed a vector of x's and should return a
+single number.}
+
+\item{fun.args}{Optional additional arguments passed on to the functions.}
 }
 \description{
 Various ways of representing a vertical interval defined by \code{x},
@@ -166,6 +188,65 @@ if (require(mosaicData) && require(dplyr)) {
   gf_boxplot(age ~ substance, data = HELPrct, width = 0.4) \%>\%
     gf_jitter(width = 0.2, height = 0, color = "skyblue", alpha = 0.5)
 }
+p <- gf_jitter(mpg ~ cyl, data = mtcars, height = 0, width = 0.15); p
+p \%>\% gf_summary(fun.data = "mean_cl_boot", color = "red", size = 2)
+# You can supply individual functions to summarise the value at
+# each x:
+p \%>\% gf_summary(fun.y = "median", color = "red", size = 2, geom = "point")
+p \%>\%
+  gf_summary(fun.y = "mean", color = "red", size = 2, geom = "point") \%>\%
+  gf_summary(fun.y = mean, geom = "line")
+p \%>\%
+  gf_summary(fun.y = mean, fun.ymin = min, fun.ymax = max, color = "red")
+p \%>\%
+  gf_summary(fun.ymin = min, fun.ymax = max, color = "red", geom = "linerange")
+
+gf_bar(~ cut, data = diamonds)
+gf_col(price ~ cut, data = diamonds, stat = "summary_bin", fun.y = "mean")
+
+# Don't use gf_lims() to zoom into a summary plot - this throws the
+# data away
+p <- gf_summary(mpg ~ cyl, data = mtcars, fun.y = "mean", geom = "point")
+p
+p \%>\% gf_lims(y = c(15, 30))
+# Instead use coord_cartesian()
+p \%>\% gf_refine(coord_cartesian(ylim = c(15, 30)))
+# A set of useful summary functions is provided from the Hmisc package.
+
+p <- gf_jitter(mpg ~ cyl, data = mtcars, width = 0.15, height = 0); p
+p \%>\% gf_summary(fun.data = mean_cl_boot, color = "red")
+p \%>\% gf_summary(fun.data = mean_cl_boot, color = "red", geom = "crossbar")
+p \%>\% gf_summary(fun.data = mean_sdl, group = ~ cyl, color = "red",
+                   geom = "crossbar", width = 0.3)
+p \%>\% gf_summary(group = ~ cyl, color = "red", geom = "crossbar", width = 0.3,
+        fun.data = mean_sdl, fun.args = list(mult = 1))
+p \%>\% gf_summary(fun.data = median_hilow, group = ~ cyl, color = "red",
+        geom = "crossbar", width = 0.3)
+
+# An example with highly skewed distributions:
+if (require("ggplot2movies")) {
+  set.seed(596)
+  Mov <- movies[sample(nrow(movies), 1000), ]
+  m2 <- gf_jitter(votes ~ factor(round(rating)), data = Mov, width = 0.15, height = 0, alpha = 0.3)
+  m2 <- m2 \%>\%
+    gf_summary(fun.data = "mean_cl_boot", geom = "crossbar",
+               colour = "red", width = 0.3) \%>\%
+    gf_labs(x = "rating")
+  m2
+  # Notice how the overplotting skews off visual perception of the mean
+  # supplementing the raw data with summary statistics is _very_ important
+
+  # Next, we'll look at votes on a log scale.
+
+  # Transforming the scale means the data are transformed
+  # first, after which statistics are computed:
+  m2 \%>\% gf_refine(scale_y_log10())
+  # Transforming the coordinate system occurs after the
+  # statistic has been computed. This means we're calculating the summary on the raw data
+  # and stretching the geoms onto the log scale.  Compare the widths of the
+  # standard errors.
+  m2 \%>\% gf_refine(coord_trans(y="log10"))
+}
 gf_linerangeh(date ~ low_temp + high_temp | ~city,
   data = Weather,
   color = ~avg_temp
@@ -181,4 +262,6 @@ gf_pointrangeh(date ~ avg_temp + low_temp + high_temp | ~city,
 \code{\link[ggplot2:geom_linerange]{ggplot2::geom_linerange()}}
 
 \code{\link[ggplot2:geom_pointrange]{ggplot2::geom_pointrange()}}
+
+\code{\link[ggplot2:geom_pointrange]{ggplot2::geom_pointrange()}}, \code{\link[ggplot2:stat_summary]{ggplot2::stat_summary()}}
 }
