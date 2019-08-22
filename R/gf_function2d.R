@@ -12,6 +12,10 @@
 #' @param contour A logical indicating whether the contour layer should be drawn.
 #' @param resolution  A numeric vector of length 1 or 2 specifying the
 #'   number of grid points at which the function is evaluated (in each dimension).
+#' @param labels A logical indicating whether to add labels to the contours drawn
+#' in a contour plot. A character string is also a valid value, but it must be
+#' one of the labeling methods supported by the directlabels package, e.g. `"bottom.pieces"` or
+#' `"top.pieces"`
 #' @param ... additional arguments passed to [`gf_tile()`] or [`gf_contour()`].
 #' @return A gg plot.
 #'
@@ -33,7 +37,7 @@
 #'
 gf_function_2d <-
   function(object = NULL, fun = identity, xlim = NULL, ylim = NULL, ...,
-             tile = TRUE, contour = TRUE, resolution = 50) {
+             tile = TRUE, contour = TRUE, resolution = 50, labels = TRUE) {
     if (is.function(object)) {
       fun <- object
       object <- NULL
@@ -71,13 +75,13 @@ gf_function_2d <-
     if (tile) {
       res <-
         res %>%
-        gf_tile(value ~ x + y, data = Layer_Data, ...) %>%
+        gf_tile(value ~ x + y, data = Layer_Data, labels = FALSE, ...) %>%
         gf_labs(fill = "")
     }
     if (contour) {
       res <-
         res %>%
-        gf_contour(value ~ x + y, data = Layer_Data, ...) %>%
+        gf_contour(value ~ x + y, data = Layer_Data, labels = labels, ...) %>%
         gf_labs(fill = "")
     }
     res
@@ -91,8 +95,8 @@ gf_function2d <- gf_function_2d
 #' @export
 gf_function_contour <-
   function(object = NULL, fun = identity, xlim = NULL, ylim = NULL, ...,
-             resolution = 50) {
-    gf_function_2d(object, fun = fun, xlim = xlim, ylim = ylim, contour = TRUE, tile = FALSE, ...)
+             resolution = 50, labels = TRUE) {
+    gf_function_2d(object, fun = fun, xlim = xlim, ylim = ylim, contour = TRUE, tile = FALSE, labels = labels, ...)
   }
 
 
@@ -104,7 +108,7 @@ gf_function_tile <-
              resolution = 50) {
     gf_function_2d(object,
       fun = fun, xlim = xlim, ylim = ylim, contour = FALSE, tile = TRUE,
-      resolution = resolution, ...
+      resolution = resolution, labels = FALSE, ...
     )
   }
 
@@ -113,17 +117,24 @@ gf_function_tile <-
 #'
 gf_fun_2d <-
   function(object = NULL, formula = NULL, xlim = NULL, ylim = NULL, tile = TRUE,
-             contour = TRUE, ..., resolution = 50) {
+             contour = TRUE, ..., resolution = 50, labels = FALSE) {
     if (inherits(object, "formula")) {
       formula <- object
       object <- NULL
     }
 
-    gf_function_2d(object,
-      fun = mosaic::makeFun(formula),
-      xlim = xlim, ylim = ylim, contour = contour,
-      tile = tile, resolution = resolution, ...
-    )
+    P <-
+      gf_function_2d(object,
+                     fun = mosaic::makeFun(formula),
+                     xlim = xlim, ylim = ylim, contour = contour,
+                     tile = tile, resolution = resolution, ...
+      )
+    if (is.logical(labels)) {
+      if (labels) direct.label(P, method = "far.from.others.borders")
+      else P
+    } else if (is.character(labels)) {
+      direct.label(P, method = "far.from.others.borders")
+    }
   }
 
 #' @rdname gf_function2d
@@ -135,11 +146,11 @@ gf_fun2d <- gf_fun_2d
 #'
 gf_fun_tile <-
   function(object = NULL, formula = NULL, xlim = NULL, ylim = NULL, ...,
-             resolution = 50) {
+             resolution = 50, labels = FALSE) {
     gf_fun_2d(object,
       formula = formula,
       xlim = xlim, ylim = ylim, contour = FALSE,
-      tile = TRUE, resolution = resolution, ...
+      tile = TRUE, resolution = resolution, labels = labels, ...
     )
   }
 

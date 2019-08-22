@@ -28,6 +28,7 @@ Suggests:
     lattice,
     mosaic,
     mosaicModel,
+    directlabels,
     testthat,
     vdiffr,
     knitr,

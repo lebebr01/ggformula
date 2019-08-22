@@ -1412,8 +1412,8 @@ gf_rugy <-
 #' gf_density_2d(eruptions ~ waiting, data = faithful, alpha = 0.5, color = "navy") %>%
 #'   gf_contour(density ~ waiting + eruptions, data = faithfuld, bins = 10, color = "red")
 gf_contour <-
-  layer_factory(
-    geom = "contour", stat = "contour",
+  ggformula:::layer_factory(
+    geom = "contour", stat = "contour", extras = alist(color = ~ ..level..),
     aes_form = z ~ x + y
   )
 
