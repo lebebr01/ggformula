@@ -130,10 +130,11 @@ gf_fun_2d <-
                      tile = tile, resolution = resolution, ...
       )
     if (is.logical(labels)) {
-      if (labels) direct.label(P, method = "far.from.others.borders")
+      if (labels && require(directlabels)) directlabels::direct.label(P, method = "far.from.others.borders")
       else P
     } else if (is.character(labels)) {
-      direct.label(P, method = "far.from.others.borders")
+      if (require(directlabels)) directlabels::direct.label(P, method = labels)
+      else P
     }
   }
 
@@ -159,10 +160,10 @@ gf_fun_tile <-
 #'
 gf_fun_contour <-
   function(object = NULL, formula = NULL, xlim = NULL, ylim = NULL, ...,
-             resolution = 50) {
+             resolution = 50, labels = TRUE) {
     gf_fun_2d(object,
       formula = formula,
       xlim = xlim, ylim = ylim, contour = TRUE,
-      tile = FALSE, resolution = resolution, ...
+      tile = FALSE, resolution = resolution, labels = labels, ...
     )
   }

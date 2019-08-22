@@ -12,28 +12,32 @@
 \title{Plot functions of two variables}
 \usage{
 gf_function_2d(object = NULL, fun = identity, xlim = NULL,
-  ylim = NULL, ..., tile = TRUE, contour = TRUE, resolution = 50)
+  ylim = NULL, ..., tile = TRUE, contour = TRUE, resolution = 50,
+  labels = TRUE)
 
 gf_function2d(object = NULL, fun = identity, xlim = NULL,
-  ylim = NULL, ..., tile = TRUE, contour = TRUE, resolution = 50)
+  ylim = NULL, ..., tile = TRUE, contour = TRUE, resolution = 50,
+  labels = TRUE)
 
 gf_function_contour(object = NULL, fun = identity, xlim = NULL,
-  ylim = NULL, ..., resolution = 50)
+  ylim = NULL, ..., resolution = 50, labels = TRUE)
 
 gf_function_tile(object = NULL, fun = identity, xlim = NULL,
   ylim = NULL, ..., resolution = 50)
 
 gf_fun_2d(object = NULL, formula = NULL, xlim = NULL, ylim = NULL,
-  tile = TRUE, contour = TRUE, ..., resolution = 50)
+  tile = TRUE, contour = TRUE, ..., resolution = 50,
+  labels = FALSE)
 
 gf_fun2d(object = NULL, formula = NULL, xlim = NULL, ylim = NULL,
-  tile = TRUE, contour = TRUE, ..., resolution = 50)
+  tile = TRUE, contour = TRUE, ..., resolution = 50,
+  labels = FALSE)
 
 gf_fun_tile(object = NULL, formula = NULL, xlim = NULL,
-  ylim = NULL, ..., resolution = 50)
+  ylim = NULL, ..., resolution = 50, labels = FALSE)
 
 gf_fun_contour(object = NULL, formula = NULL, xlim = NULL,
-  ylim = NULL, ..., resolution = 50)
+  ylim = NULL, ..., resolution = 50, labels = TRUE)
 }
 \arguments{
 \item{object}{An R object, typically of class "gg".}
@@ -52,6 +56,11 @@ gf_fun_contour(object = NULL, formula = NULL, xlim = NULL,
 
 \item{resolution}{A numeric vector of length 1 or 2 specifying the
 number of grid points at which the function is evaluated (in each dimension).}
+
+\item{labels}{A logical indicating whether to add labels to the contours drawn
+in a contour plot. A character string is also a valid value, but it must be
+one of the labeling methods supported by the directlabels package, e.g. \code{"bottom.pieces"} or
+\code{"top.pieces"}}
 
 \item{formula}{A formula describing a function of two variables to be plotted.  See \code{\link[mosaic:makeFun]{mosaic::makeFun()}}
 for details regarding the conversion from a formula to a function.}
