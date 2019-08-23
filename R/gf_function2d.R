@@ -37,7 +37,8 @@
 #'
 gf_function_2d <-
   function(object = NULL, fun = identity, xlim = NULL, ylim = NULL, ...,
-             tile = TRUE, contour = TRUE, resolution = 50, labels = TRUE) {
+             tile = TRUE, contour = TRUE, resolution = 50, labels = TRUE,
+    alpha.tile = 0.3) {
     if (is.function(object)) {
       fun <- object
       object <- NULL
@@ -75,14 +76,16 @@ gf_function_2d <-
     if (tile) {
       res <-
         res %>%
-        gf_tile(value ~ x + y, data = Layer_Data, labels = FALSE, ...) %>%
+        gf_tile(value ~ x + y, data = Layer_Data, alpha = alpha.tile, labels = FALSE, ...) %>%
         gf_labs(fill = "")
     }
     if (contour) {
       res <-
         res %>%
         gf_contour(value ~ x + y, data = Layer_Data, labels = labels, ...) %>%
-        gf_labs(fill = "")
+        gf_labs(color = "")
+      if (tile)
+        res <- res %>% gf_refine(ggplot2::scale_color_continuous(guide = "none"))
     }
     res
   }
@@ -130,8 +133,21 @@ gf_fun_2d <-
                      tile = tile, resolution = resolution, ...
       )
     if (is.logical(labels)) {
-      if (labels && require(directlabels)) directlabels::direct.label(P, method = "far.from.others.borders")
-      else P
+      if (labels && require(directlabels)) {
+        # sometimes directlabels doesn't work with the
+        # far.from.others.borders method. The problem shows up
+        # when the graph is printed.
+        A <-
+          directlabels::direct.label(P, method = "far.from.others.borders")
+        B <- try(print(A))
+        if (inherits(B, "try-error"))
+          P <- directlabels::direct.label(P, method = "top.pieces")
+        else
+          P <- A
+        P
+      } else {
+        P
+      }
     } else if (is.character(labels)) {
       if (require(directlabels)) directlabels::direct.label(P, method = labels)
       else P

@@ -13,11 +13,11 @@
 \usage{
 gf_function_2d(object = NULL, fun = identity, xlim = NULL,
   ylim = NULL, ..., tile = TRUE, contour = TRUE, resolution = 50,
-  labels = TRUE)
+  labels = TRUE, alpha.tile = 0.3)
 
 gf_function2d(object = NULL, fun = identity, xlim = NULL,
   ylim = NULL, ..., tile = TRUE, contour = TRUE, resolution = 50,
-  labels = TRUE)
+  labels = TRUE, alpha.tile = 0.3)
 
 gf_function_contour(object = NULL, fun = identity, xlim = NULL,
   ylim = NULL, ..., resolution = 50, labels = TRUE)
