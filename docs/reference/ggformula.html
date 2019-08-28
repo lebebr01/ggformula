@@ -16,13 +16,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -49,6 +51,7 @@
 <![endif]-->
 
 
+
   </head>
 
   <body>
@@ -65,7 +68,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggformula</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9002</span>
       </span>
     </div>
 
@@ -73,7 +76,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -98,21 +101,6 @@
     </li>
   </ul>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tutorials
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../tutorials/Plotting_with_formulas.html">Plotting with formulas</a>
-    </li>
-    <li>
-      <a href="../tutorials/Refining_ggformula.html">Refining ggformula plots</a>
-    </li>
-  </ul>
-</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -121,7 +109,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/ProjectMOSAIC/ggformula">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -132,6 +120,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -157,7 +146,7 @@ functions and a system for working with pipes to create multi-layer
 plots and to refine plots.
 For plots with just one layer, the formula interface
 is more compact than native <span class="pkg">ggplot2</span> code and is consistent with modeling
-functions like <code><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>stats::lm()</a></code> that use a formula interface and with the
+functions like <code><a href='https://rdrr.io/r/stats/lm.html'>stats::lm()</a></code> that use a formula interface and with the
 numerical summary functions in the <span class="pkg">mosaic</span> package.</p>
     
     <h2 class="hasAnchor" id="specifying-plot-attributes"><a class="anchor" href="#specifying-plot-attributes"></a>Specifying plot attributes</h2>
@@ -179,14 +168,15 @@ of <span class="pkg">lattice</span>.</p>
     <h2 class="hasAnchor" id="evaluation"><a class="anchor" href="#evaluation"></a>Evaluation</h2>
 
     
-    <p>Evaluation of the <span class="pkg">ggplot2</span> code occurs in the environment of <code>gformula</code>.
-This will typically do the right thing when formulas are created on the fly, but might not
-be the right thing if formulas created in one environment are used to create plots
-in another.</p>
+    <p>Evaluation of the <span class="pkg">ggplot2</span> code occurs in the environment specified
+by <code>environment</code>. This will typically do the right thing, but is exposed
+in case some non-standard behavior is desired. In earlier versions,
+the environment of the formula was used, but since some functions in
+the package do not require a formula, a separate argument is used now.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/apropos'>apropos</a></span>(<span class='st'>"gf_"</span>)</div><div class='output co'>#&gt;  [1] "gf_abline"           "gf_area"             "gf_ash"             
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/apropos.html'>apropos</a></span>(<span class='st'>"gf_"</span>)</div><div class='output co'>#&gt;  [1] "gf_abline"           "gf_area"             "gf_ash"             
 #&gt;  [4] "gf_bar"              "gf_barh"             "gf_bin2d"           
 #&gt;  [7] "gf_blank"            "gf_boxplot"          "gf_boxploth"        
 #&gt; [10] "gf_coefline"         "gf_col"              "gf_colh"            
@@ -195,27 +185,28 @@ in another.</p>
 #&gt; [19] "gf_curve"            "gf_dens"             "gf_density"         
 #&gt; [22] "gf_density_2d"       "gf_density2d"        "gf_dhistogram"      
 #&gt; [25] "gf_dhistogramh"      "gf_dist"             "gf_dotplot"         
-#&gt; [28] "gf_empty"            "gf_errorbar"         "gf_errorbarh"       
-#&gt; [31] "gf_facet_grid"       "gf_facet_wrap"       "gf_fitdistr"        
-#&gt; [34] "gf_frame"            "gf_freqpoly"         "gf_fun"             
-#&gt; [37] "gf_fun_2d"           "gf_fun_contour"      "gf_fun_tile"        
-#&gt; [40] "gf_fun2d"            "gf_function"         "gf_function_2d"     
-#&gt; [43] "gf_function_contour" "gf_function_tile"    "gf_function2d"      
-#&gt; [46] "gf_hex"              "gf_histogram"        "gf_histogramh"      
-#&gt; [49] "gf_hline"            "gf_jitter"           "gf_label"           
-#&gt; [52] "gf_labs"             "gf_lims"             "gf_line"            
-#&gt; [55] "gf_linerange"        "gf_linerangeh"       "gf_lm"              
-#&gt; [58] "gf_path"             "gf_percents"         "gf_percentsh"       
-#&gt; [61] "gf_point"            "gf_pointrange"       "gf_pointrangeh"     
-#&gt; [64] "gf_polygon"          "gf_props"            "gf_propsh"          
-#&gt; [67] "gf_qq"               "gf_qqline"           "gf_qqstep"          
-#&gt; [70] "gf_quantile"         "gf_raster"           "gf_rect"            
-#&gt; [73] "gf_refine"           "gf_ribbon"           "gf_rug"             
-#&gt; [76] "gf_rugx"             "gf_rugy"             "gf_segment"         
-#&gt; [79] "gf_sf"               "gf_smooth"           "gf_spline"          
-#&gt; [82] "gf_spoke"            "gf_step"             "gf_text"            
-#&gt; [85] "gf_theme"            "gf_tile"             "gf_violin"          
-#&gt; [88] "gf_violinh"          "gf_vline"           </div><div class='input'><span class='fu'><a href='gf_point.html'>gf_point</a></span>()</div><div class='output co'>#&gt; <span class='message'>gf_point() uses </span>
+#&gt; [28] "gf_ecdf"             "gf_ellipse"          "gf_empty"           
+#&gt; [31] "gf_errorbar"         "gf_errorbarh"        "gf_facet_grid"      
+#&gt; [34] "gf_facet_wrap"       "gf_fitdistr"         "gf_frame"           
+#&gt; [37] "gf_freqpoly"         "gf_fun"              "gf_fun_2d"          
+#&gt; [40] "gf_fun_contour"      "gf_fun_tile"         "gf_fun2d"           
+#&gt; [43] "gf_function"         "gf_function_2d"      "gf_function_contour"
+#&gt; [46] "gf_function_tile"    "gf_function2d"       "gf_hex"             
+#&gt; [49] "gf_histogram"        "gf_histogramh"       "gf_hline"           
+#&gt; [52] "gf_jitter"           "gf_label"            "gf_labs"            
+#&gt; [55] "gf_lims"             "gf_line"             "gf_linerange"       
+#&gt; [58] "gf_linerangeh"       "gf_lm"               "gf_path"            
+#&gt; [61] "gf_percents"         "gf_percentsh"        "gf_point"           
+#&gt; [64] "gf_pointrange"       "gf_pointrangeh"      "gf_polygon"         
+#&gt; [67] "gf_props"            "gf_propsh"           "gf_qq"              
+#&gt; [70] "gf_qqline"           "gf_qqstep"           "gf_quantile"        
+#&gt; [73] "gf_raster"           "gf_rect"             "gf_refine"          
+#&gt; [76] "gf_ribbon"           "gf_rug"              "gf_rugx"            
+#&gt; [79] "gf_rugy"             "gf_segment"          "gf_sf"              
+#&gt; [82] "gf_smooth"           "gf_spline"           "gf_spoke"           
+#&gt; [85] "gf_step"             "gf_summary"          "gf_text"            
+#&gt; [88] "gf_theme"            "gf_tile"             "gf_violin"          
+#&gt; [91] "gf_violinh"          "gf_vline"           </div><div class='input'><span class='fu'><a href='gf_point.html'>gf_point</a></span>()</div><div class='output co'>#&gt; <span class='message'>gf_point() uses </span>
 #&gt; <span class='message'>    * a formula with shape y ~ x. </span>
 #&gt; <span class='message'>    * geom:  point </span>
 #&gt; <span class='message'>    * key attributes:  alpha, color, size, shape, fill, group, stroke</span>
@@ -238,19 +229,23 @@ in another.</p>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by Daniel Kaplan, Randall Pruim.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

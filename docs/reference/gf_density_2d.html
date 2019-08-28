@@ -16,13 +16,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -51,6 +53,7 @@ overplotting. This is a 2d version of geom_density()." />
 <![endif]-->
 
 
+
   </head>
 
   <body>
@@ -67,7 +70,7 @@ overplotting. This is a 2d version of geom_density()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggformula</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9002</span>
       </span>
     </div>
 
@@ -75,7 +78,7 @@ overplotting. This is a 2d version of geom_density()." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -100,21 +103,6 @@ overplotting. This is a 2d version of geom_density()." />
     </li>
   </ul>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tutorials
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../tutorials/Plotting_with_formulas.html">Plotting with formulas</a>
-    </li>
-    <li>
-      <a href="../tutorials/Refining_ggformula.html">Refining ggformula plots</a>
-    </li>
-  </ul>
-</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -123,7 +111,7 @@ overplotting. This is a 2d version of geom_density()." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/ProjectMOSAIC/ggformula">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -134,6 +122,7 @@ overplotting. This is a 2d version of geom_density()." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -146,25 +135,25 @@ overplotting. This is a 2d version of geom_density()." />
 
     <div class="ref-description">
     
-    <p>Perform a 2D kernel density estimation using <code><a href='https://www.rdocumentation.org/packages/MASS/topics/kde2d'>MASS::kde2d()</a></code> and
+    <p>Perform a 2D kernel density estimation using <code><a href='https://rdrr.io/pkg/MASS/man/kde2d.html'>MASS::kde2d()</a></code> and
 display the results with contours. This can be useful for dealing with
 overplotting. This is a 2d version of <code>geom_density()</code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>gf_density_2d</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gformula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>alpha</span>,
-  <span class='no'>color</span>, <span class='no'>group</span>, <span class='no'>linetype</span>, <span class='no'>size</span>, <span class='kw'>contour</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"round"</span>, <span class='kw'>linemitre</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>xlab</span>, <span class='no'>ylab</span>,
-  <span class='no'>title</span>, <span class='no'>subtitle</span>, <span class='no'>caption</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"density_2d"</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"density_2d"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.help</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>environment</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sys.parent'>parent.frame</a></span>(), <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>gf_density_2d</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gformula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>,
+  <span class='no'>alpha</span>, <span class='no'>color</span>, <span class='no'>group</span>, <span class='no'>linetype</span>, <span class='no'>size</span>, <span class='kw'>contour</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>h</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"round"</span>, <span class='kw'>linemitre</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='no'>xlab</span>, <span class='no'>ylab</span>, <span class='no'>title</span>, <span class='no'>subtitle</span>, <span class='no'>caption</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"density_2d"</span>,
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"density_2d"</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>show.help</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>environment</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>())
 
-<span class='fu'>gf_density2d</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gformula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>alpha</span>,
+<span class='fu'>gf_density2d</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gformula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>, <span class='no'>alpha</span>,
   <span class='no'>color</span>, <span class='no'>group</span>, <span class='no'>linetype</span>, <span class='no'>size</span>, <span class='kw'>contour</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"round"</span>, <span class='kw'>linemitre</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>xlab</span>, <span class='no'>ylab</span>,
   <span class='no'>title</span>, <span class='no'>subtitle</span>, <span class='no'>caption</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"density2d"</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"density2d"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.help</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>environment</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sys.parent'>parent.frame</a></span>(), <span class='no'>...</span>)</pre>
+  <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>environment</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,7 +180,15 @@ data. All objects will be fortified to produce a data frame. See
 <code>fortify()</code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
-will be used as the layer data.</p></td>
+will be used as the layer data. A <code>function</code> can be created
+from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments.  Typically these are
+(a) ggplot2 aesthetics to be set with <code>attribute = value</code>,
+(b) ggplot2 aesthetics to be mapped with <code>attribute = ~ expression</code>, or
+(c) attributes of the layer as a whole, which are set with <code>attribute = value</code>.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
@@ -226,7 +223,7 @@ estimation</p></td>
     <tr>
       <th>h</th>
       <td><p>Bandwidth (vector of length two). If <code>NULL</code>, estimated
-using <code><a href='https://www.rdocumentation.org/packages/MASS/topics/bandwidth.nrd'>MASS::bandwidth.nrd()</a></code>.</p></td>
+using <code><a href='https://rdrr.io/pkg/MASS/man/bandwidth.nrd.html'>MASS::bandwidth.nrd()</a></code>.</p></td>
     </tr>
     <tr>
       <th>lineend</th>
@@ -298,13 +295,6 @@ display.</p></td>
       <th>environment</th>
       <td><p>An environment in which to look for variables not found in <code>data</code>.</p></td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional arguments.  Typically these are
-(a) ggplot2 aesthetics to be set with <code>attribute = value</code>,
-(b) ggplot2 aesthetics to be mapped with <code>attribute = ~ expression</code>, or
-(c) attributes of the layer as a whole, which are set with <code>attribute = value</code>.</p></td>
-    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -340,11 +330,15 @@ in another.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='gf_jitter.html'>gf_jitter</a></span>(<span class='no'>avg_drinks</span> ~ <span class='no'>age</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw pkg'>mosaicData</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/mosaicData/topics/HELPrct'>HELPrct</a></span>,
-          <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.4</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.4</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>gf_density_2d</span>(<span class='no'>avg_drinks</span> ~ <span class='no'>age</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw pkg'>mosaicData</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/mosaicData/topics/HELPrct'>HELPrct</a></span>)</div><div class='img'><img src='gf_density_2d-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='gf_jitter.html'>gf_jitter</a></span>(<span class='no'>avg_drinks</span> ~ <span class='no'>age</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw pkg'>mosaicData</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/mosaicData/topics/HELPrct'>HELPrct</a></span>,
-          <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.4</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.4</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>gf_density2d</span>(<span class='no'>avg_drinks</span> ~ <span class='no'>age</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw pkg'>mosaicData</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/mosaicData/topics/HELPrct'>HELPrct</a></span>)</div><div class='img'><img src='gf_density_2d-2.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='gf_jitter.html'>gf_jitter</a></span>(<span class='no'>avg_drinks</span> ~ <span class='no'>age</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw pkg'>mosaicData</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/mosaicData/man/HELPrct.html'>HELPrct</a></span>,
+  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.4</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.4</span>
+) <span class='kw'>%&gt;%</span>
+  <span class='fu'>gf_density_2d</span>(<span class='no'>avg_drinks</span> ~ <span class='no'>age</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw pkg'>mosaicData</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/mosaicData/man/HELPrct.html'>HELPrct</a></span>)</div><div class='img'><img src='gf_density_2d-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='gf_jitter.html'>gf_jitter</a></span>(<span class='no'>avg_drinks</span> ~ <span class='no'>age</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw pkg'>mosaicData</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/mosaicData/man/HELPrct.html'>HELPrct</a></span>,
+  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.4</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.4</span>
+) <span class='kw'>%&gt;%</span>
+  <span class='fu'>gf_density2d</span>(<span class='no'>avg_drinks</span> ~ <span class='no'>age</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw pkg'>mosaicData</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/mosaicData/man/HELPrct.html'>HELPrct</a></span>)</div><div class='img'><img src='gf_density_2d-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -365,19 +359,23 @@ in another.</p>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by Daniel Kaplan, Randall Pruim.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

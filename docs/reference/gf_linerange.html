@@ -16,13 +16,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -50,6 +52,7 @@ ymin and ymax. Each case draws a single graphical object." />
 <![endif]-->
 
 
+
   </head>
 
   <body>
@@ -66,7 +69,7 @@ ymin and ymax. Each case draws a single graphical object." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggformula</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9002</span>
       </span>
     </div>
 
@@ -74,7 +77,7 @@ ymin and ymax. Each case draws a single graphical object." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -99,21 +102,6 @@ ymin and ymax. Each case draws a single graphical object." />
     </li>
   </ul>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tutorials
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../tutorials/Plotting_with_formulas.html">Plotting with formulas</a>
-    </li>
-    <li>
-      <a href="../tutorials/Refining_ggformula.html">Refining ggformula plots</a>
-    </li>
-  </ul>
-</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -122,7 +110,7 @@ ymin and ymax. Each case draws a single graphical object." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/ProjectMOSAIC/ggformula">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -133,6 +121,7 @@ ymin and ymax. Each case draws a single graphical object." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -150,29 +139,36 @@ ymin and ymax. Each case draws a single graphical object." />
     
     </div>
 
-    <pre class="usage"><span class='fu'>gf_linerange</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gformula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>alpha</span>,
+    <pre class="usage"><span class='fu'>gf_linerange</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gformula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>, <span class='no'>alpha</span>,
   <span class='no'>color</span>, <span class='no'>group</span>, <span class='no'>linetype</span>, <span class='no'>size</span>, <span class='no'>xlab</span>, <span class='no'>ylab</span>, <span class='no'>title</span>, <span class='no'>subtitle</span>, <span class='no'>caption</span>,
   <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"linerange"</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.help</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>environment</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sys.parent'>parent.frame</a></span>(), <span class='no'>...</span>)
+  <span class='kw'>environment</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>())
 
-<span class='fu'>gf_pointrange</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gformula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>alpha</span>,
-  <span class='no'>color</span>, <span class='no'>group</span>, <span class='no'>linetype</span>, <span class='no'>size</span>, <span class='kw'>fatten</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='no'>xlab</span>, <span class='no'>ylab</span>, <span class='no'>title</span>, <span class='no'>subtitle</span>,
-  <span class='no'>caption</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"pointrange"</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+<span class='fu'>gf_pointrange</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gformula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>,
+  <span class='no'>alpha</span>, <span class='no'>color</span>, <span class='no'>group</span>, <span class='no'>linetype</span>, <span class='no'>size</span>, <span class='kw'>fatten</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='no'>xlab</span>, <span class='no'>ylab</span>, <span class='no'>title</span>,
+  <span class='no'>subtitle</span>, <span class='no'>caption</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"pointrange"</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.help</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>environment</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sys.parent'>parent.frame</a></span>(), <span class='no'>...</span>)
+  <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>environment</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>())
 
-<span class='fu'>gf_linerangeh</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gformula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>alpha</span>,
-  <span class='no'>color</span>, <span class='no'>group</span>, <span class='no'>linetype</span>, <span class='no'>size</span>, <span class='no'>xlab</span>, <span class='no'>ylab</span>, <span class='no'>title</span>, <span class='no'>subtitle</span>, <span class='no'>caption</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"linerangeh"</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.help</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>environment</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sys.parent'>parent.frame</a></span>(), <span class='no'>...</span>)
+<span class='fu'>gf_summary</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gformula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>, <span class='no'>alpha</span>,
+  <span class='no'>color</span>, <span class='no'>group</span>, <span class='no'>linetype</span>, <span class='no'>size</span>, <span class='kw'>fun.y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fun.ymax</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fun.ymin</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fun.args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>fatten</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='no'>xlab</span>, <span class='no'>ylab</span>, <span class='no'>title</span>,
+  <span class='no'>subtitle</span>, <span class='no'>caption</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"pointrange"</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"summary"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.help</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>environment</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>())
 
-<span class='fu'>gf_pointrangeh</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gformula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>alpha</span>,
-  <span class='no'>color</span>, <span class='no'>group</span>, <span class='no'>linetype</span>, <span class='no'>size</span>, <span class='no'>xlab</span>, <span class='no'>ylab</span>, <span class='no'>title</span>, <span class='no'>subtitle</span>, <span class='no'>caption</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"pointrangeh"</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.help</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>environment</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sys.parent'>parent.frame</a></span>(), <span class='no'>...</span>)</pre>
+<span class='fu'>gf_linerangeh</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gformula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>,
+  <span class='no'>alpha</span>, <span class='no'>color</span>, <span class='no'>group</span>, <span class='no'>linetype</span>, <span class='no'>size</span>, <span class='no'>xlab</span>, <span class='no'>ylab</span>, <span class='no'>title</span>, <span class='no'>subtitle</span>,
+  <span class='no'>caption</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"linerangeh"</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.help</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>environment</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>())
+
+<span class='fu'>gf_pointrangeh</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gformula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>,
+  <span class='no'>alpha</span>, <span class='no'>color</span>, <span class='no'>group</span>, <span class='no'>linetype</span>, <span class='no'>size</span>, <span class='no'>xlab</span>, <span class='no'>ylab</span>, <span class='no'>title</span>, <span class='no'>subtitle</span>,
+  <span class='no'>caption</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"pointrangeh"</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.help</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>environment</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -199,7 +195,15 @@ data. All objects will be fortified to produce a data frame. See
 <code>fortify()</code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
-will be used as the layer data.</p></td>
+will be used as the layer data. A <code>function</code> can be created
+from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments.  Typically these are
+(a) ggplot2 aesthetics to be set with <code>attribute = value</code>,
+(b) ggplot2 aesthetics to be mapped with <code>attribute = ~ expression</code>, or
+(c) attributes of the layer as a whole, which are set with <code>attribute = value</code>.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
@@ -280,24 +284,40 @@ display.</p></td>
       <td><p>An environment in which to look for variables not found in <code>data</code>.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Additional arguments.  Typically these are
-(a) ggplot2 aesthetics to be set with <code>attribute = value</code>,
-(b) ggplot2 aesthetics to be mapped with <code>attribute = ~ expression</code>, or
-(c) attributes of the layer as a whole, which are set with <code>attribute = value</code>.</p></td>
-    </tr>
-    <tr>
       <th>fatten</th>
       <td><p>A multiplicative factor used to increase the size of the
 middle bar in <code>geom_crossbar()</code> and the middle point in
 <code>geom_pointrange()</code>.</p></td>
+    </tr>
+    <tr>
+      <th>fun.y</th>
+      <td><p>Alternatively, supply three individual
+functions that are each passed a vector of x's and should return a
+single number.</p></td>
+    </tr>
+    <tr>
+      <th>fun.ymax</th>
+      <td><p>Alternatively, supply three individual
+functions that are each passed a vector of x's and should return a
+single number.</p></td>
+    </tr>
+    <tr>
+      <th>fun.ymin</th>
+      <td><p>Alternatively, supply three individual
+functions that are each passed a vector of x's and should return a
+single number.</p></td>
+    </tr>
+    <tr>
+      <th>fun.args</th>
+      <td><p>Optional additional arguments passed on to the functions.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>ggplot2::geom_linerange()</a></code></p>
-<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>ggplot2::geom_pointrange()</a></code></p></div>
+<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>ggplot2::geom_pointrange()</a></code></p>
+<p><code><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>ggplot2::geom_pointrange()</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/stat_summary.html'>ggplot2::stat_summary()</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -307,51 +327,103 @@ middle bar in <code>geom_crossbar()</code> and the middle point in
 #&gt; <span class='message'>    * key attributes:  alpha, color, group, linetype, size</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>For more information, try ?gf_linerange</span></div><div class='input'>
-<span class='fu'><a href='gf_ribbon.html'>gf_ribbon</a></span>(<span class='no'>low_temp</span> + <span class='no'>high_temp</span> ~ <span class='no'>date</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw pkg'>mosaicData</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/mosaicData/topics/Weather'>Weather</a></span>,
-          <span class='kw'>fill</span> <span class='kw'>=</span> ~ <span class='no'>city</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.4</span>) <span class='kw'>%&gt;%</span>
-   <span class='fu'><a href='gf_theme.html'>gf_theme</a></span>(<span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'>theme_minimal</span>())</div><div class='img'><img src='gf_linerange-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>gf_linerange</span>(
-  <span class='no'>low_temp</span> + <span class='no'>high_temp</span> ~ <span class='no'>date</span> <span class='kw'>|</span> <span class='no'>city</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw pkg'>mosaicData</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/mosaicData/topics/Weather'>Weather</a></span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> ~ ((<span class='no'>low_temp</span> + <span class='no'>high_temp</span>) / <span class='fl'>2</span>) ) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='gf_aux.html'>gf_refine</a></span>(<span class='fu'>scale_colour_gradientn</span>(<span class='kw'>colors</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rev'>rev</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/palettes'>rainbow</a></span>(<span class='fl'>5</span>)))) <span class='kw'>%&gt;%</span>
+<span class='fu'><a href='gf_ribbon.html'>gf_ribbon</a></span>(<span class='no'>low_temp</span> + <span class='no'>high_temp</span> ~ <span class='no'>date</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw pkg'>mosaicData</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/mosaicData/man/Weather.html'>Weather</a></span>,
+  <span class='kw'>fill</span> <span class='kw'>=</span> ~<span class='no'>city</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.4</span>
+) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='gf_theme.html'>gf_theme</a></span>(<span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'>theme_minimal</span>())</div><div class='img'><img src='gf_linerange-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>gf_linerange</span>(
+  <span class='no'>low_temp</span> + <span class='no'>high_temp</span> ~ <span class='no'>date</span> <span class='kw'>|</span> <span class='no'>city</span> ~ <span class='no'>.</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw pkg'>mosaicData</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/mosaicData/man/Weather.html'>Weather</a></span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> ~ ((<span class='no'>low_temp</span> + <span class='no'>high_temp</span>) / <span class='fl'>2</span>)
+) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='gf_aux.html'>gf_refine</a></span>(<span class='fu'>scale_colour_gradientn</span>(<span class='kw'>colors</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span>(<span class='fl'>5</span>)))) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='gf_aux.html'>gf_labs</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"mid-temp"</span>)</div><div class='img'><img src='gf_linerange-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='gf_ribbon.html'>gf_ribbon</a></span>(<span class='no'>low_temp</span> + <span class='no'>high_temp</span> ~ <span class='no'>date</span> <span class='kw'>|</span> <span class='no'>city</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw pkg'>mosaicData</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/mosaicData/topics/Weather'>Weather</a></span>)</div><div class='img'><img src='gf_linerange-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='gf_ribbon.html'>gf_ribbon</a></span>(<span class='no'>low_temp</span> + <span class='no'>high_temp</span> ~ <span class='no'>date</span> <span class='kw'>|</span> <span class='no'>city</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw pkg'>mosaicData</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/mosaicData/man/Weather.html'>Weather</a></span>)</div><div class='img'><img src='gf_linerange-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Chaining in the data</span>
-<span class='kw pkg'>mosaicData</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/mosaicData/topics/Weather'>Weather</a></span> <span class='kw'>%&gt;%</span>
+<span class='kw pkg'>mosaicData</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/mosaicData/man/Weather.html'>Weather</a></span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='gf_ribbon.html'>gf_ribbon</a></span>(<span class='no'>low_temp</span> + <span class='no'>high_temp</span> ~ <span class='no'>date</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.4</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='gf_facet_grid.html'>gf_facet_grid</a></span>(<span class='no'>city</span> ~ <span class='no'>.</span>)</div><div class='img'><img src='gf_linerange-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>mosaicData</span>) <span class='kw'>&amp;&amp;</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>dplyr</span>)) {
-<span class='no'>HELP2</span> <span class='kw'>&lt;-</span> <span class='no'>HELPrct</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>substance</span>, <span class='no'>sex</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(
-    <span class='kw'>mean.age</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>age</span>),
-    <span class='kw'>median.age</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/median'>median</a></span>(<span class='no'>age</span>),
-    <span class='kw'>max.age</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>max</a></span>(<span class='no'>age</span>),
-    <span class='kw'>min.age</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min</a></span>(<span class='no'>age</span>),
-    <span class='kw'>sd.age</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/sd'>sd</a></span>(<span class='no'>age</span>),
-    <span class='kw'>lo</span> <span class='kw'>=</span> <span class='no'>mean.age</span> - <span class='no'>sd.age</span>,
-    <span class='kw'>hi</span> <span class='kw'>=</span> <span class='no'>mean.age</span> + <span class='no'>sd.age</span>
+  <span class='fu'><a href='gf_facet_grid.html'>gf_facet_grid</a></span>(<span class='no'>city</span> ~ <span class='no'>.</span>)</div><div class='img'><img src='gf_linerange-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>mosaicData</span>) <span class='kw'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>dplyr</span>)) {
+  <span class='no'>HELP2</span> <span class='kw'>&lt;-</span> <span class='no'>HELPrct</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>substance</span>, <span class='no'>sex</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(
+      <span class='kw'>age</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+      <span class='kw'>mean.age</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>age</span>),
+      <span class='kw'>median.age</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span>(<span class='no'>age</span>),
+      <span class='kw'>max.age</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>age</span>),
+      <span class='kw'>min.age</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>age</span>),
+      <span class='kw'>sd.age</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span>(<span class='no'>age</span>),
+      <span class='kw'>lo</span> <span class='kw'>=</span> <span class='no'>mean.age</span> - <span class='no'>sd.age</span>,
+      <span class='kw'>hi</span> <span class='kw'>=</span> <span class='no'>mean.age</span> + <span class='no'>sd.age</span>
     )
 
   <span class='fu'><a href='gf_jitter.html'>gf_jitter</a></span>(<span class='no'>age</span> ~ <span class='no'>substance</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>HELPrct</span>,
       <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"skyblue"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>gf_pointrange</span>( <span class='no'>mean.age</span> + <span class='no'>lo</span> + <span class='no'>hi</span> ~ <span class='no'>substance</span>,  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>HELP2</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='gf_facet_grid.html'>gf_facet_grid</a></span>( ~ <span class='no'>sex</span>)
+    <span class='fu'>gf_pointrange</span>(<span class='no'>mean.age</span> + <span class='no'>lo</span> + <span class='no'>hi</span> ~ <span class='no'>substance</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>HELP2</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='gf_facet_grid.html'>gf_facet_grid</a></span>(~<span class='no'>sex</span>)
+
   <span class='fu'><a href='gf_jitter.html'>gf_jitter</a></span>(<span class='no'>age</span> ~ <span class='no'>substance</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>HELPrct</span>,
-      <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"skyblue"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='gf_errorbar.html'>gf_errorbar</a></span>( <span class='no'>lo</span> + <span class='no'>hi</span> ~ <span class='no'>substance</span>,  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>HELP2</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='gf_facet_grid.html'>gf_facet_grid</a></span>( ~ <span class='no'>sex</span>)
- <span class='co'># width is defined differently for gf_boxplot() and gf_jitter()</span>
- <span class='co'>#   * for gf_boxplot() it is the full width of the box.</span>
- <span class='co'>#   * for gf_jitter() it is half that -- the maximum amount added or subtracted.</span>
- <span class='fu'><a href='gf_boxplot.html'>gf_boxplot</a></span>(<span class='no'>age</span> ~ <span class='no'>substance</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>HELPrct</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.4</span>) <span class='kw'>%&gt;%</span>
-   <span class='fu'><a href='gf_jitter.html'>gf_jitter</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.4</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"skyblue"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
- <span class='fu'><a href='gf_boxplot.html'>gf_boxplot</a></span>(<span class='no'>age</span> ~ <span class='no'>substance</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>HELPrct</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.4</span>) <span class='kw'>%&gt;%</span>
-   <span class='fu'><a href='gf_jitter.html'>gf_jitter</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"skyblue"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
-}</div><div class='img'><img src='gf_linerange-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>gf_linerangeh</span>( <span class='no'>date</span> ~ <span class='no'>low_temp</span> + <span class='no'>high_temp</span> <span class='kw'>|</span> ~ <span class='no'>city</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Weather</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> ~ <span class='no'>avg_temp</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='gf_aux.html'>gf_refine</a></span>(<span class='fu'>scale_color_viridis_c</span>(<span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"C"</span>))</div><div class='img'><img src='gf_linerange-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>gf_pointrangeh</span>( <span class='no'>date</span> ~ <span class='no'>avg_temp</span> + <span class='no'>low_temp</span> + <span class='no'>high_temp</span> <span class='kw'>|</span> ~ <span class='no'>city</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Weather</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> ~ <span class='no'>avg_temp</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='gf_aux.html'>gf_refine</a></span>(<span class='fu'>scale_color_viridis_c</span>(<span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"C"</span>))</div><div class='img'><img src='gf_linerange-7.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"skyblue"</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='gf_errorbar.html'>gf_errorbar</a></span>(<span class='no'>lo</span> + <span class='no'>hi</span> ~ <span class='no'>substance</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>HELP2</span>, <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='gf_facet_grid.html'>gf_facet_grid</a></span>(~<span class='no'>sex</span>)
+
+  <span class='co'># width is defined differently for gf_boxplot() and gf_jitter()</span>
+  <span class='co'>#   * for gf_boxplot() it is the full width of the box.</span>
+  <span class='co'>#   * for gf_jitter() it is half that -- the maximum amount added or subtracted.</span>
+  <span class='fu'><a href='gf_boxplot.html'>gf_boxplot</a></span>(<span class='no'>age</span> ~ <span class='no'>substance</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>HELPrct</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.4</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='gf_jitter.html'>gf_jitter</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.4</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"skyblue"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
+
+  <span class='fu'><a href='gf_boxplot.html'>gf_boxplot</a></span>(<span class='no'>age</span> ~ <span class='no'>substance</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>HELPrct</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.4</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='gf_jitter.html'>gf_jitter</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"skyblue"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
+}</div><div class='img'><img src='gf_linerange-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gf_jitter.html'>gf_jitter</a></span>(<span class='no'>mpg</span> ~ <span class='no'>cyl</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.15</span>); <span class='no'>p</span></div><div class='img'><img src='gf_linerange-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>gf_summary</span>(<span class='kw'>fun.data</span> <span class='kw'>=</span> <span class='st'>"mean_cl_boot"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='img'><img src='gf_linerange-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># You can supply individual functions to summarise the value at</span>
+<span class='co'># each x:</span>
+<span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>gf_summary</span>(<span class='kw'>fun.y</span> <span class='kw'>=</span> <span class='st'>"median"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"point"</span>)</div><div class='img'><img src='gf_linerange-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>gf_summary</span>(<span class='kw'>fun.y</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"point"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>gf_summary</span>(<span class='kw'>fun.y</span> <span class='kw'>=</span> <span class='no'>mean</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"line"</span>)</div><div class='img'><img src='gf_linerange-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>gf_summary</span>(<span class='kw'>fun.y</span> <span class='kw'>=</span> <span class='no'>mean</span>, <span class='kw'>fun.ymin</span> <span class='kw'>=</span> <span class='no'>min</span>, <span class='kw'>fun.ymax</span> <span class='kw'>=</span> <span class='no'>max</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>)</div><div class='img'><img src='gf_linerange-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>gf_summary</span>(<span class='kw'>fun.ymin</span> <span class='kw'>=</span> <span class='no'>min</span>, <span class='kw'>fun.ymax</span> <span class='kw'>=</span> <span class='no'>max</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"linerange"</span>)</div><div class='img'><img src='gf_linerange-11.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='gf_bar.html'>gf_bar</a></span>(~ <span class='no'>cut</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>diamonds</span>)</div><div class='img'><img src='gf_linerange-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='gf_col.html'>gf_col</a></span>(<span class='no'>price</span> ~ <span class='no'>cut</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>diamonds</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"summary_bin"</span>, <span class='kw'>fun.y</span> <span class='kw'>=</span> <span class='st'>"mean"</span>)</div><div class='img'><img src='gf_linerange-13.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Don't use gf_lims() to zoom into a summary plot - this throws the</span>
+<span class='co'># data away</span>
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>gf_summary</span>(<span class='no'>mpg</span> ~ <span class='no'>cyl</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>, <span class='kw'>fun.y</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"point"</span>)
+<span class='no'>p</span></div><div class='img'><img src='gf_linerange-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='gf_aux.html'>gf_lims</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15</span>, <span class='fl'>30</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 9 rows containing non-finite values (stat_summary).</span></div><div class='img'><img src='gf_linerange-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Instead use coord_cartesian()</span>
+<span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='gf_aux.html'>gf_refine</a></span>(<span class='fu'>coord_cartesian</span>(<span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15</span>, <span class='fl'>30</span>)))</div><div class='img'><img src='gf_linerange-16.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># A set of useful summary functions is provided from the Hmisc package.</span>
+
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gf_jitter.html'>gf_jitter</a></span>(<span class='no'>mpg</span> ~ <span class='no'>cyl</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.15</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0</span>); <span class='no'>p</span></div><div class='img'><img src='gf_linerange-17.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>gf_summary</span>(<span class='kw'>fun.data</span> <span class='kw'>=</span> <span class='no'>mean_cl_boot</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>)</div><div class='img'><img src='gf_linerange-18.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>gf_summary</span>(<span class='kw'>fun.data</span> <span class='kw'>=</span> <span class='no'>mean_cl_boot</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"crossbar"</span>)</div><div class='img'><img src='gf_linerange-19.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>gf_summary</span>(<span class='kw'>fun.data</span> <span class='kw'>=</span> <span class='no'>mean_sdl</span>, <span class='kw'>group</span> <span class='kw'>=</span> ~ <span class='no'>cyl</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>,
+                   <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"crossbar"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.3</span>)</div><div class='img'><img src='gf_linerange-20.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>gf_summary</span>(<span class='kw'>group</span> <span class='kw'>=</span> ~ <span class='no'>cyl</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"crossbar"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.3</span>,
+        <span class='kw'>fun.data</span> <span class='kw'>=</span> <span class='no'>mean_sdl</span>, <span class='kw'>fun.args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>mult</span> <span class='kw'>=</span> <span class='fl'>1</span>))</div><div class='img'><img src='gf_linerange-21.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>gf_summary</span>(<span class='kw'>fun.data</span> <span class='kw'>=</span> <span class='no'>median_hilow</span>, <span class='kw'>group</span> <span class='kw'>=</span> ~ <span class='no'>cyl</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>,
+        <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"crossbar"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.3</span>)</div><div class='img'><img src='gf_linerange-22.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># An example with highly skewed distributions:</span>
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"ggplot2movies"</span>)) {
+  <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>596</span>)
+  <span class='no'>Mov</span> <span class='kw'>&lt;-</span> <span class='no'>movies</span>[<span class='fu'><a href='https://dplyr.tidyverse.org/reference/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>movies</span>), <span class='fl'>1000</span>), ]
+  <span class='no'>m2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gf_jitter.html'>gf_jitter</a></span>(<span class='no'>votes</span> ~ <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='no'>rating</span>)), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Mov</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.15</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.3</span>)
+  <span class='no'>m2</span> <span class='kw'>&lt;-</span> <span class='no'>m2</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'>gf_summary</span>(<span class='kw'>fun.data</span> <span class='kw'>=</span> <span class='st'>"mean_cl_boot"</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"crossbar"</span>,
+               <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.3</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='gf_aux.html'>gf_labs</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"rating"</span>)
+  <span class='no'>m2</span>
+  <span class='co'># Notice how the overplotting skews off visual perception of the mean</span>
+  <span class='co'># supplementing the raw data with summary statistics is _very_ important</span>
+
+  <span class='co'># Next, we'll look at votes on a log scale.</span>
+
+  <span class='co'># Transforming the scale means the data are transformed</span>
+  <span class='co'># first, after which statistics are computed:</span>
+  <span class='no'>m2</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='gf_aux.html'>gf_refine</a></span>(<span class='fu'>scale_y_log10</span>())
+  <span class='co'># Transforming the coordinate system occurs after the</span>
+  <span class='co'># statistic has been computed. This means we're calculating the summary on the raw data</span>
+  <span class='co'># and stretching the geoms onto the log scale.  Compare the widths of the</span>
+  <span class='co'># standard errors.</span>
+  <span class='no'>m2</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='gf_aux.html'>gf_refine</a></span>(<span class='fu'>coord_trans</span>(<span class='kw'>y</span><span class='kw'>=</span><span class='st'>"log10"</span>))
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: ggplot2movies</span></div><div class='img'><img src='gf_linerange-23.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>gf_linerangeh</span>(<span class='no'>date</span> ~ <span class='no'>low_temp</span> + <span class='no'>high_temp</span> <span class='kw'>|</span> ~<span class='no'>city</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Weather</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> ~<span class='no'>avg_temp</span>
+) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='gf_aux.html'>gf_refine</a></span>(<span class='fu'>scale_color_viridis_c</span>(<span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"C"</span>))</div><div class='img'><img src='gf_linerange-24.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>gf_pointrangeh</span>(<span class='no'>date</span> ~ <span class='no'>avg_temp</span> + <span class='no'>low_temp</span> + <span class='no'>high_temp</span> <span class='kw'>|</span> ~<span class='no'>city</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Weather</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> ~<span class='no'>avg_temp</span>
+) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='gf_aux.html'>gf_refine</a></span>(<span class='fu'>scale_color_viridis_c</span>(<span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"C"</span>))</div><div class='img'><img src='gf_linerange-25.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -366,19 +438,23 @@ middle bar in <code>geom_crossbar()</code> and the middle point in
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by Daniel Kaplan, Randall Pruim.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

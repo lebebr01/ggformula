@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ggformula: Another Option for Teaching Graphics in R to Beginners • ggformula</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="ggformula: Another Option for Teaching Graphics in R to Beginners">
 <meta property="og:description" content="">
 <meta property="og:image" content="/logo.png">
@@ -31,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggformula</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9002</span>
       </span>
     </div>
 
@@ -39,7 +40,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -64,21 +65,6 @@
     </li>
   </ul>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tutorials
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../tutorials/Plotting_with_formulas.html">Plotting with formulas</a>
-    </li>
-    <li>
-      <a href="../tutorials/Refining_ggformula.html">Refining ggformula plots</a>
-    </li>
-  </ul>
-</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -86,7 +72,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/ProjectMOSAIC/ggformula">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -99,13 +85,14 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>ggformula: Another Option for Teaching Graphics in R to Beginners</h1>
                         <h4 class="author">Randall Pruim</h4>
             
-            <h4 class="date">2019-03-09</h4>
+            <h4 class="date">2019-08-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ProjectMOSAIC/ggformula/blob/master/vignettes/ggformula-blog.Rmd"><code>vignettes/ggformula-blog.Rmd</code></a></small>
       <div class="hidden name"><code>ggformula-blog.Rmd</code></div>
@@ -133,7 +120,7 @@ border:0px;
 </style>
 <p>David Robinson’s excellent blog entry “Teach the tidyverse to beginners” (<a href="http://varianceexplained.org/r/teach-tidyverse" class="uri">http://varianceexplained.org/r/teach-tidyverse</a>) argues that a <code>tidyverse</code> approach is the better of two prevalent options for teaching beginners:</p>
 <ol style="list-style-type: decimal">
-<li><p>“Base R first”: teach syntax such as <code>$</code> and <code>[[ ]]</code>, use built-in functions like <code><a href="https://www.rdocumentation.org/packages/stats/topics/ave">ave()</a></code> and <code><a href="https://www.rdocumentation.org/packages/base/topics/tapply">tapply()</a></code>, and use base graphics.</p></li>
+<li><p>“Base R first”: teach syntax such as <code>$</code> and <code>[[ ]]</code>, use built-in functions like <code><a href="https://rdrr.io/r/stats/ave.html">ave()</a></code> and <code><a href="https://rdrr.io/r/base/tapply.html">tapply()</a></code>, and use base graphics.</p></li>
 <li><p>“Tidyverse first”: start from scratch with pipes (<code>%&gt;%</code>), leverage <code>dplyr</code> for data transformations and summarization, and use <code>ggplot2</code> for graphics.</p></li>
 </ol>
 <p>As his title suggests, David prefers the second option and makes a strong case for it. Indeed, if those were the only two options, I’d probably choose <code>tidyverse</code> as well.</p>
@@ -143,7 +130,7 @@ border:0px;
 <p>But these are not the only options. Nick Horton’s “Options for teaching R to beginners: a false dichotomy?”(<a href="http://sas-and-r.blogspot.com/2017/07/options-for-teaching-r-to-beginners.html" class="uri">http://sas-and-r.blogspot.com/2017/07/options-for-teaching-r-to-beginners.html</a>) describes a third alternative that also “get[s] students doing powerful things quickly”, as David desires. This third way is based on a formula interface provided by the combination of</p>
 <ul>
 <li>the <code>lattice</code> package for graphics,</li>
-<li>several functions from the <code>stats</code> package for modeling (e.g., <code><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm()</a></code>, <code><a href="https://www.rdocumentation.org/packages/stats/topics/t.test">t.test()</a></code>), and</li>
+<li>several functions from the <code>stats</code> package for modeling (e.g., <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>, <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code>), and</li>
 <li>the <code>mosaic</code> package for numerical summaries and for smoothing over edge cases and inconsistencies in the other two components.</li>
 </ul>
 <p>Important in this approach is the syntactic similarity that the following “formula template” brings to all of these operations.</p>
@@ -157,17 +144,17 @@ border:0px;
 <p>Many important data analysis operations can be executed by filling in the four boxes with the appropriate information for the desired task. This allows students to become fluent quickly with a powerful, coherant toolkit for data analysis.</p>
 <p>Nick’s post illustrates this with an investigation of how the price of diamonds depends on (among other things) color. The similarity among the commands to compute mean price for each of two colors, to create side-by-side boxplots, to run a two-sample t test, and to fit a linear model are what make this approach so compelling.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># diamonds2 was called `recoded' in Nick's post</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">diamonds2 &lt;-<span class="st"> </span>diamonds <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(color <span class="op">==</span><span class="st"> "D"</span> <span class="op">|</span><span class="st"> </span>color <span class="op">==</span><span class="st"> "J"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">col =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/character">as.character</a></span>(color))</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">col =</span> <span class="kw"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(color))</a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(price <span class="op">~</span><span class="st"> </span>col, <span class="dt">data =</span> diamonds2)  </a></code></pre></div>
+<a class="sourceLine" id="cb1-7" data-line-number="7">  <span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(price <span class="op">~</span><span class="st"> </span>col, <span class="dt">data =</span> diamonds2)  </a></code></pre></div>
 <pre><code>## Warning in mean.default(price ~ col, data = diamonds2): argument is not
 ## numeric or logical: returning NA</code></pre>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">bwplot</span>(price <span class="op">~</span><span class="st"> </span>col, <span class="dt">data =</span> diamonds2)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/t.test">t.test</a></span>(price <span class="op">~</span><span class="st"> </span>col, <span class="dt">data =</span> diamonds2)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">    <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm</a></span>(price <span class="op">~</span><span class="st"> </span>col, <span class="dt">data =</span> diamonds2)</a></code></pre></div>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span>(price <span class="op">~</span><span class="st"> </span>col, <span class="dt">data =</span> diamonds2)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">    <span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(price <span class="op">~</span><span class="st"> </span>col, <span class="dt">data =</span> diamonds2)</a></code></pre></div>
 <p>This “Less Volume, More Creativity” approach is outlined in more detail in a recent <a href="https://journal.r-project.org/archive/2017/RJ-2017-024/"><em>R Journal</em> article</a> and has worked well for a growing number of instructors in first (and subsequent) courses (see for example Wang et al., “Data Viz on Day One: bringing big ideas into intro stats early and often” (2017), TISE).</p>
 </div>
 <div id="trouble-in-paradise" class="section level2">
@@ -198,11 +185,11 @@ border:0px;
 <p><img src="ggformula-blog_files/figure-html/unnamed-chunk-4-1.png" width="288"></p>
 <p>A more interesting use of mapping colors occurs when elements of each color overlap. For example, a scatterplot with overlaid regression fits shows that although the price of J diamonds tends to be higher overall, after taking into consideration the number of carats, the D color diamonds tend to sell for more than the J color diamonds. (It also shows that the simple linear fit is poor for the largest diamonds.)</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">xyplot</span>(price <span class="op">~</span><span class="st"> </span>carat, <span class="dt">groups =</span> col, <span class="dt">data =</span> diamonds2,</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">       <span class="dt">auto.key =</span> <span class="ot">TRUE</span>, <span class="dt">type =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"p"</span>, <span class="st">"r"</span>), <span class="dt">alpha =</span> <span class="fl">0.5</span>) </a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">       <span class="dt">auto.key =</span> <span class="ot">TRUE</span>, <span class="dt">type =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"p"</span>, <span class="st">"r"</span>), <span class="dt">alpha =</span> <span class="fl">0.5</span>) </a>
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw"><a href="../reference/gf_point.html">gf_point</a></span>(price <span class="op">~</span><span class="st"> </span>carat, <span class="dt">color =</span> <span class="op">~</span><span class="st"> </span>col, <span class="dt">data =</span> diamonds2, <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">   </span><span class="kw"><a href="../reference/gf_smooth.html">gf_lm</a></span>(price <span class="op">~</span><span class="st"> </span>carat, <span class="dt">color =</span> <span class="op">~</span><span class="st"> </span>col, <span class="dt">data =</span> diamonds2, <span class="dt">alpha =</span> <span class="fl">0.5</span>) </a></code></pre></div>
 <p><img src="ggformula-blog_files/figure-html/unnamed-chunk-5-1.png" width="288"><img src="ggformula-blog_files/figure-html/unnamed-chunk-5-2.png" width="288"></p>
-<p>In <code>lattice</code>, this requires us to manually turn on a legend with <code>auto.key = TRUE</code> and to introduce the <code>type</code> argument and the <code><a href="https://www.rdocumentation.org/packages/base/topics/c">c()</a></code> function to get both layers. In <code>ggplot2</code>, we simply put one layer over the other (so no new syntax to learn). The (improved) legend is generated automatically, and the portion of the plot devoted to the data is substantially larger than for the <code>lattice</code> plot. So the <code>ggformula</code> plot is both technically better and syntactically simpler than its <code>lattice</code> counterpart.</p>
+<p>In <code>lattice</code>, this requires us to manually turn on a legend with <code>auto.key = TRUE</code> and to introduce the <code>type</code> argument and the <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> function to get both layers. In <code>ggplot2</code>, we simply put one layer over the other (so no new syntax to learn). The (improved) legend is generated automatically, and the portion of the plot devoted to the data is substantially larger than for the <code>lattice</code> plot. So the <code>ggformula</code> plot is both technically better and syntactically simpler than its <code>lattice</code> counterpart.</p>
 </div>
 <div id="getting-a-little-help" class="section level2">
 <h2 class="hasAnchor">
@@ -224,7 +211,7 @@ border:0px;
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="../reference/gf_violin.html">gf_violin</a></span>(price <span class="op">~</span><span class="st"> </span>col, <span class="dt">data =</span> diamonds2,</a>
 <a class="sourceLine" id="cb10-2" data-line-number="2">          <span class="dt">color =</span> <span class="op">~</span><span class="st"> </span>col, <span class="dt">fill =</span> <span class="op">~</span>col, <span class="dt">alpha =</span> <span class="fl">0.2</span>,</a>
 <a class="sourceLine" id="cb10-3" data-line-number="3">          <span class="dt">scale =</span> <span class="st">"count"</span>,</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">          <span class="dt">draw_quantiles =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>), <span class="dt">size =</span> <span class="fl">0.8</span>,</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">          <span class="dt">draw_quantiles =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>), <span class="dt">size =</span> <span class="fl">0.8</span>,</a>
 <a class="sourceLine" id="cb10-5" data-line-number="5">          <span class="dt">adjust =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)</a></code></pre></div>
 <p><img src="ggformula-blog_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
 </div>
@@ -260,7 +247,7 @@ For the rest, we offer <code><a href="../reference/gf_aux.html">gf_refine()</a><
 <a class="sourceLine" id="cb13-6" data-line-number="6">          <span class="dt">caption =</span> <span class="st">"source: ggplot2::diamonds"</span>,</a>
 <a class="sourceLine" id="cb13-7" data-line-number="7">          <span class="dt">x =</span> <span class="st">"size (carat)"</span>, <span class="dt">y =</span> <span class="st">"price (US dollars)"</span></a>
 <a class="sourceLine" id="cb13-8" data-line-number="8">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="../reference/gf_aux.html">gf_refine</a></span>(<span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"red"</span>, <span class="st">"navy"</span>), <span class="dt">guide =</span> <span class="st">"none"</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="../reference/gf_aux.html">gf_refine</a></span>(<span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"red"</span>, <span class="st">"navy"</span>), <span class="dt">guide =</span> <span class="st">"none"</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb13-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="../reference/gf_theme.html">gf_theme</a></span>(<span class="kw">theme_minimal</span>())</a></code></pre></div>
 <p><img src="ggformula-blog_files/figure-html/unnamed-chunk-10-1.png" width="480"></p>
 <p>Although this example uses a lot of customization, it is completely modular. Any line of the customization can be omitted, or additional features can be customized one line at a time.</p>
@@ -270,8 +257,8 @@ For the rest, we offer <code><a href="../reference/gf_aux.html">gf_refine()</a><
 <a href="#fitting-into-the-tidyverse-work-flow" class="anchor"></a>Fitting into the tidyverse work flow</h2>
 <p><code>ggformala</code> also fits into a tidyverse-style workflow (arguably better than <code>ggplot2</code> itself does). Data can be piped into the initial call to a <code>ggformula</code> function and there is no need to switch between <code>%&gt;%</code> and <code>+</code> when moving from data transformations to plot operations.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(color <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"D"</span>, <span class="st">"G"</span>, <span class="st">"J"</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">col =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/character">as.character</a></span>(color)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(color <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"D"</span>, <span class="st">"G"</span>, <span class="st">"J"</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">col =</span> <span class="kw"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(color)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb14-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/gf_bar.html">gf_bar</a></span>( <span class="op">~</span><span class="st"> </span>col)</a></code></pre></div>
 <p><img src="ggformula-blog_files/figure-html/unnamed-chunk-11-1.png" width="288"></p>
 </div>
@@ -303,17 +290,20 @@ For the rest, we offer <code><a href="../reference/gf_aux.html">gf_refine()</a><
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Daniel Kaplan, Randall Pruim.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>
