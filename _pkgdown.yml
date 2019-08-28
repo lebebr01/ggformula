@@ -1,1 +1,8 @@
 destination: docs
+tutorials:
+- name: introduction
+  title: Plotting with Formulas
+  url: https://rsconnect.calvin.edu/ggformula/intro/
+- name: refining
+  title: Refining ggformula Plots
+  url: https://rsconnect.calvin.edu/ggformula/refining/
