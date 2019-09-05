@@ -7,7 +7,7 @@
 layer_factory(geom = "point", position = "identity",
   stat = "identity", pre = { }, aes_form = y ~ x, extras = alist(),
   note = NULL, aesthetics = aes(), inherit.aes = TRUE,
-  check.aes = TRUE, data = NULL, layer_fun = ggplot2::layer)
+  check.aes = TRUE, data = NULL, layer_fun = quo(ggplot2::layer))
 }
 \arguments{
 \item{geom}{The geom to use for the layer
@@ -43,7 +43,8 @@ when aesthetics provided don't match what is expected.}
 
 \item{data}{A data frame or \code{NULL} or \code{NA}.}
 
-\item{layer_fun}{The function used to create the layer.}
+\item{layer_fun}{The function used to create the layer or a quosure that evaluates
+to such a function.}
 }
 \value{
 A function.

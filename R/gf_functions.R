@@ -680,7 +680,7 @@ gf_label <-
         position <- position_nudge(nudge_x, nudge_y)
       }
     },
-    layer_fun = ggplot2::geom_label,
+    layer_fun = quo(ggplot2::geom_label),
     extras = alist(
       label =, alpha = , angle = , color = ,
       family = , fontface = , group = , hjust = ,
@@ -1148,8 +1148,9 @@ gf_dens <-
 #' gf_dotplot(~Sepal.Length, fill = ~Species, data = iris)
 gf_dotplot <-
   layer_factory(
-    geom = "dotplot", stat = ggplot2::StatBin,
-    layer_fun = ggplot2::geom_dotplot,
+    geom = "dotplot",
+    stat = rlang::quo(ggplot2::StatBin),
+    layer_fun = rlang::quo(ggplot2::geom_dotplot),
     aes_form = ~x,
     extras = alist(
       alpha = , color = , fill = , group = ,
@@ -2009,7 +2010,7 @@ gf_abline <-
     extras = alist(slope = , intercept = , color = , size = , linetype = , alpha = ),
     inherit.aes = FALSE,
     data = NA,
-    layer_fun = ggplot2::geom_abline
+    layer_fun = rlang::quo(ggplot2::geom_abline)
   )
 
 #' @rdname gf_lines
@@ -2021,7 +2022,7 @@ gf_hline <-
     extras = alist(yintercept = , color = , size = , linetype = , alpha = ),
     inherit.aes = FALSE,
     data = NA,
-    layer_fun = ggplot2::geom_hline
+    layer_fun = rlang::quo(ggplot2::geom_hline)
   )
 
 #' @rdname gf_lines
@@ -2033,7 +2034,7 @@ gf_vline <-
     extras = alist(xintercept = , color = , size = , linetype = , alpha = ),
     inherit.aes = FALSE,
     data = NA,
-    layer_fun = ggplot2::geom_vline
+    layer_fun = rlang::quo(ggplot2::geom_vline)
   )
 
 #' @rdname gf_lines
@@ -2248,7 +2249,7 @@ gf_sf <-
     }
   } else {
     layer_factory(
-      layer_fun = ggplot2::geom_sf,
+      layer_fun = quo(ggplot2::geom_sf),
       geom = "sf", stat = "sf",
       position = "identity",
       aes_form = list(NULL),

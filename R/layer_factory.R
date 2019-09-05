@@ -38,7 +38,8 @@ NA
 #' @param check.aes A logical indicating whether a warning should be emited
 #'   when aesthetics provided don't match what is expected.
 #' @param data A data frame or `NULL` or `NA`.
-#' @param layer_fun The function used to create the layer.
+#' @param layer_fun The function used to create the layer or a quosure that evaluates
+#'   to such a function.
 #' @return A function.
 #' @export
 
@@ -55,7 +56,7 @@ layer_factory <-
     inherit.aes = TRUE,
     check.aes = TRUE,
     data = NULL,
-    layer_fun = ggplot2::layer) {
+    layer_fun = quo(ggplot2::layer)) {
 
   pre <- substitute(pre)
 
@@ -75,7 +76,12 @@ layer_factory <-
       environment = parent.frame(),
       ...) {
 
-      # dots <- list(...)
+      # evaluate quosures
+      geom      = rlang::eval_tidy(geom)
+      stat      = rlang::eval_tidy(stat)
+      position  = rlang::eval_tidy(position)
+      layer_fun = rlang::eval_tidy(layer_fun)
+
       function_name <- as.character(match.call()[1])
       orig_args <- as.list(match.call())[-1]
 
@@ -162,7 +168,7 @@ layer_factory <-
       if (length(extras_and_dots) > 0) {
         w <- which(
           sapply(extras_and_dots, function(x) {
-            is_formula(x) && length(x) == 2L
+            rlang::is_formula(x) && length(x) == 2L
           })
         )
         aesthetics <- add_aes(aesthetics, extras_and_dots[w], environment)
@@ -179,7 +185,6 @@ layer_factory <-
         )
 
       # layer has a params argument, geoms and stats do not
-
       if ("params" %in% names(formals(layer_fun))) {
         layer_args <-
           list(
@@ -320,7 +325,7 @@ add_aes <- function(mapping, new, envir = parent.frame()) {
   # convert ~ x into just x (as a name)
   if (length(new) > 0L) {
     for (i in 1L:length(new)) {
-      if (is_formula(new[[i]]) && length(new[[i]] == 2L)) {
+      if (rlang::is_formula(new[[i]]) && length(new[[i]] == 2L)) {
         new[[i]] <- new[[i]][[2]]
       }
     }
@@ -329,6 +334,7 @@ add_aes <- function(mapping, new, envir = parent.frame()) {
   res <- modifyList(mapping, new)
   res
 }
+
 
 # grab formuls from a stat or geom (or similar)
 
@@ -346,6 +352,7 @@ create_formals <-
   function(extras = list(), layer_fun,
            geom, stat, position, inherit.aes = TRUE)
   {
+    layer_fun <- rlang::eval_tidy(layer_fun)
     res <-
       c(
         list(object = NULL, gformula = NULL, data = NULL),
@@ -534,7 +541,7 @@ aes_from_qdots <- function(qdots, mapping = aes()) {
     # proceed backwards through list so that removing items doesn't mess up indexing
     for (i in length(qdots):1L) {
       if (rlang::is_formula(f_rhs(qdots[[i]])) && length(rlang::f_rhs(qdots[[i]])) == 2L) {
-        mapping[[names(qdots)[i]]] <- f_rhs(qdots[[i]])[[2]]
+        mapping[[names(qdots)[i]]] <- rlang::f_rhs(qdots[[i]])[[2]]
         qdots[[i]] <- NULL
       }
     }
