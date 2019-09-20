@@ -7,8 +7,11 @@
 #' @importFrom ggforce geom_sina stat_sina
 #' @seealso [ggforce::geom_sina]
 #' @export
+#' @examples
+#' gf_sina(age ~ substance, data = mosaicData::HELPrct)
 gf_sina <-
   layer_factory(
+    aes_form = list(y ~ x, ~x),
     geom = 'sina',
     stat = 'sina',
     position = 'dodge',
