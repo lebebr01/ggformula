@@ -176,29 +176,7 @@ in another.
 }
 
 \examples{
-gf_point()
-gf_point((10 * ((1:25) \%/\% 10)) ~ ((1:25) \%\% 10),
-  shape = 1:25,
-  fill = "skyblue", color = "navy", size = 4, stroke = 1, data = NA
-)
-gf_point(mpg ~ hp, color = ~cyl, size = ~wt, data = mtcars)
-# faceting -- two ways
-gf_point(mpg ~ hp, data = mtcars) \%>\%
-  gf_facet_wrap(~am)
-gf_point(mpg ~ hp | am, group = ~cyl, data = mtcars)
-gf_point(mpg ~ hp | ~am, group = ~cyl, data = mtcars)
-gf_point(mpg ~ hp | am ~ ., group = ~cyl, data = mtcars)
-# Chaining in the data
-mtcars \%>\% gf_point(mpg ~ wt)
-
-# short cuts for main labels in the plot
-gf_point(births ~ date,
-  color = ~wday, data = mosaicData::Births78,
-  xlab = "Date", ylab = "Number of Live Births",
-  title = "Interesting Patterns in the Number of Births",
-  subtitle = "(United States, 1978)",
-  caption = "Source: mosaicData::Births78"
-)
+gf_sina(age ~ substance, data = mosaicData::HELPrct)
 }
 \seealso{
 \link[ggforce:geom_sina]{ggforce::geom_sina}
